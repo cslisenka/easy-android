@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="templates/portalPage.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ui:define name="title">
+		My applications
+	</ui:define>
+
+	<ui:define name="help">
+		<p>This screen displays your applications. If you want <b>add new application</b>, 
+		you can:</p> 
+		<ul>
+			<li>Copy it from the <ice:commandLink styleClass="htmllink">applications catalog</ice:commandLink></li>
+			<li>Copy some exist application</li>
+		</ul>
+		
+		<p>
+		You can <b>customize your applications</b>, set new data, change design, start compilation to android executable "apk" and do other things. <b>Right click</b> to the application title for this. 
+		</p>
+		
+		<p>
+			You can also <b>download</b> last builded <b>apk file</b> for applications, which were compiled jet.
+		</p>
+	</ui:define>
+
+	<ui:define name="pageCenterContent">
+		<ice:dataTable value="#{myTemplatesBean.templates}" var="template"
+			resizable="true" rows="#{dataTable.defaultRows}" width="600"
+			cellspacing="0" cellpadding="0"
+			columnClasses="tableIdCol,tableNameCol,tableChassisCol,
+                                          tableWeightCol,tableAccelCol,tableMpgCol,tableCostCol">
+			<ice:column>
+				<f:facet name="header">Name</f:facet>
+				<ice:panelGroup menuPopup="menuPopup">
+					<ice:commandLink action="/appConferenceData.xhtml?faces-redirect=true" styleClass="htmllink">#{template.name}</ice:commandLink>
+				</ice:panelGroup>
+				<ice:menuPopup id="menuPopup">
+					<ice:menuItem value="Copy" icon="#{resource['images/icons:copy.png']}" actionListener="#{popupBean.openCopy}"/>
+					<ice:menuItem value="Customize" icon="#{resource['images/icons:customize.png']}" action="/appConferenceData.xhtml?faces-redirect=true" />
+					<ice:menuItem value="Compile" icon="#{resource['images/icons:compile.png']}" actionListener="#{popupBean.openCompile}" />
+					<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{popupBean.openDelete}" />
+				</ice:menuPopup>
+			</ice:column>
+			<ice:column>
+				<f:facet name="header">Creation date</f:facet>
+                #{template.date}
+			</ice:column>
+			<ice:column>
+				<f:facet name="header">Last apk</f:facet>
+				<div style="text-align: center;">
+					<ice:commandLink styleClass="htmllink">
+						<img src="#{resource['images/icons:download_apk.png']}" style="margin-right: 5px;"/>
+					</ice:commandLink>
+				</div> 
+			</ice:column>
+			<ice:column>
+				<f:facet name="header">Apk up to date</f:facet>
+				<div style="text-align: center">
+					<img src="#{resource['images/icons:plus.png']}"/>
+				</div>
+			</ice:column>
+		</ice:dataTable>
+		
+		<!-- Copy application dialog -->
+		<ice:panelPopup draggable="true" visible="#{popupBean.copyApplication}" autoCentre="true">
+			<f:facet name="header"><img src="#{resource['images/icons:copy.png']}"/> Copy application</f:facet>
+			<f:facet name="body">
+				<p>
+					Do you really want to copy this application to your applications?
+				</p>
+				New application name: <ice:inputText value="Conference_copy" /><br/>
+				<br/>
+				<ice:commandButton actionListener="#{popupBean.openCompile}" value="OK, copy" />
+				<ice:commandButton actionListener="#{popupBean.closeCopy}" value="Cancel" />
+			</f:facet>		
+		</ice:panelPopup>
+		
+		<!-- Compile application dialog -->
+		<ice:panelPopup draggable="true" visible="#{popupBean.compileApplication}" autoCentre="true">
+			<f:facet name="header"><img src="#{resource['images/icons:compile.png']}"/> Compile application</f:facet>
+			<f:facet name="body">
+				Application compilation takes time. Amount of this time depends on our servers load.<br/>
+				You need to wait some time and link to compiled apk appears at "my applications" page.<br/>
+				You can set email and we'll send result apk to it.<br/>
+				<br/>
+                Send result apk to email: <ice:selectBooleanCheckbox/><br/>
+                E-mail: <ice:inputText value="kslisenko@gmail.com" /><br/>
+                <br/>
+				<ice:commandButton actionListener="#{popupBean.closeCompile}" style="margin-right: 10px;" value="Ok, start compilation" />
+				<ice:commandButton actionListener="#{popupBean.closeCompile}" value="Cancel" />
+			</f:facet>
+		</ice:panelPopup>
+		
+		<!-- Delete application dialog -->
+		<ice:panelPopup draggable="true" visible="#{popupBean.deleteApplication}" autoCentre="true">
+			<f:facet name="header"><img src="#{resource['images/icons:delete.png']}"/> Delete application</f:facet>
+			<f:facet name="body">
+               	Do you really want to delete this application?<br/>
+               	<br/>
+				<ice:commandButton actionListener="#{popupBean.closeDelete}" style="margin-right: 10px;" value="Yes" />
+				<ice:commandButton actionListener="#{popupBean.closeDelete}" value="No, cancel" />
+			</f:facet>
+		</ice:panelPopup>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="portalPage.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	
+	<ui:define name="leftColumn">
+		<ice:menuBar id="customizingMenu" orientation="vertical" style="margin-bottom: 10px; width: 240px;">
+			<ice:menuItem value="Application data" action="/appConferenceData.xhtml?faces-redirect=true"/>
+			<ice:menuItem value="Design and colors" action="/appConferenceDesign.xhtml?faces-redirect=true" />
+			<ice:menuItem value="Screens" action="/appConferenceScreens.xhtml?faces-redirect=true"/>
+		</ice:menuBar>	
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+    
+	<application>
+	<!-- 
+		<message-bundle>eu.kedev.hotelnavigator.admin_web.Messages</message-bundle>
+		<message-bundle>com.icesoft.faces.resources.messages</message-bundle>
+		<resource-bundle>
+	    	<base-name>eu.kedev.hotelnavigator.admin_web.msgs</base-name>
+	    	<var>msgs</var>
+    	</resource-bundle>
+    	
+    	<resource-bundle>
+	    	<base-name>eu.kedev.hotelnavigator.admin_web.CategoryLookup</base-name>
+	    	<var>category_names</var>
+    	</resource-bundle>
+    
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>en</supported-locale>
+			<supported-locale>de</supported-locale>
+		</locale-config>
+
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+	  </variable-resolver>
+	  
+	  <navigation-handler>
+	  	eu.kedev.hotelnavigator.admin_web.server.RefreshNavigationHandler
+	  </navigation-handler>
+	  
+	  <system-event-listener>
+			<system-event-listener-class>eu.kedev.hotelnavigator.admin_web.server.PostValidationListener</system-event-listener-class>
+			<system-event-class>javax.faces.event.PostValidateEvent</system-event-class>
+			<source-class>javax.faces.component.html.HtmlInputText</source-class>
+		</system-event-listener>
+		<system-event-listener>
+			<system-event-listener-class>eu.kedev.hotelnavigator.admin_web.server.PostValidationListener</system-event-listener-class>
+			<system-event-class>javax.faces.event.PostValidateEvent</system-event-class>
+			<source-class>javax.faces.component.html.HtmlInputSecret</source-class>
+		</system-event-listener>
+		<system-event-listener>
+			<system-event-listener-class>eu.kedev.hotelnavigator.admin_web.server.PostValidationListener</system-event-listener-class>
+			<system-event-class>javax.faces.event.PostValidateEvent</system-event-class>
+			<source-class>com.icesoft.faces.component.ext.HtmlInputText</source-class>
+		</system-event-listener>
+		<system-event-listener>
+			<system-event-listener-class>eu.kedev.hotelnavigator.admin_web.server.PostValidationListener</system-event-listener-class>
+			<system-event-class>javax.faces.event.PostValidateEvent</system-event-class>
+			<source-class>com.icesoft.faces.component.ext.HtmlInputSecret</source-class>
+		</system-event-listener>
+		
+		<action-listener>eu.kedev.hotelnavigator.admin_web.server.ExceptionHandlerActionListener</action-listener>
+		-->
+  </application>
+    
+  <lifecycle>
+  <!-- 
+    <phase-listener>eu.kedev.hotelnavigator.admin_web.user.LoginController</phase-listener>
+     -->
+  </lifecycle>
+   
+</faces-config>

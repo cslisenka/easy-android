@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<h:head>
+	<ice:outputStyle href="./xmlhttp/css/rime/rime.css" />
+	<style>
+	h1, h2, h3, h4 {font-family: tahoma; font-weight: normal; font-size: 28px; color: #0080FF;}
+	h1 {font-size: 30px; color: black;}
+	h2 {font-size: 28px;}
+	h3 {font-size: 22px;}
+	.htmllink {text-decoration: underline; color: #0080C0;}
+	.icePnlPopHdr {padding-left: 10px;}
+	.iceCmdBtn {border: #E0E0E0 3px solid; background-color: #0080C0; padding: 5px; color: #FFFFFF; min-width: 130px;}
+	</style>
+</h:head>
+
+<h:body styleClass="ice-skin-rime" style="background-color: #FBFAFA; padding-left: 0px;">
+	<div
+		style="width: 100%; height: 100px; background-color: #A1C8F5; color: #FFFFFF; font-size: 72px; font-family: calibri; padding-left: 20px;">
+		<img src="#{resource['images:android_white_blue.jpg']}" /> EasyAndroid<sup>cloud edition</sup>
+	</div>
+
+	<ice:form>
+		<ui:insert name="menu" />
+		
+		<div id="content">
+			<ui:insert name="content"/>
+		</div>
+	</ice:form>
+
+	<div style="width: 100%; height: 60px; background-color: #A1C8F5; color: #FFFFFF; font-size: 16px; font-family: calibri; padding: 20px 0px 0px 20px; margin-top: 20px;">
+		Diploma project for Belarussian University of Informatics and Radioelectronics<br/>
+		Author: Konstantin Slisenko
+	</div>
+</h:body>
+</html>

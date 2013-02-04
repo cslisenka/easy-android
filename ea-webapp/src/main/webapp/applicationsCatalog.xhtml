@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="templates/portalPage.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ui:define name="title">
+		Applications catalog
+	</ui:define>
+
+	<ui:define name="help">
+		<p>There are <b>public available applications</b> templates here. Now there is only one actual template
+		for conference application. The other templates are it's variations with some design and data changes.</p>
+		<p>You can <b>copy</b> each template and customize it.</p>
+	</ui:define>
+
+	<ui:define name="pageCenterContent">
+		<ice:panelSeries value="#{publicTemplatesBean.templates}" var="template">
+			<h:panelGrid columns="2" width="45%" style="border: #E0E0E0 1px solid; float: left; margin: 10px; padding: 0px 10px 10px 10px; height: 210px;">
+				<img src="#{resource['images:android_logo.jpg']}"/>
+				<h:panelGrid style="margin-left: 20px;">
+					<h3>#{template.name}</h3>
+					<p>#{template.description}</p>
+					<ice:commandLink actionListener="#{popupBean.openCopy}" styleClass="htmllink"><img src="#{resource['images/icons:copy.png']}" style="margin-right: 5px;"/>Copy to "My applications"</ice:commandLink>
+					<ice:commandLink styleClass="htmllink"><img src="#{resource['images/icons:download_apk.png']}" style="margin-right: 5px;"/>Sample APK</ice:commandLink>
+				</h:panelGrid>
+			</h:panelGrid>
+		</ice:panelSeries>
+
+		<!-- Copy application dialog -->
+		<ice:panelPopup draggable="true" visible="#{popupBean.copyApplication}" autoCentre="true">
+			<f:facet name="header"><img src="#{resource['images/icons:copy.png']}"/> Copy application</f:facet>
+			<f:facet name="body">
+				<p>
+					Do you really want to copy this application to your applications?
+				</p>
+				New application name: <ice:inputText value="Conference_copy" /><br/>
+				<br/>
+				<ice:commandButton actionListener="#{popupBean.openCompile}" value="OK, copy" />
+				<ice:commandButton actionListener="#{popupBean.closeCopy}" value="Cancel" />
+			</f:facet>		
+		</ice:panelPopup>
+		
+		<!-- Successfully copied dialog -->
+		<ice:panelPopup draggable="true" visible="#{popupBean.compileApplication}" autoCentre="true">
+			<f:facet name="header">Copy application</f:facet>
+			<f:facet name="body">
+				<p>
+					Application successfully copied to <ice:commandLink action="/myApplications.xhtml?faces-redirect=true" styleClass="htmllink">your applications</ice:commandLink>.<br/> 
+					You can <b>customize</b> it and <b>compile</b> to android executable (apk).
+				</p>
+				<ice:commandButton actionListener="#{popupBean.closeCompile}" value="OK" />
+			</f:facet>
+		</ice:panelPopup>
+	</ui:define>
+</ui:composition>

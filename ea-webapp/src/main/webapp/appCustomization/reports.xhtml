@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ice:dataTable id="reports" value="#{reportsBean.reports}" var="report"
+		resizable="true" width="100%" cellspacing="0" cellpadding="0">
+		<ice:column>
+			<f:facet name="header">Name</f:facet>
+			<ice:panelGroup menuPopup="menuPopup">
+				<ice:commandLink styleClass="htmllink" actionListener="#{reportsBean.openAddReportsForm}">#{report.name}</ice:commandLink>
+			</ice:panelGroup>
+			<ice:menuPopup id="menuPopup">
+				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{reportsBean.openAddReportsForm}" />
+				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{popupBean.openDelete}" />
+			</ice:menuPopup>
+		</ice:column>
+		<ice:column>
+			<f:facet name="header">Description</f:facet>
+			#{report.description}
+			</ice:column>
+		<ice:column>
+			<f:facet name="header">Type</f:facet>
+			#{report.type} 
+			</ice:column>
+		<ice:column>
+			<f:facet name="header">Reporter</f:facet>
+			#{report.reporter} 
+			</ice:column>
+		<ice:column>
+			<f:facet name="header">Time</f:facet>
+			#{report.time} 
+			</ice:column>
+		<ice:column>
+			<f:facet name="header">Section</f:facet>
+			#{report.section} 
+			</ice:column>
+	</ice:dataTable>
+
+	<center>
+		<ice:dataPaginator for="reports" displayedRowsCountVar="2" paginator="true">
+			<f:facet name="first">
+				<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"/>
+			</f:facet>
+			<f:facet name="last">
+				<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"/>
+			</f:facet>
+			<f:facet name="previous">
+				<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"/>
+			</f:facet>
+			<f:facet name="next">
+				<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"/>
+			</f:facet>
+			<f:facet name="fastforward">
+				<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-ff.gif" style="border:none;" title="Fast Forward"/>
+			</f:facet>
+			<f:facet name="fastrewind">
+				<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-fr.gif" style="border:none;" title="Fast Backwards"/>
+			</f:facet>
+		</ice:dataPaginator>
+	</center>
+	<br />
+	
+	<ice:commandButton value="Add new report" actionListener="#{reportsBean.openAddReportsForm}" rendered="#{!reportsBean.addReportsForm}" />
+	
+	<h:panelGroup rendered="#{reportsBean.addReportsForm}">
+		<div style="border: #E0E0E0 1px solid; padding: 0px 0px 20px 20px;">
+			<h3>Report parameters</h3>
+			<ice:panelGrid columns="2">
+				Name: <ice:inputText size="70" />
+				Description: <ice:inputRichText toolbar="Basic" width="500" />
+				Type: <ice:inputText size="70" />
+				Reporter: 
+				<ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
+    				<f:selectItems value="#{reportersDictionary.reportersMatchPossibilities}"/>
+    			</ice:selectInputText>
+    			Start time: 
+				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true">
+            		<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+        		</ice:selectInputDate>
+    			
+    			Section: 
+    			<ice:selectOneMenu>
+    				<f:selectItems value="#{reportsBean.sectionsSelectItems}"/>
+    			</ice:selectOneMenu>
+			</ice:panelGrid>
+
+			<ice:commandButton actionListener="#{reportsBean.closeAddReportsForm}" value="Ok" />
+			<ice:commandButton actionListener="#{reportsBean.closeAddReportsForm}" value="Cancel" />
+		</div>	
+	</h:panelGroup>	
+
+	<!-- Delete application dialog -->
+	<ice:panelPopup draggable="true" visible="#{popupBean.deleteApplication}" autoCentre="true">
+		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}"/> Delete report</f:facet>
+		<f:facet name="body">
+			Do you really want to delete this report?<br />
+			<br/>
+			<ice:commandButton actionListener="#{popupBean.closeDelete}" value="Yes" />
+			<ice:commandButton actionListener="#{popupBean.closeDelete}" value="No, cancel" />
+		</f:facet>
+	</ice:panelPopup>
+</div>

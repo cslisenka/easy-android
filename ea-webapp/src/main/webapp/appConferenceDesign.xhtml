@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="templates/appCustomizing.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ui:define name="title">
+		Edit app design and colors: Conference application
+	</ui:define>
+
+	<ui:define name="help">
+		<p>On this screen you can <b>set application colors</b>. This way you can make application design and style 
+		related to your company style or your preferences.</p>
+		<p>You must fill colors in <b>hexadecimal codes</b> (example: #F0F0F0).</p>
+	</ui:define>
+
+	<ui:define name="pageCenterContent">
+		<ice:panelTabSet>
+			<ice:panelTab label="Colors">
+				<ice:panelGrid columns="2">
+					Background: <ice:inputText value="#FFFFFF"/>
+					Top header color: <ice:inputText value="#DGDGDG"/>
+					Main screen text colot: <ice:inputText value="#0000000"/>
+				</ice:panelGrid>
+				<br/>
+				<ice:commandButton value="Save"/>
+				<ice:commandButton value="Reset" type="reset"/>
+			</ice:panelTab>
+		</ice:panelTabSet>
+	</ui:define>
+</ui:composition>

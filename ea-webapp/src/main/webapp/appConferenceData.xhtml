@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="templates/appCustomizing.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ui:define name="title">
+		Edit app data: Conference application
+	</ui:define>
+
+	<ui:define name="help">
+		<p>Here you can fill data, which would be inside application. Each application may have different data model, 
+		depends on it's business logic.</p>
+		<p>Select tabs and fill information on the screens.</p>
+	</ui:define>
+
+	<ui:define name="pageCenterContent">
+		<ice:panelTabSet>
+			<ice:panelTab label="Reports/events">
+				<ui:include src="appCustomization/reports.xhtml" />
+			</ice:panelTab>
+			<ice:panelTab label="Reporters">
+				<ui:include src="appCustomization/reporters.xhtml" />
+			</ice:panelTab>
+			<ice:panelTab label="About conference">
+				<ui:include src="appCustomization/aboutConference.xhtml" />
+			</ice:panelTab>
+			<ice:panelTab label="Sections">
+				<ui:include src="appCustomization/sections.xhtml" />
+			</ice:panelTab>		
+		</ice:panelTabSet>
+	</ui:define>
+</ui:composition>

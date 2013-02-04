@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"  xmlns:ace="http://www.icefaces.org/icefaces/components" xmlns:ice="http://www.icesoft.com/icefaces/component">
+    
+  <h:body styleClass="ice-skin-rime">
+   	<ui:composition template="template.xhtml">
+      <ui:define name="content">
+      	<h:form>
+      		<c:choose>
+	      		<c:when test="#{error.accessDenied}">
+	      			<h1><ice:outputText value="#{msgs.access_denied}"/></h1>
+	      			<p>
+	      				<ice:outputFormat value="#{msgs.access_denied_desc}">
+	      					<f:param value="#{error.forwardRequestUri}"/>
+	      				</ice:outputFormat>
+	      			</p>
+	      			<p>
+			        	<ice:outputLink value="#{request.contextPath}/j_spring_security_logout">
+			        		<ice:outputText value="#{msgs.back_to_login}"/>
+			        	</ice:outputLink>
+			        </p>
+	      		</c:when>
+	      		<c:otherwise>
+			        <h1><ice:outputText value="#{msgs.error_title}"/></h1>
+			        <p>
+				        <b><ice:outputText value="#{msgs.error_type}"/>&nbsp;<ice:outputText value="#{error.statusCode}"/></b>
+				        <br/>
+				        <b><ice:outputText value="UUID:"/>&nbsp;<ice:outputText value="#{error.exceptionUUID}"/></b>
+				        <br/>
+				        <b><ice:outputText value="Server:"/>&nbsp;<ice:outputText value="#{configuration.serverID}"/></b>
+				        <br/>
+				        <b><ice:outputText value="#{msgs.error_requested_page}"/>&nbsp;<ice:outputText value="#{error.requestUri}"/></b>
+			        </p>
+			        <p>
+			        	<ice:outputLink value="#{request.contextPath}/j_spring_security_logout">
+			        		<ice:outputText value="#{msgs.back_to_login}"/>
+			        	</ice:outputLink>
+			        </p>
+			        <ice:inputTextarea style="width: 100%;" rows="25" readonly="true" value="#{error.stackTrace}" rendered="#{configuration.developmentStage}"/>
+			        
+	        	</c:otherwise>
+        	</c:choose>
+        	<!-- 
+        	<ui:fragment rendered="#{configuration.developmentStage}">
+	        	<ice:outputText value="#{error.requestMapAsString}" escape="false"/>
+        	</ui:fragment>
+        	 -->
+        </h:form>
+    	</ui:define>
+    </ui:composition>
+	</h:body>
+</html>
