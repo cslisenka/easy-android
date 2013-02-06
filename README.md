@@ -1,4 +1,6 @@
 easy-android
 ============
 
-easy-android diploma project for bsuir
+Easy-android diploma project for BSUIR.
+
+Android application constructing system.
