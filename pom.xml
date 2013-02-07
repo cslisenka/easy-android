@@ -37,5 +37,6 @@
 		<module>easy-android-worker</module>
 		<module>easy-android-admin</module>
 		<module>easy-android-webapp</module>
+		<module>easy-android-framework</module>
 	</modules>
 </project>
