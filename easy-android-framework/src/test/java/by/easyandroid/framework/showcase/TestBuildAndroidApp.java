@@ -22,9 +22,7 @@ public class TestBuildAndroidApp {
 //		PrintStream out = new PrintStream(baos);
 		
 		Project p = new Project();
-		System.setProperty("JAVA_HOME", "/var/lib/jvm/java6");
 		p.setUserProperty("ant.file", buildFile.getAbsolutePath());		
-		p.setUserProperty("JAVA_HOME", "/var/lib/jvm/java6");
 		DefaultLogger consoleLogger = createAntLogger(System.err, System.out);
 		p.addBuildListener(consoleLogger);
 
