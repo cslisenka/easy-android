@@ -2,6 +2,6 @@
 <project name="testproject" default="test" basedir=".">
 	<target name="test">
 		<echo message="Hello World" />
-		<javac srcdir="src" destdir="dst" fork="yes"/>
+		<javac srcdir="src" destdir="src" fork="yes"/>
 	</target>
 </project>

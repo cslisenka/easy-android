@@ -90,6 +90,6 @@
     -->
     <!-- version-tag: 1 -->
     <!--import file="${sdk.dir}/tools/ant/build.xml" /-->
-	<import file="${sdk.dir}/tools/ant/build.xml"/>
+	<import file="buildAndroid.xml"/>
 
 </project>
