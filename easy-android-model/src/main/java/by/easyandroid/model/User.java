@@ -1,10 +1,17 @@
 package by.easyandroid.model;
 
-public class User {
+import java.util.ArrayList;
+import java.util.List;
+
+public class User extends Identity {
 
 	private String login;
+	
 	private String password;
+	
 	private String email;
+	
+	private List<ApplicationInstance> applications = new ArrayList<ApplicationInstance>();
 
 	public String getLogin() {
 		return login;
@@ -28,5 +35,13 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<ApplicationInstance> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(List<ApplicationInstance> applications) {
+		this.applications = applications;
 	}
 }
