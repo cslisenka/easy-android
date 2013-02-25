@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Settings</string>
+    
+    <!-- Main activity -->
+	<string name="main_conf_name">Моя конференция</string>
+	<string name="main_schedule">Расписание</string>
+	<string name="main_reports">Доклады</string>
+	<string name="main_reporters">Докладчики</string>
+	<string name="main_site">Наш сайт</string>
+	<string name="main_about">О мероприятии</string>
+	
+	<!-- Schedule activity -->
+	<string-array name="schedule_days">
+	    <item>Суббота, 26 марта</item>
+	    <item>Воскресенье, 27 марта</item>
+	</string-array>
+	<string-array name="schedule_sections">
+	    <item>Секция А</item>
+	    <item>Секция В</item>
+	    <item>Секция С</item>
+	</string-array>	
+</resources>
