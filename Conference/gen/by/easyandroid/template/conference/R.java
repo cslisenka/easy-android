@@ -9,6 +9,9 @@ package by.easyandroid.template.conference;
 
 public final class R {
     public static final class array {
+        /**  Reports activity 
+         */
+        public static final int reports_categories=0x7f060002;
         /**  Schedule activity 
          */
         public static final int schedule_days=0x7f060000;
@@ -36,22 +39,26 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000a;
-        public static final int btnAbout=0x7f090004;
-        public static final int btnReporters=0x7f090003;
-        public static final int btnReports=0x7f090002;
-        public static final int btnSchedule=0x7f090001;
-        public static final int btnWebsite=0x7f090005;
+        public static final int action_settings=0x7f09000b;
+        public static final int btnAbout=0x7f090005;
+        public static final int btnReporters=0x7f090004;
+        public static final int btnReports=0x7f090003;
+        public static final int btnSchedule=0x7f090002;
+        public static final int btnWebsite=0x7f090006;
         public static final int header=0x7f090000;
+        public static final int listSchedule=0x7f090009;
         public static final int spinnerDate=0x7f090007;
         public static final int spinnerSection=0x7f090008;
-        public static final int subTitle=0x7f090006;
-        public static final int txtConfName=0x7f090009;
+        public static final int subTitle=0x7f090001;
+        public static final int txtConfName=0x7f09000a;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int activity_schedule=0x7f030001;
-        public static final int include_header=0x7f030002;
+        public static final int activity_about=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int activity_reporters=0x7f030002;
+        public static final int activity_reports=0x7f030003;
+        public static final int activity_schedule=0x7f030004;
+        public static final int include_header=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -66,6 +73,7 @@ public final class R {
         public static final int main_reports=0x7f050003;
         public static final int main_schedule=0x7f050002;
         public static final int main_site=0x7f050005;
+        public static final int main_website_url=0x7f050007;
     }
     public static final class style {
         /** 

@@ -20,31 +20,7 @@
         android:layout_below="@+id/header"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="14dp"
-        android:text="@string/main_schedule"
+        android:text="@string/main_reporters"
         android:textSize="@dimen/common_title_size" />
-
-    <Spinner
-        android:id="@+id/spinnerDate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/subTitle"
-        android:layout_below="@+id/subTitle"
-        android:entries="@array/schedule_days" />
-
-	<Spinner
-        android:id="@+id/spinnerSection"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinnerDate"
-        android:layout_below="@+id/spinnerDate"
-        android:entries="@array/schedule_sections" />
-
-	<!-- TODO customize -->
-	<ListView
-	    android:id="@+id/listSchedule"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/spinnerSection"
-	    android:layout_below="@+id/spinnerSection" >
-	</ListView>
+    
 </RelativeLayout>

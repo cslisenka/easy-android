@@ -14,7 +14,7 @@
         android:label="@string/main_conf_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="by.easyandroid.template.conference.MainActivity"
+            android:name="by.easyandroid.template.conference.activity.MainActivity"
             android:label="@string/main_conf_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +22,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="by.easyandroid.template.conference.ScheduleActivity"
+            android:name="by.easyandroid.template.conference.activity.ScheduleActivity"
             android:label="@string/main_conf_name" >
         </activity>
+        <activity
+       		android:name="by.easyandroid.template.conference.activity.ReportsActivity"
+            android:label="@string/main_conf_name" >
+        </activity>
+        <activity
+        	android:name="by.easyandroid.template.conference.activity.ReportersActivity"
+            android:label="@string/main_conf_name" >
+        </activity>    
+		<activity
+			android:name="by.easyandroid.template.conference.activity.AboutActivity"
+            android:label="@string/main_conf_name" >
+        </activity>                      
     </application>
 </manifest>

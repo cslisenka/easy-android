@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/btnSchedule"
         android:layout_below="@+id/btnSchedule"
-        android:text="@string/main_reporters" />    
+        android:text="@string/main_reports" />    
     
     <Button
         android:id="@+id/btnReporters"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/btnReports"
         android:layout_below="@+id/btnReports"
-        android:text="@string/main_reports" />
+        android:text="@string/main_reporters" />
     
     <Button
         android:id="@+id/btnAbout"

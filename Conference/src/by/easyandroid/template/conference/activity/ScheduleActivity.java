@@ -1,6 +1,7 @@
-package by.easyandroid.template.conference;
+package by.easyandroid.template.conference.activity;
 
 import android.os.Bundle;
+import by.easyandroid.template.conference.R;
 
 public class ScheduleActivity extends BasicActivity {
 

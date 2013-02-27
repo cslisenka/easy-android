@@ -10,6 +10,7 @@
 	<string name="main_reporters">Докладчики</string>
 	<string name="main_site">Наш сайт</string>
 	<string name="main_about">О мероприятии</string>
+	<string name="main_website_url">http://tut.by</string>
 	
 	<!-- Schedule activity -->
 	<string-array name="schedule_days">
@@ -21,4 +22,11 @@
 	    <item>Секция В</item>
 	    <item>Секция С</item>
 	</string-array>	
+	
+	<!-- Reports activity -->
+	<string-array name="reports_categories">
+	    <item>IT, общее</item>
+	    <item>IT, разработка</item>
+	    <item>Управление проектами</item>
+	</string-array>		
 </resources>
