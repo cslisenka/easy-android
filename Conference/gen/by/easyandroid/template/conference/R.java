@@ -39,7 +39,7 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000b;
+        public static final int action_settings=0x7f09000c;
         public static final int btnAbout=0x7f090005;
         public static final int btnReporters=0x7f090004;
         public static final int btnReports=0x7f090003;
@@ -51,6 +51,7 @@ public final class R {
         public static final int spinnerSection=0x7f090008;
         public static final int subTitle=0x7f090001;
         public static final int txtConfName=0x7f09000a;
+        public static final int txtReportTitle=0x7f09000b;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;
@@ -59,6 +60,7 @@ public final class R {
         public static final int activity_reports=0x7f030003;
         public static final int activity_schedule=0x7f030004;
         public static final int include_header=0x7f030005;
+        public static final int list_elem_schedule=0x7f030006;
     }
     public static final class menu {
         public static final int main=0x7f080000;
