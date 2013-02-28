@@ -22,5 +22,12 @@
         android:layout_marginBottom="14dp"
         android:text="@string/main_reporters"
         android:textSize="@dimen/common_title_size" />
-    
+
+    <ListView
+        android:id="@+id/listReporters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/subTitle" >
+    </ListView>
 </RelativeLayout>

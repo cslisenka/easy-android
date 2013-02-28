@@ -9,15 +9,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.service.ReportService;
+import by.easyandroid.template.conference.service.ReporterService;
 
 public class BasicActivity extends Activity {
 
 	protected ReportService reportService;
+	protected ReporterService reporterService;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		reportService = new ReportService();
+		reporterService = new ReporterService();
 	}
 
 	@Override

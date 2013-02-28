@@ -23,5 +23,9 @@
         android:text="@string/main_about"
         android:textSize="@dimen/common_title_size" />  
         
-     <!-- TODO webview -->
+    <WebView 
+    	android:id="@+id/webview"
+    	android:layout_below="@+id/subTitle"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent" />
 </RelativeLayout>

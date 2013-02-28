@@ -30,5 +30,11 @@
         android:layout_alignLeft="@+id/subTitle"
         android:layout_below="@+id/subTitle"
         android:entries="@array/reports_categories" />
-    
+
+    <ListView
+        android:id="@+id/listReports"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerDate">
+    </ListView>
 </RelativeLayout>

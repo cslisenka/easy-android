@@ -15,7 +15,6 @@ public class ScheduleActivity extends BasicActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule);
-		
 		initListView();
 	}
 
