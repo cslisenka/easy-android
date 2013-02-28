@@ -23,7 +23,8 @@ public class ReportsActivity extends BasicActivity {
 		scheduleListView.setAdapter(adapter);
 		scheduleListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				showReportDetails(id);
 			}
 		});
 	}

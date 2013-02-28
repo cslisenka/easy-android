@@ -30,6 +30,19 @@ public class BasicActivity extends Activity {
 		return true;
 	}
 	
+	protected void showReportDetails(long reportId) {
+		showItemDetails(reportId, SingleReportActivity.class);
+	}	
+	
+	protected void showReporterDetails(long reporterId) {
+		showItemDetails(reporterId, ReporterInformationActivity.class);
+	}
+	
+	protected void showItemDetails(long itemId, Class<?> activity) {
+		// TODO give id to activity
+		startActivity(new Intent(this, activity));
+	}
+	
 	protected void setOpenNewActivity(int buttonId, final Class<?> activity) {
 		setOpenIntent(buttonId, new Intent(getApplicationContext(), activity));
 	}

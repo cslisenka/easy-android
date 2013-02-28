@@ -36,6 +36,14 @@
 		<activity
 			android:name="by.easyandroid.template.conference.activity.AboutActivity"
             android:label="@string/main_conf_name" >
-        </activity>                      
+        </activity> 
+		<activity
+			android:name="by.easyandroid.template.conference.activity.SingleReportActivity"
+            android:label="@string/main_conf_name" >
+        </activity> 
+		<activity
+			android:name="by.easyandroid.template.conference.activity.ReporterInformationActivity"
+            android:label="@string/main_conf_name" >
+        </activity>                                      
     </application>
 </manifest>
