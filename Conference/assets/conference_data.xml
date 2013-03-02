@@ -12,20 +12,22 @@
             <date year="2013" month="10" day="30" hours="10" minutes="0" />
         </report>        
     </reports>
-    <reporters id="1">
-        <name>Иванов И.И.</name>
-        <description>Лучший специалист в своей отрасли, основатель первого сообщества данного направления.</description>
-        <email>ivanov@somecompany.com</email>
-        <company>SomeCompany</company>
-        <position>Ведущий специалист</position>
-    </reporters>
-    <reporters id="2">
-        <name>Петров И.И.</name>
-        <description>Евангелист этого направления</description>
-        <email>petrov@somecompany.com</email>
-        <company>AnotherCompany</company>
-        <position>Евангелист-разработчик</position>
-    </reporters>    
+    <reporters>
+	    <reporter id="1">
+	        <name>Иванов И.И.</name>
+	        <description>Лучший специалист в своей отрасли, основатель первого сообщества данного направления.</description>
+	        <email>ivanov@somecompany.com</email>
+	        <company>SomeCompany</company>
+	        <position>Ведущий специалист</position>
+	    </reporter>
+	    <reporter id="2">
+	        <name>Петров И.И.</name>
+	        <description>Евангелист этого направления</description>
+	        <email>petrov@somecompany.com</email>
+	        <company>AnotherCompany</company>
+	        <position>Евангелист-разработчик</position>
+	    </reporter> 
+    </reporters>   
     <sections>
         <section id="1">
             <name>Секция А</name>

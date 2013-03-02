@@ -1,43 +1,32 @@
 package by.easyandroid.template.conference.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.w3c.dom.Node;
 
 import android.content.Context;
 import by.easyandroid.template.conference.model.Reporter;
+import by.easyandroid.template.conference.util.XmlUtil;
 
 public class ReporterService extends AbstractEntityService<Reporter> {
 
+	private static final String POSITION = "position";
+	private static final String EMAIL = "email";
+	private static final String COMPANY = "company";
+	private static final String DESCRIPTION = "description";
+	private static final String NAME = "name";
+
 	public ReporterService(Context context) {
-		super(context);
+		super(context, REPORTER);
 	}
 
 	@Override
-	public List<Reporter> getAll() {
-		List<Reporter> result = new ArrayList<Reporter>();
-		
-		// TODO get reorters from xml file
-		result.add(createReporter("Иванов И.И."));
-		result.add(createReporter("Петров И.И."));
-		result.add(createReporter("Сидоров И.И."));
-		
-		return result;
-	}
-	
-	@Override
-	public Reporter getById(long id) {
-		// TODO Fake reporter now!
-		return createReporter("Иванов И.И.");
-	}
-	
-	private Reporter createReporter(String name) {
+	protected Reporter parseItem(Node xmlNode) {
 		Reporter reporter = new Reporter();
-		reporter.setId("1");
-		reporter.setName(name);
-		reporter.setDescription("Ведущий специалист в своей области, основатель первого сообщества.");
-		reporter.setCompany("SomeCompany");
-		reporter.setEmail("ivanov@somecompany.com");
-		reporter.setPosition("Ведущий специалист");
+		reporter.setId(XmlUtil.getElementAttr(xmlNode, ID));
+		reporter.setName(XmlUtil.getChildElementText(xmlNode, NAME));
+		reporter.setDescription(XmlUtil.getChildElementText(xmlNode, DESCRIPTION));
+		reporter.setCompany(XmlUtil.getChildElementText(xmlNode, COMPANY));
+		reporter.setEmail(XmlUtil.getChildElementText(xmlNode, EMAIL));
+		reporter.setPosition(XmlUtil.getChildElementText(xmlNode, POSITION));
 		
 		return reporter;
 	}	
