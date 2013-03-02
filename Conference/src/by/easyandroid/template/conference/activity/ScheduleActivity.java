@@ -1,5 +1,7 @@
 package by.easyandroid.template.conference.activity;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +11,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.model.Section;
+import by.easyandroid.template.conference.util.DateSpinnerProxy;
+import by.easyandroid.template.conference.util.DateUtil;
 import by.easyandroid.template.conference.util.adapter.ScheduleAdapter;
 
 public class ScheduleActivity extends BasicActivity {
@@ -26,6 +30,12 @@ public class ScheduleActivity extends BasicActivity {
 		ArrayAdapter<Section> adapter = new ArrayAdapter<Section>(getApplicationContext(), android.R.layout.simple_spinner_item, sectionService.getAll());
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		sections.setAdapter(adapter);
+		
+		Spinner days = (Spinner) findViewById(R.id.spinnerDate);
+		List<DateSpinnerProxy> daysProxy = DateUtil.getReportDaysProxy(reportService.getAll());
+		ArrayAdapter<DateSpinnerProxy> adapterDays = new ArrayAdapter<DateSpinnerProxy>(getApplicationContext(), android.R.layout.simple_spinner_item, daysProxy);
+		adapterDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		days.setAdapter(adapterDays);
 	}
 
 	private void initListView() {

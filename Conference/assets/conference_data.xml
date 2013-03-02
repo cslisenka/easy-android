@@ -4,12 +4,12 @@
         <report id="1" category="1" reporter="1" section="1">
             <title>Первый доклад</title>
             <description>Описание первого доклада</description>
-            <date year="2013" month="10" day="30" hours="10" minutes="30" />
+            <date year="2013" month="10" day="10" hours="10" minutes="30" />
         </report>
         <report id="2" category="2" reporter="2" section="2">
             <title>Второй доклад</title>
             <description>Описание второго доклада</description>
-            <date year="2013" month="10" day="30" hours="10" minutes="0" />
+            <date year="2013" month="10" day="11" hours="10" minutes="0" />
         </report>        
     </reports>
     <reporters>
