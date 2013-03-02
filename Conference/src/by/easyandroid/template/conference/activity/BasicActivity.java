@@ -1,5 +1,7 @@
 package by.easyandroid.template.conference.activity;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.service.CategoryService;
@@ -60,6 +64,13 @@ public class BasicActivity extends Activity {
 		bundle.putLong(Constants.ITEM_ID, itemId);
 		intent.putExtras(bundle);
 		startActivity(intent);
+	}
+	
+	protected <T> void setSpinnerData(int spinnrtId, List<T> data) {
+		Spinner spinner = (Spinner) findViewById(spinnrtId);
+		ArrayAdapter<T> adapter = new ArrayAdapter<T>(this, android.R.layout.simple_spinner_item, data);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
 	}
 	
 	protected void setOpenNewActivity(int buttonId, final Class<?> activity) {

@@ -4,11 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 import by.easyandroid.template.conference.R;
-import by.easyandroid.template.conference.model.Category;
 import by.easyandroid.template.conference.util.adapter.ReportsAdapter;
 
 public class ReportsActivity extends BasicActivity {
@@ -22,10 +19,7 @@ public class ReportsActivity extends BasicActivity {
 	}
 
 	private void initSpinner() {
-		Spinner categories = (Spinner) findViewById(R.id.spinnerCategories);
-		ArrayAdapter<Category> adapterCategories = new ArrayAdapter<Category>(getApplicationContext(), android.R.layout.simple_spinner_item, categoryService.getAll());
-		adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		categories.setAdapter(adapterCategories);
+		setSpinnerData(R.id.spinnerCategories, categoryService.getAll());
 	}
 
 	private void initListView() {
