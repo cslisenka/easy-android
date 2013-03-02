@@ -9,13 +9,17 @@ package by.easyandroid.template.conference;
 
 public final class R {
     public static final class array {
-        /**  Reports activity 
+        /**  string-array name="schedule_sections">
+	    <item>Секция А</item>
+	    <item>Секция В</item>
+	    <item>Секция С</item>
+	</string-array
+ Reports activity 
          */
-        public static final int reports_categories=0x7f060002;
+        public static final int reports_categories=0x7f060001;
         /**  Schedule activity 
          */
         public static final int schedule_days=0x7f060000;
-        public static final int schedule_sections=0x7f060001;
     }
     public static final class attr {
     }

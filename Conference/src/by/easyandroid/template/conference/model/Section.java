@@ -27,4 +27,9 @@ public class Section extends Identity {
 	public void setMapImageUrl(String mapImageUrl) {
 		this.mapImageUrl = mapImageUrl;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

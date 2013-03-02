@@ -17,11 +17,11 @@
 	    <item>Суббота, 26 марта</item>
 	    <item>Воскресенье, 27 марта</item>
 	</string-array>
-	<string-array name="schedule_sections">
+	<!-- string-array name="schedule_sections">
 	    <item>Секция А</item>
 	    <item>Секция В</item>
 	    <item>Секция С</item>
-	</string-array>	
+	</string-array-->	
 	
 	<!-- Reports activity -->
 	<string-array name="reports_categories">

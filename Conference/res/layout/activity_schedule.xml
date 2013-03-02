@@ -36,10 +36,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/spinnerDate"
-        android:layout_below="@+id/spinnerDate"
-        android:entries="@array/schedule_sections" />
+        android:layout_below="@+id/spinnerDate" />
 
-	<!-- TODO customize -->
 	<ListView
 	    android:id="@+id/listSchedule"
 	    android:layout_width="fill_parent"
