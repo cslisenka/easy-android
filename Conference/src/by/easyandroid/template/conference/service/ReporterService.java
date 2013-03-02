@@ -12,21 +12,20 @@ public class ReporterService extends AbstractEntityService<Reporter> {
 	private static final String EMAIL = "email";
 	private static final String COMPANY = "company";
 	private static final String DESCRIPTION = "description";
-	private static final String NAME = "name";
 
 	public ReporterService(Context context) {
 		super(context, REPORTER);
 	}
 
 	@Override
-	protected Reporter parseItem(Node xmlNode) {
+	protected Reporter parseItem(Node reporterNode) {
 		Reporter reporter = new Reporter();
-		reporter.setId(XmlUtil.getElementAttr(xmlNode, ID));
-		reporter.setName(XmlUtil.getChildElementText(xmlNode, NAME));
-		reporter.setDescription(XmlUtil.getChildElementText(xmlNode, DESCRIPTION));
-		reporter.setCompany(XmlUtil.getChildElementText(xmlNode, COMPANY));
-		reporter.setEmail(XmlUtil.getChildElementText(xmlNode, EMAIL));
-		reporter.setPosition(XmlUtil.getChildElementText(xmlNode, POSITION));
+		reporter.setId(XmlUtil.getElementAttr(reporterNode, ID));
+		reporter.setName(XmlUtil.getChildElementText(reporterNode, NAME));
+		reporter.setDescription(XmlUtil.getChildElementText(reporterNode, DESCRIPTION));
+		reporter.setCompany(XmlUtil.getChildElementText(reporterNode, COMPANY));
+		reporter.setEmail(XmlUtil.getChildElementText(reporterNode, EMAIL));
+		reporter.setPosition(XmlUtil.getChildElementText(reporterNode, POSITION));
 		
 		return reporter;
 	}	

@@ -25,6 +25,7 @@ public class ReportService extends AbstractEntityService<Report> {
 	private static final String YEAR = "year";	
 
 	private ReporterService reporterService;
+	private SectionService sectionService;
 	
 	public ReportService(Context context) {
 		super(context, REPORT);
@@ -32,6 +33,10 @@ public class ReportService extends AbstractEntityService<Report> {
 
 	public void setReporterService(ReporterService reporterService) {
 		this.reporterService = reporterService;
+	}
+
+	public void setSectionService(SectionService sectionService) {
+		this.sectionService = sectionService;
 	}
 
 	@Override
@@ -45,10 +50,8 @@ public class ReportService extends AbstractEntityService<Report> {
 		Reporter reporter = reporterService.getById(XmlUtil.getElementIntAttr(reportItem, REPORTER));
 		report.setReporter(reporter);
 		
-		// Fake section
-		Section s = new Section();
-		s.setName("Секция А");
-		report.setSection(s);
+		Section section = sectionService.getById(XmlUtil.getElementIntAttr(reportItem, SECTION));
+		report.setSection(section);
 		
 		return report;
 	}

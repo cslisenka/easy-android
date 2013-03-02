@@ -11,12 +11,14 @@ import android.widget.TextView;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.service.ReportService;
 import by.easyandroid.template.conference.service.ReporterService;
+import by.easyandroid.template.conference.service.SectionService;
 import by.easyandroid.template.conference.util.Constants;
 
 public class BasicActivity extends Activity {
 
 	protected ReportService reportService;
 	protected ReporterService reporterService;
+	protected SectionService sectionService;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,9 @@ public class BasicActivity extends Activity {
 	private void initServices() {
 		reportService = new ReportService(getApplicationContext());
 		reporterService = new ReporterService(getApplicationContext());
+		sectionService = new SectionService(getApplicationContext());
 		reportService.setReporterService(reporterService);
+		reportService.setSectionService(sectionService);
 	}
 
 	@Override

@@ -15,6 +15,8 @@ public abstract class AbstractEntityService<E extends Identity> {
 
 	protected static final String ID = "id";
 	protected static final String REPORTER = "reporter";
+	protected static final String NAME = "name";
+	protected static final String SECTION = "section";
 	
 	protected static final String DATA_XML = "conference_data.xml";
 	
