@@ -1,8 +1,5 @@
 package by.easyandroid.template.conference.activity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,7 +7,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Spinner;
 import by.easyandroid.template.conference.R;
-import by.easyandroid.template.conference.filter.IFilter;
+import by.easyandroid.template.conference.filter.FilterSet;
 import by.easyandroid.template.conference.filter.ReportCategoryFilter;
 import by.easyandroid.template.conference.model.Category;
 import by.easyandroid.template.conference.model.Report;
@@ -47,11 +44,8 @@ public class ReportsActivity extends BasicActivity implements OnItemClickListene
 	}
 	
 	protected void initListView() {
-		Set<IFilter<Report>> filters = new HashSet<IFilter<Report>>();
-		if (categoryFilter != null) {
-			filters.add(categoryFilter);
-		}
-		
-		initListView(R.id.listReports, new ReportsAdapter(this, reportService.getAll(filters)), this);
+		FilterSet<Report> filterSet = new FilterSet<Report>();
+		filterSet.addFilter(categoryFilter);
+		initListView(R.id.listReports, new ReportsAdapter(this, reportService.getAll(filterSet.getFilters())), this);
 	}
 }
