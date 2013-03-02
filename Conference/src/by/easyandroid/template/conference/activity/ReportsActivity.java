@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Spinner;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.filter.FilterSet;
 import by.easyandroid.template.conference.filter.ReportCategoryFilter;
@@ -23,21 +22,7 @@ public class ReportsActivity extends BasicActivity implements OnItemClickListene
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reports);
-		setSpinnerData(R.id.spinnerCategories, categoryService.getAll());
-		
-		Spinner section = (Spinner) findViewById(R.id.spinnerCategories);
-		section.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				// Add section filter
-				filterSet.addFilter(CATEGORY_FILTER, new ReportCategoryFilter((Category) parent.getItemAtPosition(position)));
-				initListView();
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			}
-		});		
+		initSpinner(R.id.spinnerCategories, categoryService.getAll(), new CategorySpinnerSelectedListener());
 	}
 
 	@Override
@@ -47,5 +32,18 @@ public class ReportsActivity extends BasicActivity implements OnItemClickListene
 	
 	protected void initListView() {
 		initListView(R.id.listReports, new ReportsAdapter(this, reportService.getAll(filterSet.getFilters())), this);
+	}
+	
+	class CategorySpinnerSelectedListener implements OnItemSelectedListener {
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			// Add section filter
+			filterSet.addFilter(CATEGORY_FILTER, new ReportCategoryFilter((Category) parent.getItemAtPosition(position)));
+			initListView();
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+		}
 	}
 }

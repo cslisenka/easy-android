@@ -28,8 +28,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/subTitle"
-        android:layout_below="@+id/subTitle"
-        android:entries="@array/schedule_days" />
+        android:layout_below="@+id/subTitle" />
 
 	<Spinner
         android:id="@+id/spinnerSection"

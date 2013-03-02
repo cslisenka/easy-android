@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Spinner;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.filter.FilterSet;
 import by.easyandroid.template.conference.filter.ReportDayFilter;
@@ -28,36 +27,8 @@ public class ScheduleActivity extends BasicActivity implements OnItemClickListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule);
-		setSpinnerData(R.id.spinnerSection, sectionService.getAll());
-		setSpinnerData(R.id.spinnerDate, DateUtil.getReportDaysProxy(reportService.getAll()));
-		
-		Spinner section = (Spinner) findViewById(R.id.spinnerSection);
-		section.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				// Add section filter
-				filterSet.addFilter(SECTION_FILTER, new ReportSectionFilter((Section) parent.getItemAtPosition(position)));
-				initListView();
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			}
-		});
-		
-		Spinner day = (Spinner) findViewById(R.id.spinnerDate);
-		day.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				// Add section filter
-				filterSet.addFilter(DAY_FILTER, new ReportDayFilter(((DateSpinnerProxy)parent.getItemAtPosition(position)).getDate()));
-				initListView();
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			}
-		});		
+		initSpinner(R.id.spinnerSection, sectionService.getAll(), new SectionSpinnerSelectedListener());
+		initSpinner(R.id.spinnerDate, DateUtil.getReportDaysProxy(reportService.getAll()), new DaySpinnerSelectedListener());
 	}
 
 	protected void initListView() {
@@ -68,4 +39,30 @@ public class ScheduleActivity extends BasicActivity implements OnItemClickListen
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		showReportDetails(id);
 	}
+	
+	class DaySpinnerSelectedListener implements OnItemSelectedListener {
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			// Add section filter
+			filterSet.addFilter(DAY_FILTER, new ReportDayFilter(((DateSpinnerProxy)parent.getItemAtPosition(position)).getDate()));
+			initListView();
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+		}
+	}
+	
+	class SectionSpinnerSelectedListener implements OnItemSelectedListener {
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			// Add section filter
+			filterSet.addFilter(SECTION_FILTER, new ReportSectionFilter((Section) parent.getItemAtPosition(position)));
+			initListView();
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+		}
+	}	
 }
