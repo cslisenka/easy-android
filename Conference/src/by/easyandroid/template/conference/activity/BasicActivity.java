@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.service.ReportService;
 import by.easyandroid.template.conference.service.ReporterService;
+import by.easyandroid.template.conference.util.Constants;
 
 public class BasicActivity extends Activity {
 
@@ -39,8 +41,11 @@ public class BasicActivity extends Activity {
 	}
 	
 	protected void showItemDetails(long itemId, Class<?> activity) {
-		// TODO give id to activity
-		startActivity(new Intent(this, activity));
+		Intent intent = new Intent(this, activity);
+		Bundle bundle = new Bundle();
+		bundle.putLong(Constants.ITEM_ID, itemId);
+		intent.putExtras(bundle);
+		startActivity(intent);
 	}
 	
 	protected void setOpenNewActivity(int buttonId, final Class<?> activity) {
@@ -58,5 +63,10 @@ public class BasicActivity extends Activity {
 				startActivity(intent);
 			}
 		});		
+	}
+	
+	protected void setText(int viewId, String text) {
+		TextView textView = (TextView) findViewById(viewId);
+		textView.setText(text);
 	}
 }

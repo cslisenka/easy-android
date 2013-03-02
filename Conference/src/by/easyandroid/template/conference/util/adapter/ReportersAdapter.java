@@ -4,9 +4,9 @@ import java.util.List;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.TextView;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.model.Reporter;
+import by.easyandroid.template.conference.util.AndroidUtil;
 
 public class ReportersAdapter extends ListAdapter<Reporter> {
 
@@ -16,10 +16,7 @@ public class ReportersAdapter extends ListAdapter<Reporter> {
 	
 	@Override
 	protected void fillView(Reporter item, View view) {
-		TextView reporterName = (TextView) view.findViewById(R.id.txtReporterName);
-		TextView reporterDescription = (TextView) view.findViewById(R.id.txtReporterDescription);
-		
-		reporterName.setText(item.getName());
-		reporterDescription.setText(item.getDescription());
+		AndroidUtil.setText(view, R.id.txtReporterName, item.getName());
+		AndroidUtil.setText(view, R.id.txtReporterDescription, item.getDescription());
 	}
 }

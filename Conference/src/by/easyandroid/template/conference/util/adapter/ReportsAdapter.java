@@ -4,9 +4,9 @@ import java.util.List;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.TextView;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.model.Report;
+import by.easyandroid.template.conference.util.AndroidUtil;
 
 public class ReportsAdapter extends ListAdapter<Report> {
 
@@ -18,14 +18,9 @@ public class ReportsAdapter extends ListAdapter<Report> {
 	
 	@Override
 	protected void fillView(Report item, View view) {
-		TextView reportTitle = (TextView) view.findViewById(R.id.txtReportTitle);
-		TextView reportAuthor = (TextView) view.findViewById(R.id.txtReportAuthor);
-		TextView reportTime = (TextView) view.findViewById(R.id.txtReportDateTime);
-		TextView reportSection = (TextView) view.findViewById(R.id.txtReportSection);
-		
-		reportTitle.setText(item.getTitle());
-		reportAuthor.setText(item.getReporter().getName());
-		reportTime.setText(String.format(TIME_FORMAT, item.getTime().getHours(), item.getTime().getMinutes()));
-		reportSection.setText(item.getSection().getName());	
+		AndroidUtil.setText(view, R.id.txtReportTitle, item.getTitle());
+		AndroidUtil.setText(view, R.id.txtReportAuthor, item.getReporter().getName());
+		AndroidUtil.setText(view, R.id.txtReportDateTime, String.format(TIME_FORMAT, item.getTime().getHours(), item.getTime().getMinutes()));
+		AndroidUtil.setText(view, R.id.txtReportSection, item.getSection().getName());
 	}
 }

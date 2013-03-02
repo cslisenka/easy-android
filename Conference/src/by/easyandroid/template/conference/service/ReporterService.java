@@ -12,19 +12,28 @@ public class ReporterService extends AbstractEntityService<Reporter> {
 		List<Reporter> result = new ArrayList<Reporter>();
 		
 		// TODO get reorters from xml file
-		result.add(addReporter("Иванов И.И."));
-		result.add(addReporter("Петров И.И."));
-		result.add(addReporter("Сидоров И.И."));
+		result.add(createReporter("Иванов И.И."));
+		result.add(createReporter("Петров И.И."));
+		result.add(createReporter("Сидоров И.И."));
 		
 		return result;
 	}
 	
-	private Reporter addReporter(String name) {
+	@Override
+	public Reporter getById(long id) {
+		// TODO Fake reporter now!
+		return createReporter("Иванов И.И.");
+	}
+	
+	private Reporter createReporter(String name) {
 		Reporter reporter = new Reporter();
 		reporter.setId("1");
 		reporter.setName(name);
 		reporter.setDescription("Ведущий специалист в своей области, основатель первого сообщества.");
+		reporter.setCompany("SomeCompany");
+		reporter.setEmail("ivanov@somecompany.com");
+		reporter.setPosition("Ведущий специалист");
 		
 		return reporter;
-	}
+	}	
 }
