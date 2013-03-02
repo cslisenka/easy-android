@@ -15,7 +15,9 @@ import by.easyandroid.template.conference.util.adapter.ReportsAdapter;
 
 public class ReportsActivity extends BasicActivity implements OnItemClickListener {
 
-	private ReportCategoryFilter categoryFilter;
+	private static final String CATEGORY_FILTER = "cateogry";
+	
+	private FilterSet<Report> filterSet = new FilterSet<Report>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,7 @@ public class ReportsActivity extends BasicActivity implements OnItemClickListene
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				// Add section filter
-				categoryFilter = new ReportCategoryFilter((Category) parent.getItemAtPosition(position));
+				filterSet.addFilter(CATEGORY_FILTER, new ReportCategoryFilter((Category) parent.getItemAtPosition(position)));
 				initListView();
 			}
 
@@ -44,8 +46,6 @@ public class ReportsActivity extends BasicActivity implements OnItemClickListene
 	}
 	
 	protected void initListView() {
-		FilterSet<Report> filterSet = new FilterSet<Report>();
-		filterSet.addFilter(categoryFilter);
 		initListView(R.id.listReports, new ReportsAdapter(this, reportService.getAll(filterSet.getFilters())), this);
 	}
 }

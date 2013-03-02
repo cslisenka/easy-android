@@ -1,19 +1,20 @@
 package by.easyandroid.template.conference.filter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FilterSet<E> {
 
-	private Set<IFilter<E>> filters = new HashSet<IFilter<E>>();
+	private Map<String, IFilter<E>> filters = new HashMap<String, IFilter<E>>();
 	
-	public void addFilter(IFilter<E> filter) {
+	public void addFilter(String filterName, IFilter<E> filter) {
 		if (filter != null) {
-			filters.add(filter);
+			filters.put(filterName, filter);
 		}
 	}
 	
-	public Set<IFilter<E>> getFilters() {
-		return filters;
+	public Collection<IFilter<E>> getFilters() {
+		return filters.values();
 	}
 }

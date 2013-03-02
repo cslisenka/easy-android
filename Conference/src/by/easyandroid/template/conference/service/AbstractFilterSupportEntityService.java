@@ -1,8 +1,8 @@
 package by.easyandroid.template.conference.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import android.content.Context;
 import by.easyandroid.template.conference.filter.IFilter;
@@ -14,7 +14,7 @@ public abstract class AbstractFilterSupportEntityService<E extends Identity> ext
 		super(context, itemNodeName);
 	}
 
-	public List<E> getAll(Set<IFilter<E>> filters) {
+	public List<E> getAll(Collection<IFilter<E>> filters) {
 		List<E> result = super.getAll();
 		
 		// Apply filters

@@ -1,8 +1,5 @@
 package by.easyandroid.template.conference.activity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,7 +7,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Spinner;
 import by.easyandroid.template.conference.R;
-import by.easyandroid.template.conference.filter.IFilter;
+import by.easyandroid.template.conference.filter.FilterSet;
 import by.easyandroid.template.conference.filter.ReportDayFilter;
 import by.easyandroid.template.conference.filter.ReportSectionFilter;
 import by.easyandroid.template.conference.model.Report;
@@ -21,8 +18,11 @@ import by.easyandroid.template.conference.util.adapter.ScheduleAdapter;
 
 public class ScheduleActivity extends BasicActivity implements OnItemClickListener {
 
-	private ReportSectionFilter sectionFilter;
-	private ReportDayFilter dayFilter;
+	private static final String DAY_FILTER = "day";
+
+	private static final String SECTION_FILTER = "section";
+	
+	private FilterSet<Report> filterSet = new FilterSet<Report>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class ScheduleActivity extends BasicActivity implements OnItemClickListen
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				// Add section filter
-				sectionFilter = new ReportSectionFilter((Section) parent.getItemAtPosition(position));
+				filterSet.addFilter(SECTION_FILTER, new ReportSectionFilter((Section) parent.getItemAtPosition(position)));
 				initListView();
 			}
 
@@ -50,7 +50,7 @@ public class ScheduleActivity extends BasicActivity implements OnItemClickListen
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				// Add section filter
-				dayFilter = new ReportDayFilter(((DateSpinnerProxy)parent.getItemAtPosition(position)).getDate());
+				filterSet.addFilter(DAY_FILTER, new ReportDayFilter(((DateSpinnerProxy)parent.getItemAtPosition(position)).getDate()));
 				initListView();
 			}
 
@@ -61,16 +61,7 @@ public class ScheduleActivity extends BasicActivity implements OnItemClickListen
 	}
 
 	protected void initListView() {
-		Set<IFilter<Report>> filters = new HashSet<IFilter<Report>>();
-		if (sectionFilter != null) {
-			filters.add(sectionFilter);
-		}
-		
-		if (dayFilter != null) {
-			filters.add(dayFilter);
-		}
-		
-		initListView(R.id.listSchedule, new ScheduleAdapter(ScheduleActivity.this, reportService.getAll(filters)), this);
+		initListView(R.id.listSchedule, new ScheduleAdapter(ScheduleActivity.this, reportService.getAll(filterSet.getFilters())), this);
 	}
 	
 	@Override
