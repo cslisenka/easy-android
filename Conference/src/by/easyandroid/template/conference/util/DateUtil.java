@@ -10,6 +10,12 @@ import by.easyandroid.template.conference.model.Report;
 
 public class DateUtil {
 
+	public static boolean isSameDay(Date firstDate, Date secondDate) {
+		return firstDate.getYear() == secondDate.getYear() &&
+				firstDate.getMonth() == secondDate.getMonth() &&
+				firstDate.getDate() == secondDate.getDate();
+	}
+	
 	public static List<Date> getReportDays(List<Report> reports) {
 		Set<Date> datesSet = new HashSet<Date>();
 		

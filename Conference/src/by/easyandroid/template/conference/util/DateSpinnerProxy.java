@@ -17,6 +17,10 @@ public class DateSpinnerProxy {
 		this.date = date;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
 	@Override
 	public String toString() {
 		return new SimpleDateFormat("EEEE, d MMMM", new Locale("ru")).format(date);

@@ -29,7 +29,7 @@ public abstract class AbstractEntityService<E extends Identity> {
 		this.itemNodeName = itemNodeName;
 	}
 	
-	public final List<E> getAll() {
+	public List<E> getAll() {
 		Document xml = AndroidUtil.readXmlAsset(context, DATA_XML);
 		List<E> result = new ArrayList<E>();
 		

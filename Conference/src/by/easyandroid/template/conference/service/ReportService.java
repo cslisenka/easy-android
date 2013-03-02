@@ -11,7 +11,7 @@ import by.easyandroid.template.conference.model.Reporter;
 import by.easyandroid.template.conference.model.Section;
 import by.easyandroid.template.conference.util.XmlUtil;
 
-public class ReportService extends AbstractEntityService<Report> {
+public class ReportService extends AbstractFilterSupportEntityService<Report> {
 
 	private static final String REPORT = "report";
 	
