@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import by.easyandroid.template.conference.R;
+import by.easyandroid.template.conference.service.CategoryService;
 import by.easyandroid.template.conference.service.ReportService;
 import by.easyandroid.template.conference.service.ReporterService;
 import by.easyandroid.template.conference.service.SectionService;
@@ -19,6 +20,7 @@ public class BasicActivity extends Activity {
 	protected ReportService reportService;
 	protected ReporterService reporterService;
 	protected SectionService sectionService;
+	protected CategoryService categoryService;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,14 @@ public class BasicActivity extends Activity {
 	}
 
 	private void initServices() {
-		reportService = new ReportService(getApplicationContext());
 		reporterService = new ReporterService(getApplicationContext());
 		sectionService = new SectionService(getApplicationContext());
+		categoryService = new CategoryService(getApplicationContext());
+
+		reportService = new ReportService(getApplicationContext());
 		reportService.setReporterService(reporterService);
 		reportService.setSectionService(sectionService);
+		reportService.setCategoryService(categoryService);
 	}
 
 	@Override

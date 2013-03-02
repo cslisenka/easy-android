@@ -24,7 +24,7 @@
         android:textSize="@dimen/common_title_size" />
 
     <Spinner
-        android:id="@+id/spinnerDate"
+        android:id="@+id/spinnerCategories"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/subTitle"
@@ -35,6 +35,6 @@
         android:id="@+id/listReports"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerDate">
+        android:layout_below="@+id/spinnerCategories">
     </ListView>
 </RelativeLayout>

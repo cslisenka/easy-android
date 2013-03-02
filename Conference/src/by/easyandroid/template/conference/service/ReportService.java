@@ -5,6 +5,7 @@ import java.util.Date;
 import org.w3c.dom.Node;
 
 import android.content.Context;
+import by.easyandroid.template.conference.model.Category;
 import by.easyandroid.template.conference.model.Report;
 import by.easyandroid.template.conference.model.Reporter;
 import by.easyandroid.template.conference.model.Section;
@@ -26,6 +27,7 @@ public class ReportService extends AbstractEntityService<Report> {
 
 	private ReporterService reporterService;
 	private SectionService sectionService;
+	private CategoryService categoryService;
 	
 	public ReportService(Context context) {
 		super(context, REPORT);
@@ -37,6 +39,10 @@ public class ReportService extends AbstractEntityService<Report> {
 
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
+	}
+
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
 	}
 
 	@Override
@@ -52,6 +58,9 @@ public class ReportService extends AbstractEntityService<Report> {
 		
 		Section section = sectionService.getById(XmlUtil.getElementIntAttr(reportItem, SECTION));
 		report.setSection(section);
+		
+		Category category = categoryService.getById(XmlUtil.getElementIntAttr(reportItem, CATEGORY));
+		report.setCategory(category);
 		
 		return report;
 	}

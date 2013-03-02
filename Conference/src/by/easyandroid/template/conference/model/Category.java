@@ -5,7 +5,7 @@ package by.easyandroid.template.conference.model;
  * 
  * @author kslisenko
  */
-public class Cathegory extends Identity {
+public class Category extends Identity {
 
 	private String name;
 
@@ -15,5 +15,10 @@ public class Cathegory extends Identity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 }
