@@ -4,28 +4,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 import by.easyandroid.template.conference.R;
 import by.easyandroid.template.conference.util.adapter.ReportersAdapter;
 
-public class ReportersActivity extends BasicActivity {
+public class ReportersActivity extends BasicActivity implements OnItemClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reporters);
-		initListView();
+		initListView(R.id.listReporters, new ReportersAdapter(this, reporterService.getAll()), this);
 	}
 	
-	private void initListView() {
-		ListView scheduleListView = (ListView) findViewById(R.id.listReporters);
-		ReportersAdapter adapter = new ReportersAdapter(this, reporterService.getAll());
-		scheduleListView.setAdapter(adapter);
-		scheduleListView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				showReporterDetails(id);
-			}
-		});
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		showReporterDetails(id);
 	}
 }

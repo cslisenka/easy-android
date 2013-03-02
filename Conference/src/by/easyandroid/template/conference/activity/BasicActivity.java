@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import by.easyandroid.template.conference.R;
@@ -71,6 +74,12 @@ public class BasicActivity extends Activity {
 		ArrayAdapter<T> adapter = new ArrayAdapter<T>(this, android.R.layout.simple_spinner_item, data);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
+	}
+	
+	protected void initListView(int listViewId, BaseAdapter adapter, OnItemClickListener onItemClickListener) {
+		ListView scheduleListView = (ListView) findViewById(listViewId);
+		scheduleListView.setAdapter(adapter);
+		scheduleListView.setOnItemClickListener(onItemClickListener);		
 	}
 	
 	protected void setOpenNewActivity(int buttonId, final Class<?> activity) {
