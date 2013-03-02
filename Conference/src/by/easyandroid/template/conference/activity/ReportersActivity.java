@@ -19,7 +19,7 @@ public class ReportersActivity extends BasicActivity {
 	
 	private void initListView() {
 		ListView scheduleListView = (ListView) findViewById(R.id.listReporters);
-		ReportersAdapter adapter = new ReportersAdapter(this, reporterService.getReporters());
+		ReportersAdapter adapter = new ReportersAdapter(this, reporterService.getAll());
 		scheduleListView.setAdapter(adapter);
 		scheduleListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override

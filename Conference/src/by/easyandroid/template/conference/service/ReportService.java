@@ -8,12 +8,13 @@ import by.easyandroid.template.conference.model.Report;
 import by.easyandroid.template.conference.model.Reporter;
 import by.easyandroid.template.conference.model.Section;
 
-public class ReportService {
+public class ReportService extends AbstractEntityService<Report> {
 
-	public List<Report> getReports() {
+	@Override
+	public List<Report> getAll() {
 		List<Report> result = new ArrayList<Report>();
 		
-		// TODO get reorts from xml file
+		// TODO get reports from xml file
 		result.add(addReport("Первый доклад"));
 		result.add(addReport("Первый доклад 2"));
 		result.add(addReport("Первый доклад 3"));

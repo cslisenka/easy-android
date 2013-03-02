@@ -5,9 +5,10 @@ import java.util.List;
 
 import by.easyandroid.template.conference.model.Reporter;
 
-public class ReporterService {
+public class ReporterService extends AbstractEntityService<Reporter> {
 
-	public List<Reporter> getReporters() {
+	@Override
+	public List<Reporter> getAll() {
 		List<Reporter> result = new ArrayList<Reporter>();
 		
 		// TODO get reorters from xml file
