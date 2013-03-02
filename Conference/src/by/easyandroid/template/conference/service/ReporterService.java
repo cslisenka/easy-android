@@ -3,9 +3,14 @@ package by.easyandroid.template.conference.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import by.easyandroid.template.conference.model.Reporter;
 
 public class ReporterService extends AbstractEntityService<Reporter> {
+
+	public ReporterService(Context context) {
+		super(context);
+	}
 
 	@Override
 	public List<Reporter> getAll() {

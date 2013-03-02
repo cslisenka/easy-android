@@ -21,8 +21,8 @@ public class BasicActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		reportService = new ReportService();
-		reporterService = new ReporterService();
+		reportService = new ReportService(getApplicationContext());
+		reporterService = new ReporterService(getApplicationContext());
 	}
 
 	@Override
