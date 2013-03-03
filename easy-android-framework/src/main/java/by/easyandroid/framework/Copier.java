@@ -3,10 +3,10 @@ package by.easyandroid.framework;
 import java.io.File;
 
 import by.easyandroid.framework.exception.TaskExecutionException;
-import by.easyandroid.framework.task.file.CopyDirectoryTask;
-import by.easyandroid.framework.task.file.CopyFileTask;
-import by.easyandroid.framework.task.file.CreateDirectoryTask;
-import by.easyandroid.framework.task.file.CreateFileTask;
+import by.easyandroid.framework.task.file.copy.CopyDirectoryTask;
+import by.easyandroid.framework.task.file.copy.CopyFileTask;
+import by.easyandroid.framework.task.file.create.CreateDirectoryTask;
+import by.easyandroid.framework.task.file.create.CreateFileTask;
 
 public class Copier {
 

@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import by.easyandroid.framework.AbstractTestSourceDestDirBase;
 import by.easyandroid.framework.exception.TaskExecutionException;
-import by.easyandroid.framework.task.file.CopyDirectoryTask;
+import by.easyandroid.framework.task.file.copy.CopyDirectoryTask;
 
 public class TestCopyDirectoryTask extends AbstractTestSourceDestDirBase {
 

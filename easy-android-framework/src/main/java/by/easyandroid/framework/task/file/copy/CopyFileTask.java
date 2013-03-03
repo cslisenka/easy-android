@@ -1,4 +1,4 @@
-package by.easyandroid.framework.task.file;
+package by.easyandroid.framework.task.file.copy;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,22 +6,17 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 import by.easyandroid.framework.exception.TaskExecutionException;
-import by.easyandroid.framework.task.ITask;
 
-public class CopyFileTask implements ITask {
+public class CopyFileTask extends AbstractCopyTask {
 
-	private String pathToFile;
-	private String toDirectory;
-	
 	public CopyFileTask(String pathToFile, String toDirectory) {
-		this.pathToFile = pathToFile;
-		this.toDirectory = toDirectory;
+		super(pathToFile, toDirectory);
 	}
 
 	public void execute() throws TaskExecutionException {
 		try {
-			File srcFile = new File(pathToFile);
-			File dstFile = new File(new File(toDirectory), srcFile.getName());
+			File srcFile = new File(from);
+			File dstFile = new File(new File(to), srcFile.getName());
 			FileUtils.copyFile(srcFile, dstFile);
 		} catch (IOException e) {
 			throw new TaskExecutionException(e);
