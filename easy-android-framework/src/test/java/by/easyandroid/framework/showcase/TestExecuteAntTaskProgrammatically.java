@@ -10,12 +10,14 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestExecuteAntTaskProgrammatically {
 
 	private static final String BUILDFILE = "src/test/resources/showcase/ant/SimpleAntBuildfile.xml";
 
+	@Ignore
 	@Test
 	public void testExecuteAndScript() {
 		File buildFile = new File(BUILDFILE);
