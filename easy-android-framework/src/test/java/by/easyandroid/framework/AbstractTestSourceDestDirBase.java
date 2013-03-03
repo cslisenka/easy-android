@@ -14,6 +14,7 @@ public abstract class AbstractTestSourceDestDirBase {
 	protected String testResourcesPath;
 	protected String sourcePath;
 	protected String destinationPath;
+	private File workingDirectory;
 	
 	@Before
 	public void setUp() throws IOException {
@@ -23,10 +24,12 @@ public abstract class AbstractTestSourceDestDirBase {
 				"resources";
 		
 		sourcePath = testResourcesPath + File.separator + "sourceDir";
-		destinationPath = testResourcesPath + File.separator + "destinationDir";
+		destinationPath = basePath + File.separator + "target" + File.separator + "testCopier";
 		
-		// Clear working directory
-		FileUtils.cleanDirectory(new File(destinationPath));
+		// Recreate working directory for testing
+		workingDirectory = new File(destinationPath);
+		FileUtils.deleteDirectory(workingDirectory);
+		workingDirectory.mkdirs();
 	}
 	
 	public void assertFileContentDestPath(String path, String content) throws IOException {
@@ -40,6 +43,6 @@ public abstract class AbstractTestSourceDestDirBase {
 	
 	@After
 	public void tearDown() throws IOException {
-		FileUtils.cleanDirectory(new File(destinationPath));
+		FileUtils.deleteDirectory(workingDirectory);
 	}	
 }
