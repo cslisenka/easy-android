@@ -71,5 +71,18 @@ public class TestCopier extends AbstractTestSourceDestDirBase {
 		Assert.assertFalse(testFile.exists());
 	}
 	
-	// TODO test correctly files or folders overwriting
+	@Test
+	public void testOverritingFilesAndFolders() throws TaskExecutionException, IOException {
+		copier.add(sourcePath + File.separator + "sourceSubdir1");
+		copier.add(sourcePath + File.separator + "sourceDitWithDuplicatedContent");
+		copier.flush();
+		
+		assertFileExistsDestPath("sourceSubdir2/sourceFileInSubdir.txt");
+		assertFileExistsDestPath("sourceSubdir2/folderInDuplicatedSubdor");
+		
+		copier.add(sourcePath + File.separator + "sourceSubdir1");
+		copier.add(sourcePath + File.separator + "sourceDirWithSameSibdirectories");
+		copier.flush();
+		assertFileContentDestPath("sourceSubdir2/sourceFileInSubdir.txt", "sourceFileInSubdir.txt contents overwrite");
+	}
 }
