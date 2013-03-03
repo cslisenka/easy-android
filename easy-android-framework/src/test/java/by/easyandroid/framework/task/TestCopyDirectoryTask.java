@@ -1,5 +1,7 @@
 package by.easyandroid.framework.task;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +14,7 @@ public class TestCopyDirectoryTask extends AbstractTestSourceDestDirBase {
 	private CopyDirectoryTask copyDirectoryTask;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws IOException {
 		super.setUp();
 		copyDirectoryTask = new CopyDirectoryTask(sourcePath, destinationPath);
 	}

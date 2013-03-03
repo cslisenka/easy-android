@@ -18,9 +18,12 @@ public class CreateFileTask extends AbstractCreateTask {
 
 	public void execute() throws TaskExecutionException {
 		File fileToCreate = new File(path);
-
-		if (!fileToCreate.getParentFile().mkdirs()) {
-			throw new TaskExecutionException("Can not create directories for file " + path);
+		File fileFolder = fileToCreate.getParentFile();
+		
+		if (!fileFolder.exists() || !fileFolder.isDirectory()) {
+			if (!fileFolder.mkdirs()) {
+				throw new TaskExecutionException("Can not create directories for file " + path);
+			}
 		}
 		
 		try {

@@ -2,6 +2,8 @@ package by.easyandroid.framework;
 import java.io.File;
 import java.io.IOException;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,15 +14,14 @@ public class TestRunFrameworkExample extends AbstractTestSourceDestDirBase {
 	private Copier copier;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws IOException {
 		super.setUp();
 		copier = new Copier();
+		copier.setOutputDir(destinationPath);
 	}
 	
 	@Test
-	public void testRun() throws TaskExecutionException, IOException {
-		copier.setOutputDir(destinationPath);
-		
+	public void testCopier() throws TaskExecutionException, IOException {
 		// TODO copy folder contents and copy folder with content!
 		//copier.add(sourcePath + File.separator + "sourceSubdir1/*");
 		//copier.addContent(sourcePath + File.separator + "sourceSubdir1");
@@ -57,5 +58,18 @@ public class TestRunFrameworkExample extends AbstractTestSourceDestDirBase {
 		assertFileExistsDestPath("outputSubPath/test.txt");
 		assertFileContentDestPath("outputSubPath/test.txt", "text file content");
 		assertFileExistsDestPath("subdircreated");
+	}
+	
+	@Test
+	public void testCleanWorkingDirectoryBeforeTaskExecution() throws IOException, TaskExecutionException {
+		// Create some file in working directory
+		File testFile = new File(destinationPath + File.separator + "testfile");
+		testFile.createNewFile();
+		Assert.assertTrue(testFile.exists());
+		
+		copier.createFile("test.txt", "testfile content");
+		copier.flush();
+		
+		Assert.assertFalse(testFile.exists());
 	}
 }

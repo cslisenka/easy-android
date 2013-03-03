@@ -1,6 +1,7 @@
 package by.easyandroid.framework.task;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,16 +15,14 @@ public class TestCopyFileTask extends AbstractTestSourceDestDirBase {
 	private CopyFileTask copyFileTask;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws IOException {
 		super.setUp();
-		// TODO add slashes replacing
 		copyFileTask = new CopyFileTask(sourcePath + File.separator + "sourceFile.txt", destinationPath + File.separator + "subdir");
 	}
 	
 	@Test
 	public void testCopy() throws TaskExecutionException {
 		copyFileTask.execute();
-		
 		assertFileExistsDestPath("subdir/sourceFile.txt");
 	}
 }
