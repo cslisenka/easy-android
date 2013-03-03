@@ -77,7 +77,8 @@ public class TestCopier extends AbstractTestSourceDestDirBase {
 		copier.add(sourcePath + File.separator + "sourceDirWithDuplicatedContent");
 		copier.flush();
 		
-//		assertFileExistsDestPath("sourceSubdir2/sourceFileInSubdir.txt");
+		assertFileExistsDestPath("sourceSubdir2/sourceFileInSubdir.txt");
+		// TODO does not work on jenkins
 //		assertFileExistsDestPath("sourceSubdir2/folderInDuplicatedSubdir");
 		
 		copier.add(sourcePath + File.separator + "sourceSubdir1");
