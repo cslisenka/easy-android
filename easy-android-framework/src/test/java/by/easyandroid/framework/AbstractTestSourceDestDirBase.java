@@ -26,6 +26,11 @@ public abstract class AbstractTestSourceDestDirBase {
 		destinationPath = testResourcesPath + File.separator + "destinationDir";
 	}
 	
+	public void assertFileContentDestPath(String path, String content) throws IOException {
+		File file = new File(destinationPath + File.separator + path.replace("/", File.separator));
+		Assert.assertEquals(content, FileUtils.readFileToString(file));
+	}
+	
 	public void assertFileExistsDestPath(String path) {
 		Assert.assertTrue(new File(destinationPath + File.separator + path.replace("/", File.separator)).exists());
 	}

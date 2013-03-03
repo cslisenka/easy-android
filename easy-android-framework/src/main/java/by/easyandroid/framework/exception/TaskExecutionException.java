@@ -9,4 +9,8 @@ public class TaskExecutionException extends Exception {
 	public TaskExecutionException(Throwable cause) {
 		super(cause);
 	}
+
+	public TaskExecutionException(String message) {
+		super(message);
+	}
 }

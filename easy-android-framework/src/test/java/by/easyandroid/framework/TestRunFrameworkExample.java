@@ -1,5 +1,6 @@
 package by.easyandroid.framework;
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,12 +18,14 @@ public class TestRunFrameworkExample extends AbstractTestSourceDestDirBase {
 	}
 	
 	@Test
-	public void testRun() throws TaskExecutionException {
+	public void testRun() throws TaskExecutionException, IOException {
 		copier.setOutputDir(destinationPath);
 		
 		// TODO copy folder contents and copy folder with content!
 		//copier.add(sourcePath + File.separator + "sourceSubdir1/*");
 		//copier.addContent(sourcePath + File.separator + "sourceSubdir1");
+		
+		// TODO implement getting files/folders from web url
 		
 		// Copy sourceSubdir1 contents to working directory
 		copier.add(sourcePath + File.separator + "sourceSubdir1");
@@ -36,10 +39,11 @@ public class TestRunFrameworkExample extends AbstractTestSourceDestDirBase {
 		// Copy sourceSubdir1 contents to "working directory/subfolder2"
 		copier.add(sourcePath + File.separator + "sourceSubdir1", "subfoler2");
 		
-//		// Add text file in memory
-//		copier.createFile("text file content", "outputPath/test.xml");
-//		
-//		copier.createFolder("outputPath/subdir");
+		// Add text file in memory
+		copier.createFile("outputSubPath/test.txt", "text file content");
+		
+		// Create folder "subdircreated" in working directory
+		copier.createFolder("subdircreated");
 		
 		// Save all to working directory
 		copier.flush();
@@ -50,5 +54,8 @@ public class TestRunFrameworkExample extends AbstractTestSourceDestDirBase {
 		assertFileExistsDestPath("sourceFile.txt");
 		assertFileExistsDestPath("subfoler/sourceFile.txt");
 		assertFileExistsDestPath("subfoler2/sourceSubdir2/sourceFileInSubdir.txt");
+		assertFileExistsDestPath("outputSubPath/test.txt");
+		assertFileContentDestPath("outputSubPath/test.txt", "text file content");
+		assertFileExistsDestPath("subdircreated");
 	}
 }

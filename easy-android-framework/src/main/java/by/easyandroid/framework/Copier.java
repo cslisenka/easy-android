@@ -5,6 +5,8 @@ import java.io.File;
 import by.easyandroid.framework.exception.TaskExecutionException;
 import by.easyandroid.framework.task.file.CopyDirectoryTask;
 import by.easyandroid.framework.task.file.CopyFileTask;
+import by.easyandroid.framework.task.file.CreateDirectoryTask;
+import by.easyandroid.framework.task.file.CreateFileTask;
 
 public class Copier {
 
@@ -36,12 +38,12 @@ public class Copier {
 		}
 	}
 
-	public void createFile(String string, String string2) {
-		
+	public void createFile(String pathToFile, String fileContent) {
+		executor.addTask(new CreateFileTask(outputDirPath + File.separator + pathToFile, fileContent));
 	}
 
-	public void createFolder(String string) {
-		
+	public void createFolder(String folderPath) {
+		executor.addTask(new CreateDirectoryTask(outputDirPath + File.separator + folderPath));
 	}	
 	
 	public void flush() throws TaskExecutionException {
