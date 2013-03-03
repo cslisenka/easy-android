@@ -40,7 +40,7 @@ public class TestRunFrameworkExample extends AbstractTestSourceDestDirBase {
 		copier.add(sourcePath + File.separator + "sourceSubdir1", "subfoler2");
 		
 		// Add text file in memory
-		copier.createFile("outputSubPath/test.txt", "text file content");
+		copier.createFile("outputSubPath" + File.separator + "test.txt", "text file content");
 		
 		// Create folder "subdircreated" in working directory
 		copier.createFolder("subdircreated");

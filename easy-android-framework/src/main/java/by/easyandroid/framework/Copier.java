@@ -10,6 +10,8 @@ import by.easyandroid.framework.task.file.create.CreateFileTask;
 
 public class Copier {
 
+	private static final String WORKING_DIR_PATH = "/";
+
 	private TaskExecutor executor = new TaskExecutor();
 	
 	private String outputDirPath;
@@ -20,21 +22,17 @@ public class Copier {
 	
 	// TODO javadocs!!!
 	public void add(String from) {
-		add(from, "/");
+		add(from, WORKING_DIR_PATH);
 	}
 
 	public void add(String from, String toDirectory) {
-		File f = new File(from);
+		File source = new File(from);
+		String destPath = buildDestinationPath(toDirectory);
 		
-		String to = outputDirPath;
-		if (!toDirectory.equals("/")) {
-			to += File.separator + toDirectory;
-		}
-		
-		if (f.isFile()) {
-			executor.addTask(new CopyFileTask(f.getAbsolutePath(), to));
-		} else if (f.isDirectory()) {
-			executor.addTask(new CopyDirectoryTask(f.getAbsolutePath(), to));
+		if (source.isFile()) {
+			executor.addTask(new CopyFileTask(source.getAbsolutePath(), destPath));
+		} else if (source.isDirectory()) {
+			executor.addTask(new CopyDirectoryTask(source.getAbsolutePath(), destPath));
 		}
 	}
 
@@ -50,4 +48,12 @@ public class Copier {
 		executor.executeAll();
 		executor.removeAllTasks();
 	}
+	
+	private String buildDestinationPath(String toDirectory) {
+		if (!toDirectory.equals(WORKING_DIR_PATH)) {
+			return outputDirPath + File.separator + toDirectory;
+		}
+		
+		return outputDirPath;
+	}	
 }
