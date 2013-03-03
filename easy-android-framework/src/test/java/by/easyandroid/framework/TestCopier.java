@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import by.easyandroid.framework.exception.TaskExecutionException;
 
-public class TestRunFrameworkExample extends AbstractTestSourceDestDirBase {
+public class TestCopier extends AbstractTestSourceDestDirBase {
 
 	private Copier copier;
 	
@@ -49,8 +49,6 @@ public class TestRunFrameworkExample extends AbstractTestSourceDestDirBase {
 		// Save all to working directory
 		copier.flush();
 		
-		// TODO test correctly overwriting
-		
 		assertFileExistsDestPath("sourceSubdir2/sourceFileInSubdir.txt");
 		assertFileExistsDestPath("sourceFile.txt");
 		assertFileExistsDestPath("subfoler/sourceFile.txt");
@@ -72,4 +70,6 @@ public class TestRunFrameworkExample extends AbstractTestSourceDestDirBase {
 		
 		Assert.assertFalse(testFile.exists());
 	}
+	
+	// TODO test correctly files or folders overwriting
 }

@@ -1,14 +1,16 @@
 package by.easyandroid.framework;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import by.easyandroid.framework.exception.TaskExecutionException;
-import by.easyandroid.framework.task.logging.ConsoleOutputTask;
 
 public class TestTaskExecutor {
 
 	private TaskExecutor executor;
+	private ExecutionCheckingFakeTask checkingTask;
 	
 	@Before
 	public void setUp() {
@@ -17,10 +19,25 @@ public class TestTaskExecutor {
 	
 	@Test
 	public void testExecuteConsoleTask() throws TaskExecutionException {
-		// TODO check if task executed
-		executor.addTask(new ConsoleOutputTask("Hello World!"));
+		checkingTask = new ExecutionCheckingFakeTask();
+		Assert.assertFalse(checkingTask.isExecuted());
+		executor.addTask(checkingTask);
 		executor.executeAll();
+		Assert.assertTrue(checkingTask.isExecuted());
 	}
 	
-	// TODO check clear all tasks
+	@Test
+	public void testClearTaskListAfterExecuting() throws TaskExecutionException {
+		checkingTask = new ExecutionCheckingFakeTask();
+		Assert.assertFalse(checkingTask.isExecuted());
+		executor.addTask(checkingTask);
+		executor.executeAll();
+		Assert.assertTrue(checkingTask.isExecuted());
+		
+		// If we execute all tasks second time, no tasks would be executed
+		checkingTask.reset();
+		executor.removeAllTasks();
+		executor.executeAll();
+		Assert.assertFalse(checkingTask.isExecuted());
+	}	
 }
