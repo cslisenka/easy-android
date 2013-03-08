@@ -17,5 +17,9 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>easy-android-model</artifactId>
+		</dependency>		
 	</dependencies>
 </project>
