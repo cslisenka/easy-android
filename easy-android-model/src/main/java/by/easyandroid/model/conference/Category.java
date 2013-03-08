@@ -7,7 +7,7 @@ import by.easyandroid.model.Identity;
  * 
  * @author kslisenko
  */
-public class Cathegory extends Identity {
+public class Category extends Identity {
 
 	private String name;
 

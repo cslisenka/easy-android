@@ -65,6 +65,7 @@ public class ReportService extends AbstractFilterSupportEntityService<Report> {
 		return report;
 	}
 
+	// TODO to report util
 	private Date parseReportDate(Node reportItem, Report report) {
 		Node date = XmlUtil.getChildElement(reportItem, DATE);
 		int year = XmlUtil.getElementIntAttr(date, YEAR);

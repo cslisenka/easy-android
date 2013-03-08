@@ -1,10 +1,24 @@
 package by.easyandroid.template.adapter.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class XmlUtil {
 
+	public static Document parse(String source) throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		return builder.parse(new ByteArrayInputStream(source.getBytes()));
+	}
+	
 	public static Node findFirstNodeByAttribute(NodeList list, String attrName, String attrValue) {
 		for (int i = 0; i < list.getLength(); i++) {
 			Node node = list.item(i);

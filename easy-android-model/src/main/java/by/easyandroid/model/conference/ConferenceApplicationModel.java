@@ -19,7 +19,7 @@ public class ConferenceApplicationModel extends Identity {
 	
 	private List<Section> sections = new ArrayList<Section>();
 	
-	private List<Cathegory> categories = new ArrayList<Cathegory>();
+	private List<Category> categories = new ArrayList<Category>();
 	
 	/**
 	 * Color settings, used images, UI settings
@@ -55,11 +55,11 @@ public class ConferenceApplicationModel extends Identity {
 		this.sections = sections;
 	}
 
-	public List<Cathegory> getCategories() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<Cathegory> categories) {
+	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
 

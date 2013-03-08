@@ -14,7 +14,7 @@ public class Report extends Identity {
 	
 	private Section section;
 	
-	private Cathegory category;
+	private Category category;
 	
 	private Reporter reporter;
 
@@ -50,11 +50,11 @@ public class Report extends Identity {
 		this.section = section;
 	}
 
-	public Cathegory getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(Cathegory category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 

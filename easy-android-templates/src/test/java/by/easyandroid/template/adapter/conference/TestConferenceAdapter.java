@@ -1,11 +1,9 @@
 package by.easyandroid.template.adapter.conference;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import junit.framework.Assert;
@@ -13,11 +11,17 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import by.easyandroid.model.conference.Category;
 import by.easyandroid.model.conference.ConferenceApplicationModel;
+import by.easyandroid.model.conference.Report;
+import by.easyandroid.model.conference.Reporter;
+import by.easyandroid.model.conference.Section;
 import by.easyandroid.template.adapter.FileEntry;
+import by.easyandroid.template.adapter.util.ReportUtil;
 import by.easyandroid.template.adapter.util.XmlUtil;
 
 public class TestConferenceAdapter {
@@ -36,8 +40,59 @@ public class TestConferenceAdapter {
 		model.getInformation().setWebsiteUrl("http://test.conference.com");
 		model.getInformation().setTitle("My test conference");
 		
+		// Create fake sections
+		Section s1 = addSection("1", "section 1");
+		Section s2 = addSection("2", "section 2");
+		
+		// Create fake categories
+		Category c1 = addCategory("1", "category 1");
+		Category c2 = addCategory("2", "category 2");
+		
+		Reporter r1 = addReporter("1", "reporter 1");
+		Reporter r2 = addReporter("2", "reporter 2");
+		
+		addReport("1", "report 1", s1, c1, r1);
+		addReport("2", "report 2", s2, c2, r2);
 		
 		adapter = new ConferenceAdapter(model);
+	}
+	
+	private void addReport(String id, String name, Section s1, Category c1, Reporter r1) {
+		Report r = new Report();
+		r.setId(id);
+		r.setTitle(name);
+		r.setReporter(r1);
+		r.setSection(s1);
+		r.setCategory(c1);
+		r.setDesctiption("description " + name);
+		r.setTime(new GregorianCalendar().getTime());
+	}
+
+	private Reporter addReporter(String id, String name) {
+		Reporter r = new Reporter(); 
+		r.setId(id);
+		r.setName(name);
+		r.setDescription("description " + name);
+		r.setEmail("email " + name);
+		r.setPosition("position " + name);
+		r.setCompany("company " + name);
+		return r;
+	}
+
+	private Category addCategory(String id, String name) {
+		Category c = new Category();
+		c.setName(id);
+		c.setId(name);
+		model.getCategories().add(c);
+		return c;
+	}	
+	
+	private Section addSection(String id, String name) {
+		Section s = new Section();
+		s.setName(id);
+		s.setId(name);
+		model.getSections().add(s);
+		return s;
 	}
 	
 	@Test
@@ -51,10 +106,14 @@ public class TestConferenceAdapter {
 	}
 	
 	@Test
-	public void testConvertDataXmlFile() {
+	public void testConvertDataXmlFile() throws ParserConfigurationException, SAXException, IOException {
 		String conferenceDataXml = getFileContents(adapter.convert(), CONFERENCE_DATA);
+		Document doc = XmlUtil.parse(conferenceDataXml);
 		
-		// TODO deeply check conference_data.xml
+		checkReports(model, doc);
+		checkReporters(model, doc);
+		checkSections(model, doc);
+		checkCategories(model, doc);
 	}
 	
 	@Test
@@ -67,14 +126,63 @@ public class TestConferenceAdapter {
 	public void testConvertStringsFile() throws ParserConfigurationException, SAXException, IOException {
 		String stringsXml = getFileContents(adapter.convert(), STRINGS);
 		
-		// TODO to xml utils
-		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		Document doc = builder.parse(new ByteArrayInputStream(stringsXml.getBytes()));
+		Document doc = XmlUtil.parse(stringsXml);
 		NodeList strings = doc.getElementsByTagName("string");
 		
 		Assert.assertEquals(model.getInformation().getTitle(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_conf_name"));
 		Assert.assertEquals(model.getInformation().getWebsiteUrl(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_website_url"));
 	}
+	
+	private void checkCategories(ConferenceApplicationModel model, Document doc) {
+		NodeList categories = doc.getElementsByTagName("category");
+		Assert.assertEquals(model.getCategories().size(), categories.getLength());
+		for (Category oneCategory : model.getCategories()) {
+			Node reportNode = XmlUtil.findFirstNodeByAttribute(categories, "id", oneCategory.getId());
+			Assert.assertNotNull(reportNode);
+			Assert.assertEquals(oneCategory.getId(), XmlUtil.getElementAttr(reportNode, "id"));
+			Assert.assertEquals(oneCategory.getName(), XmlUtil.getChildElementText(reportNode, "name"));
+		}
+	}
+
+	private void checkSections(ConferenceApplicationModel model, Document doc) {
+		NodeList sections = doc.getElementsByTagName("section");
+		Assert.assertEquals(model.getSections().size(), sections.getLength());
+		for (Section oneSection : model.getSections()) {
+			Node reportNode = XmlUtil.findFirstNodeByAttribute(sections, "id", oneSection.getId());
+			Assert.assertNotNull(reportNode);
+			Assert.assertEquals(oneSection.getId(), XmlUtil.getElementAttr(reportNode, "id"));
+			Assert.assertEquals(oneSection.getName(), XmlUtil.getChildElementText(reportNode, "name"));
+		}
+	}
+
+	private void checkReporters(ConferenceApplicationModel model2, Document doc) {
+		NodeList reporters = doc.getElementsByTagName("reporter");
+		Assert.assertEquals(model.getReporters().size(), reporters.getLength());
+		for (Reporter oneReporter : model.getReporters()) {
+			Node reportNode = XmlUtil.findFirstNodeByAttribute(reporters, "id", oneReporter.getId());
+			Assert.assertNotNull(reportNode);
+			Assert.assertEquals(oneReporter.getId(), XmlUtil.getElementAttr(reportNode, "id"));
+			Assert.assertEquals(oneReporter.getDescription(), XmlUtil.getChildElementText(reportNode, "description"));
+			Assert.assertEquals(oneReporter.getEmail(), XmlUtil.getChildElementText(reportNode, "email"));
+			Assert.assertEquals(oneReporter.getCompany(), XmlUtil.getChildElementText(reportNode, "company"));
+			Assert.assertEquals(oneReporter.getPosition(), XmlUtil.getChildElementText(reportNode, "position"));
+		}
+	}
+
+	private void checkReports(ConferenceApplicationModel model, Document doc) {
+		NodeList reports = doc.getElementsByTagName("report");
+		Assert.assertEquals(model.getReports().size(), reports.getLength());
+		for (Report oneReport : model.getReports()) {
+			Node reportNode = XmlUtil.findFirstNodeByAttribute(reports, "id", oneReport.getId());
+			Assert.assertNotNull(reportNode);
+			Assert.assertEquals(oneReport.getTitle(), XmlUtil.getChildElementText(reportNode, "title"));
+			Assert.assertEquals(oneReport.getDesctiption(), XmlUtil.getChildElementText(reportNode, "description"));
+			Assert.assertEquals(oneReport.getCategory().getId(), XmlUtil.getElementAttr(reportNode, "category"));
+			Assert.assertEquals(oneReport.getSection().getId(), XmlUtil.getElementAttr(reportNode, "section"));
+			Assert.assertEquals(oneReport.getReporter().getId(), XmlUtil.getElementAttr(reportNode, "reporter"));
+			Assert.assertEquals(oneReport.getTime(), ReportUtil.parseReportDate(reportNode));
+		}
+	}	
 	
 	private void assertInMemoryFileExists(List<FileEntry> list, String filePath) {
 		if (findByFileName(list, filePath) == null) {
