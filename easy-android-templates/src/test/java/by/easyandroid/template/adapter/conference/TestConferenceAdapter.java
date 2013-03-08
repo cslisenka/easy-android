@@ -1,5 +1,6 @@
 package by.easyandroid.template.adapter.conference;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -21,6 +22,7 @@ import by.easyandroid.model.conference.Report;
 import by.easyandroid.model.conference.Reporter;
 import by.easyandroid.model.conference.Section;
 import by.easyandroid.template.adapter.FileEntry;
+import by.easyandroid.template.adapter.exception.TemplateAdapterException;
 import by.easyandroid.template.adapter.util.ReportUtil;
 import by.easyandroid.template.adapter.util.XmlUtil;
 
@@ -28,10 +30,12 @@ public class TestConferenceAdapter {
 
 	private static final String CONFERENCE_DATA = "assets/conference_data.xml";
 	private static final String STRINGS = "res/values/strings.xml";
-	private static final String ABOUT = "assets/about.xml";
+	private static final String ABOUT = "assets/about.html";
 	
 	private ConferenceAdapter adapter;
 	private ConferenceApplicationModel model;
+	
+	private String pathToSources;
 	
 	@Before
 	public void setUp() {
@@ -55,6 +59,48 @@ public class TestConferenceAdapter {
 		addReport("2", "report 2", s2, c2, r2);
 		
 		adapter = new ConferenceAdapter(model);
+		
+		pathToSources = new File("").getAbsolutePath() + "/../Conference";
+		// TODO this is temporary solution, we need to put project sources into target folder during build
+		adapter.setSourcesPath(pathToSources);
+	}
+	
+	@Test
+	public void testConvertSimpleModel() throws TemplateAdapterException {
+		List<FileEntry> results = adapter.convert();
+		
+		Assert.assertEquals(3, results.size());
+		assertInMemoryFileExists(results, CONFERENCE_DATA);
+		assertInMemoryFileExists(results, ABOUT);
+		assertInMemoryFileExists(results, STRINGS);
+	}
+	
+	@Test
+	public void testConvertDataXmlFile() throws ParserConfigurationException, SAXException, IOException, TemplateAdapterException {
+		String conferenceDataXml = getFileContents(adapter.convert(), CONFERENCE_DATA);
+		Document doc = XmlUtil.parse(conferenceDataXml);
+		
+		checkReports(model, doc);
+		checkReporters(model, doc);
+		checkSections(model, doc);
+		checkCategories(model, doc);
+	}
+	
+	@Test
+	public void testConvertAboutHtmlFile() throws TemplateAdapterException {
+		String aboutHtml = getFileContents(adapter.convert(), ABOUT);
+		Assert.assertTrue(aboutHtml.contains(model.getInformation().getAbout()));
+	}	
+	
+	@Test
+	public void testConvertStringsFile() throws ParserConfigurationException, SAXException, IOException, TemplateAdapterException {
+		String stringsXml = getFileContents(adapter.convert(), STRINGS);
+		
+		Document doc = XmlUtil.parse(stringsXml);
+		NodeList strings = doc.getElementsByTagName("string");
+		
+		Assert.assertEquals(model.getInformation().getTitle(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_conf_name"));
+		Assert.assertEquals(model.getInformation().getWebsiteUrl(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_website_url"));
 	}
 	
 	private void addReport(String id, String name, Section s1, Category c1, Reporter r1) {
@@ -93,45 +139,7 @@ public class TestConferenceAdapter {
 		s.setId(name);
 		model.getSections().add(s);
 		return s;
-	}
-	
-	@Test
-	public void testConvertSimpleModel() {
-		List<FileEntry> results = adapter.convert();
-		
-		Assert.assertEquals(3, results.size());
-		assertInMemoryFileExists(results, CONFERENCE_DATA);
-		assertInMemoryFileExists(results, ABOUT);
-		assertInMemoryFileExists(results, STRINGS);
-	}
-	
-	@Test
-	public void testConvertDataXmlFile() throws ParserConfigurationException, SAXException, IOException {
-		String conferenceDataXml = getFileContents(adapter.convert(), CONFERENCE_DATA);
-		Document doc = XmlUtil.parse(conferenceDataXml);
-		
-		checkReports(model, doc);
-		checkReporters(model, doc);
-		checkSections(model, doc);
-		checkCategories(model, doc);
-	}
-	
-	@Test
-	public void testConvertAboutHtmlFile() {
-		String aboutHtml = getFileContents(adapter.convert(), ABOUT);
-		Assert.assertTrue(aboutHtml.contains(model.getInformation().getAbout()));
 	}	
-	
-	@Test
-	public void testConvertStringsFile() throws ParserConfigurationException, SAXException, IOException {
-		String stringsXml = getFileContents(adapter.convert(), STRINGS);
-		
-		Document doc = XmlUtil.parse(stringsXml);
-		NodeList strings = doc.getElementsByTagName("string");
-		
-		Assert.assertEquals(model.getInformation().getTitle(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_conf_name"));
-		Assert.assertEquals(model.getInformation().getWebsiteUrl(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_website_url"));
-	}
 	
 	private void checkCategories(ConferenceApplicationModel model, Document doc) {
 		NodeList categories = doc.getElementsByTagName("category");

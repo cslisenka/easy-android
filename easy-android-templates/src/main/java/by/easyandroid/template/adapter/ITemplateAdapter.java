@@ -2,6 +2,8 @@ package by.easyandroid.template.adapter;
 
 import java.util.List;
 
+import by.easyandroid.template.adapter.exception.TemplateAdapterException;
+
 /**
  * Adapter takes application data model as input and produces 
  * source files. Then we can put this files to android template
@@ -11,5 +13,7 @@ import java.util.List;
  */
 public interface ITemplateAdapter {
 
-	List<FileEntry> convert();
+	void setSourcesPath(String path);
+	
+	List<FileEntry> convert() throws TemplateAdapterException;
 }
