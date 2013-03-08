@@ -1,9 +1,20 @@
-package by.easyandroid.template.conference.util;
+package by.easyandroid.template.adapter.util;
 
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
-// TODO use utinl from utils project
 public class XmlUtil {
+
+	public static Node findFirstNodeByAttribute(NodeList list, String attrName, String attrValue) {
+		for (int i = 0; i < list.getLength(); i++) {
+			Node node = list.item(i);
+			if (attrValue.equals(getElementAttr(node, attrName))) {
+				return node;
+			}
+		}
+		
+		return null;
+	}
 	
 	public static Node getChildElement(Node element, String childNodeName) {
 		for (int i = 0; i < element.getChildNodes().getLength(); i++) {
@@ -45,5 +56,5 @@ public class XmlUtil {
 		}
 		
 		return 0;
-	}	
+	}		
 }

@@ -18,6 +18,7 @@ import org.xml.sax.SAXException;
 
 import by.easyandroid.model.conference.ConferenceApplicationModel;
 import by.easyandroid.template.adapter.FileEntry;
+import by.easyandroid.template.adapter.util.XmlUtil;
 
 public class TestConferenceAdapter {
 
@@ -65,9 +66,14 @@ public class TestConferenceAdapter {
 	@Test
 	public void testConvertStringsFile() throws ParserConfigurationException, SAXException, IOException {
 		String stringsXml = getFileContents(adapter.convert(), STRINGS);
+		
+		// TODO to xml utils
 		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document doc = builder.parse(new ByteArrayInputStream(stringsXml.getBytes()));
 		NodeList strings = doc.getElementsByTagName("string");
+		
+		Assert.assertEquals(model.getInformation().getTitle(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_conf_name"));
+		Assert.assertEquals(model.getInformation().getWebsiteUrl(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_website_url"));
 	}
 	
 	private void assertInMemoryFileExists(List<FileEntry> list, String filePath) {
