@@ -10,7 +10,7 @@
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<mongo:mongo host="localhost" port="27017" />
-	<mongo:db-factory dbname="ea" />
+	<mongo:db-factory dbname="eatest" />
 
 	<bean id="mappingContext"
 		class="org.springframework.data.mongodb.core.mapping.MongoMappingContext"></bean>

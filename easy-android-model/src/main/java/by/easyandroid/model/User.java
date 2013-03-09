@@ -3,14 +3,23 @@ package by.easyandroid.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class User extends Identity {
 
+	@Id
+	private String id;
+	
 	private String login;
 	
 	private String password;
 	
 	private String email;
 	
+	@DBRef
 	private List<ApplicationInstance> applications = new ArrayList<ApplicationInstance>();
 
 	public String getLogin() {
@@ -43,5 +52,13 @@ public class User extends Identity {
 
 	public void setApplications(List<ApplicationInstance> applications) {
 		this.applications = applications;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }
