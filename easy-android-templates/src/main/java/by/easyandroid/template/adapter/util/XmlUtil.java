@@ -1,11 +1,19 @@
 package by.easyandroid.template.adapter.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -14,15 +22,36 @@ import org.xml.sax.SAXException;
 
 public class XmlUtil {
 
+	public static String getXml(Document doc) throws TransformerException {
+		TransformerFactory transfac = TransformerFactory.newInstance();
+		Transformer trans = transfac.newTransformer();
+		trans.setOutputProperty(OutputKeys.METHOD, "xml");
+		trans.setOutputProperty(OutputKeys.INDENT, "yes");
+		trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", Integer.toString(2));
+
+		StringWriter sw = new StringWriter();
+		StreamResult result = new StreamResult(sw);
+		DOMSource source = new DOMSource(doc.getDocumentElement());
+
+		trans.transform(source, result);
+		return sw.toString();
+	}
+	
 	public static Document parse(String source) throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		return builder.parse(new ByteArrayInputStream(source.getBytes()));
 	}
 	
+	public static Document parse(File source) throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		return builder.parse(source);
+	}	
+	
 	public static Node findFirstNodeByAttribute(NodeList list, String attrName, String attrValue) {
 		for (int i = 0; i < list.getLength(); i++) {
 			Node node = list.item(i);
-			if (attrValue.equals(getElementAttr(node, attrName))) {
+			String nodeAttrValue = getElementAttr(node, attrName); 
+			if (nodeAttrValue != null && attrValue.equals(nodeAttrValue)) {
 				return node;
 			}
 		}
@@ -52,10 +81,12 @@ public class XmlUtil {
 	}
 
 	public static String getElementAttr(Node element, String attrName) {
-		for (int i = 0; i < element.getAttributes().getLength(); i++) {
-			Node child = element.getAttributes().item(i);
-			if (child.getNodeName().equals(attrName)) {
-				return child.getNodeValue();
+		if (element.getAttributes() != null) {
+			for (int i = 0; i < element.getAttributes().getLength(); i++) {
+				Node child = element.getAttributes().item(i);
+				if (child.getNodeName().equals(attrName)) {
+					return child.getNodeValue();
+				}
 			}
 		}
 		

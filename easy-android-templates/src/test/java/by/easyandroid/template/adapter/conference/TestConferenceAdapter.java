@@ -2,7 +2,7 @@ package by.easyandroid.template.adapter.conference;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -99,8 +99,10 @@ public class TestConferenceAdapter {
 		Document doc = XmlUtil.parse(stringsXml);
 		NodeList strings = doc.getElementsByTagName("string");
 		
-		Assert.assertEquals(model.getInformation().getTitle(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_conf_name"));
-		Assert.assertEquals(model.getInformation().getWebsiteUrl(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_website_url"));
+		Assert.assertTrue(strings.getLength() > 0);
+		
+		Assert.assertEquals(model.getInformation().getTitle(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_conf_name").getTextContent());
+		Assert.assertEquals(model.getInformation().getWebsiteUrl(), XmlUtil.findFirstNodeByAttribute(strings, "name", "main_website_url").getTextContent());
 	}
 	
 	private void addReport(String id, String name, Section s1, Category c1, Reporter r1) {
@@ -111,7 +113,8 @@ public class TestConferenceAdapter {
 		r.setSection(s1);
 		r.setCategory(c1);
 		r.setDesctiption("description " + name);
-		r.setTime(new GregorianCalendar().getTime());
+		r.setTime(new Date(2013, 10, 10, 5, 30));
+		model.getReports().add(r);
 	}
 
 	private Reporter addReporter(String id, String name) {
@@ -122,6 +125,7 @@ public class TestConferenceAdapter {
 		r.setEmail("email " + name);
 		r.setPosition("position " + name);
 		r.setCompany("company " + name);
+		model.getReporters().add(r);
 		return r;
 	}
 
@@ -156,10 +160,10 @@ public class TestConferenceAdapter {
 		NodeList sections = doc.getElementsByTagName("section");
 		Assert.assertEquals(model.getSections().size(), sections.getLength());
 		for (Section oneSection : model.getSections()) {
-			Node reportNode = XmlUtil.findFirstNodeByAttribute(sections, "id", oneSection.getId());
-			Assert.assertNotNull(reportNode);
-			Assert.assertEquals(oneSection.getId(), XmlUtil.getElementAttr(reportNode, "id"));
-			Assert.assertEquals(oneSection.getName(), XmlUtil.getChildElementText(reportNode, "name"));
+			Node sectionNode = XmlUtil.findFirstNodeByAttribute(sections, "id", oneSection.getId());
+			Assert.assertNotNull(sectionNode);
+			Assert.assertEquals(oneSection.getId(), XmlUtil.getElementAttr(sectionNode, "id"));
+			Assert.assertEquals(oneSection.getName(), XmlUtil.getChildElementText(sectionNode, "name"));
 		}
 	}
 
