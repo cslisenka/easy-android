@@ -1,5 +1,10 @@
 package by.easyandroid.database.service.exception;
 
+/**
+ * Represents some business-logic error with database orepations
+ * @author kslisenko
+ *
+ */
 public class DatabaseServiceException extends Exception {
 
 	public DatabaseServiceException(String message, Throwable cause) {
