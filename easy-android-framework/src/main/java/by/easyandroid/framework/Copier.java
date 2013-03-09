@@ -23,6 +23,10 @@ public class Copier {
 		this.outputDirPath = outputDirPath;
 	}	
 	
+	public String getOutputDir() {
+		return outputDirPath;
+	}	
+	
 	// TODO javadocs!!!
 	public void add(String from) {
 		add(from, WORKING_DIR_PATH);

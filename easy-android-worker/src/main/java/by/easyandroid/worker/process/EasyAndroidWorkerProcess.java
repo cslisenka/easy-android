@@ -14,9 +14,12 @@ import by.easyandroid.model.conference.Section;
 import by.easyandroid.template.adapter.FileEntry;
 import by.easyandroid.template.adapter.conference.ConferenceAdapter;
 import by.easyandroid.template.adapter.exception.TemplateAdapterException;
+import by.easyandroid.worker.builder.AndroidApkBuilder;
 
 public class EasyAndroidWorkerProcess {
 
+	private Copier copier;
+	
 	private ConferenceAdapter adapter;
 	private ConferenceApplicationModel model;
 	
@@ -42,12 +45,18 @@ public class EasyAndroidWorkerProcess {
 		}
 		
 		// TODO 5. Run apk building
+		buildApplication();
 		// TODO 6. Publish results
+	}
+
+	private void buildApplication() {
+		AndroidApkBuilder builder = new AndroidApkBuilder();
+		builder.build(copier.getOutputDir());
 	}
 
 	private void copyConvertedFilesToWorkingDirectory() throws TemplateAdapterException, TaskExecutionException {
 		List<FileEntry> convertedFiles = adapter.convert();
-		Copier copier = new Copier();
+		copier = new Copier();
 		// TODO now we copy to target, in future we need to copy to special directory on server
 		copier.setOutputDir(new File("").getAbsolutePath() + "/target/buildResults");
 		copier.add(new File("").getAbsolutePath() + "/../Conference");
