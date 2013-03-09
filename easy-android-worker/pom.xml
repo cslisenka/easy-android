@@ -13,6 +13,19 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>easy-android-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>easy-android-framework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>easy-android-templates</artifactId>
+		</dependency>		
+	
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>

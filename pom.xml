@@ -16,6 +16,22 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>by.easyandroid</groupId>
+				<artifactId>easy-android-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>by.easyandroid</groupId>
+				<artifactId>easy-android-framework</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>by.easyandroid</groupId>
+				<artifactId>easy-android-templates</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		
+			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.8.1</version>
@@ -23,16 +39,10 @@
 			</dependency>
 			
 			<dependency>
-				<groupId>by.easyandroid</groupId>
-				<artifactId>easy-android-model</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commons.io.version}</version>
-		</dependency>			
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io.version}</version>
+			</dependency>			
 		</dependencies>
 	</dependencyManagement>
 	

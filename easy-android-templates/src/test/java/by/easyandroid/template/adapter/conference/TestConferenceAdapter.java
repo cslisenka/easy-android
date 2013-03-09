@@ -131,19 +131,19 @@ public class TestConferenceAdapter {
 
 	private Category addCategory(String id, String name) {
 		Category c = new Category();
-		c.setName(id);
-		c.setId(name);
+		c.setName(name);
+		c.setId(id);
 		model.getCategories().add(c);
 		return c;
 	}	
 	
 	private Section addSection(String id, String name) {
 		Section s = new Section();
-		s.setName(id);
-		s.setId(name);
+		s.setName(name);
+		s.setId(id);
 		model.getSections().add(s);
 		return s;
-	}	
+	}		
 	
 	private void checkCategories(ConferenceApplicationModel model, Document doc) {
 		NodeList categories = doc.getElementsByTagName("category");

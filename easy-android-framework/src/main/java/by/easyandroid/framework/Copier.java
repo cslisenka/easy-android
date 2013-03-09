@@ -55,7 +55,11 @@ public class Copier {
 
 	private void cleanWorkingDirectory() throws TaskExecutionException {
 		try {
-			FileUtils.cleanDirectory(new File(outputDirPath));
+			// Create directory if not exisis
+			// TODO unit-test
+			File outputDir = new File(outputDirPath);
+			FileUtils.deleteDirectory(outputDir);
+			outputDir.mkdirs();
 		} catch (IOException e) {
 			throw new TaskExecutionException("Can not clean working directory before task executing", e);
 		}
