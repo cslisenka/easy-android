@@ -71,13 +71,8 @@ public class ConferenceAdapter implements ITemplateAdapter {
 				reportElement.setAttribute("reporter", oneReport.getReporter().getId());
 				reportElement.setAttribute("section", oneReport.getSection().getId());
 				
-				Element reportTitle = doc.createElement("title");
-				reportTitle.setTextContent(oneReport.getTitle());
-				reportElement.appendChild(reportTitle);
-				
-				Element reportDescription = doc.createElement("description");
-				reportDescription.setTextContent(oneReport.getDesctiption());
-				reportElement.appendChild(reportDescription);
+				reportElement.appendChild(XmlUtil.appendTextNode("title", oneReport.getTitle(), doc));
+				reportElement.appendChild(XmlUtil.appendTextNode("description", oneReport.getDesctiption(), doc));
 				
 				Element reportDate = doc.createElement("date");
 				reportDate.setAttribute("year", oneReport.getTime().getYear() + "");
@@ -97,25 +92,11 @@ public class ConferenceAdapter implements ITemplateAdapter {
 				reporters.appendChild(reporterElement);
 				
 				reporterElement.setAttribute("id", oneReporter.getId());
-				Element name = doc.createElement("name");
-				name.setTextContent(oneReporter.getName());
-				reporterElement.appendChild(name);
-				
-				Element description = doc.createElement("description");
-				description.setTextContent(oneReporter.getDescription());
-				reporterElement.appendChild(description);
-				
-				Element email = doc.createElement("email");
-				email.setTextContent(oneReporter.getEmail());
-				reporterElement.appendChild(email);
-				
-				Element company = doc.createElement("company");
-				company.setTextContent(oneReporter.getCompany());
-				reporterElement.appendChild(company);	
-				
-				Element position = doc.createElement("position");
-				position.setTextContent(oneReporter.getPosition());
-				reporterElement.appendChild(position);							
+				reporterElement.appendChild(XmlUtil.appendTextNode("name", oneReporter.getName(), doc));
+				reporterElement.appendChild(XmlUtil.appendTextNode("description", oneReporter.getDescription(), doc));
+				reporterElement.appendChild(XmlUtil.appendTextNode("email", oneReporter.getEmail(), doc));
+				reporterElement.appendChild(XmlUtil.appendTextNode("company", oneReporter.getCompany(), doc));	
+				reporterElement.appendChild(XmlUtil.appendTextNode("position", oneReporter.getPosition(), doc));							
 			}
 			
 			// Add sections
@@ -127,9 +108,7 @@ public class ConferenceAdapter implements ITemplateAdapter {
 				sections.appendChild(sectionElement);
 				
 				sectionElement.setAttribute("id", section.getId());
-				Element name = doc.createElement("name");
-				name.setTextContent(section.getName());
-				sectionElement.appendChild(name);					
+				sectionElement.appendChild(XmlUtil.appendTextNode("name", section.getName(), doc));					
 			}
 			
 			// Add categories
@@ -141,9 +120,7 @@ public class ConferenceAdapter implements ITemplateAdapter {
 				categories.appendChild(categoryElement);
 				
 				categoryElement.setAttribute("id", category.getId());
-				Element name = doc.createElement("name");
-				name.setTextContent(category.getName());
-				categoryElement.appendChild(name);					
+				categoryElement.appendChild(XmlUtil.appendTextNode("name", category.getName(), doc));					
 			}			
 			
 			return new FileEntry("assets/conference_data.xml", XmlUtil.getXml(doc));
@@ -171,8 +148,7 @@ public class ConferenceAdapter implements ITemplateAdapter {
 			Node confWebsite = XmlUtil.findFirstNodeByAttribute(resources.getChildNodes(), "name", "main_website_url");
 			confWebsite.setTextContent(model.getInformation().getWebsiteUrl());
 			
-			FileEntry file = new FileEntry("res/values/strings.xml", XmlUtil.getXml(doc));
-			return file;
+			return new FileEntry("res/values/strings.xml", XmlUtil.getXml(doc));
 		} catch (IOException e) {
 			throw new TemplateAdapterException("Erorr when reading 'about.html' file in project sources", e);
 		} catch (ParserConfigurationException e) {

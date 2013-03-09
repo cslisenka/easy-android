@@ -16,12 +16,19 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XmlUtil {
 
+	public static Element appendTextNode(String tagName, String textContent, Document doc) {
+		Element textNode = doc.createElement(tagName);
+		textNode.setTextContent(textContent);
+		return textNode;
+	}
+	
 	public static String getXml(Document doc) throws TransformerException {
 		TransformerFactory transfac = TransformerFactory.newInstance();
 		Transformer trans = transfac.newTransformer();
@@ -101,5 +108,5 @@ public class XmlUtil {
 		}
 		
 		return 0;
-	}		
+	}
 }
