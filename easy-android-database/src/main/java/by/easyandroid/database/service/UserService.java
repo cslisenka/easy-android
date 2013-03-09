@@ -1,7 +1,5 @@
 package by.easyandroid.database.service;
 
-import java.util.List;
-
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -9,27 +7,22 @@ import org.springframework.data.mongodb.core.query.Query;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.User;
 
-public class UserService {
+public class UserService extends AbstractGenericService<User> {
 
 	private static final String USER = "user";
 	
-	private MongoOperations mongo;
-	
 	public UserService(MongoOperations mongo) {
-		this.mongo = mongo;
+		super(mongo, User.class, USER);
 	}
 
+	@Override
 	public void add(User user) throws DatabaseServiceException {
 		// Check if user with this login and password already exists
 		if (get(user.getLogin(), user.getPassword()) != null) {
 			throw new DatabaseServiceException("User with specified login and password already exists");	
 		}
 		
-		mongo.save(user, USER);	
-	}
-	
-	public List<User> getAll() {
-		return mongo.findAll(User.class, USER);
+		super.add(user);
 	}
 	
 	public User get(String login, String password) {
