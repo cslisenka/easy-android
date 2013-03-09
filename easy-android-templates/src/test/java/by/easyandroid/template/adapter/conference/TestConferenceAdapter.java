@@ -23,7 +23,7 @@ import by.easyandroid.model.conference.Reporter;
 import by.easyandroid.model.conference.Section;
 import by.easyandroid.template.adapter.FileEntry;
 import by.easyandroid.template.adapter.exception.TemplateAdapterException;
-import by.easyandroid.template.adapter.util.ReportUtil;
+import by.easyandroid.template.adapter.util.EntityConverter;
 import by.easyandroid.template.adapter.util.XmlUtil;
 
 public class TestConferenceAdapter {
@@ -192,7 +192,7 @@ public class TestConferenceAdapter {
 			Assert.assertEquals(oneReport.getCategory().getId(), XmlUtil.getElementAttr(reportNode, "category"));
 			Assert.assertEquals(oneReport.getSection().getId(), XmlUtil.getElementAttr(reportNode, "section"));
 			Assert.assertEquals(oneReport.getReporter().getId(), XmlUtil.getElementAttr(reportNode, "reporter"));
-			Assert.assertEquals(oneReport.getTime(), ReportUtil.parseReportDate(reportNode));
+			Assert.assertEquals(oneReport.getTime(), EntityConverter.toDate(reportNode));
 		}
 	}	
 	

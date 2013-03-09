@@ -23,6 +23,17 @@ import org.xml.sax.SAXException;
 
 public class XmlUtil {
 
+	public static Document createDocument() throws ParserConfigurationException {
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		return builder.newDocument();
+	}
+
+	public static Element createChildElement(Element parent, String tagName, Document doc) {
+		Element child = doc.createElement(tagName);
+		parent.appendChild(child);
+		return child;
+	}
+	
 	public static Element appendTextNode(String tagName, String textContent, Document doc) {
 		Element textNode = doc.createElement(tagName);
 		textNode.setTextContent(textContent);
