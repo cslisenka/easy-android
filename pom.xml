@@ -34,6 +34,11 @@
 				<artifactId>easy-android-templates</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>by.easyandroid</groupId>
+				<artifactId>easy-android-database</artifactId>
+				<version>${project.version}</version>
+			</dependency>			
 
 			<dependency>
 				<groupId>junit</groupId>

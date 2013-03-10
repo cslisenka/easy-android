@@ -9,7 +9,8 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.jazzteam.easyandroid.webapp.beans.PopupBean;
-import org.jazzteam.easyandroid.webapp.model.Reporter;
+
+import by.easyandroid.model.conference.Reporter;
 
 import com.icesoft.faces.component.selectinputtext.SelectInputText;
 

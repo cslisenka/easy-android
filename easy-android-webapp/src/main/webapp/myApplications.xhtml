@@ -40,7 +40,7 @@
 			<ice:column>
 				<f:facet name="header">Name</f:facet>
 				<ice:panelGroup menuPopup="menuPopup">
-					<ice:commandLink action="/appConferenceData.xhtml?faces-redirect=true" styleClass="htmllink">#{template.name}</ice:commandLink>
+					<ice:commandLink action="/appConferenceData.xhtml?faces-redirect=true" styleClass="htmllink">#{template.title}</ice:commandLink>
 				</ice:panelGroup>
 				<ice:menuPopup id="menuPopup">
 					<ice:menuItem value="Copy" icon="#{resource['images/icons:copy.png']}" actionListener="#{popupBean.openCopy}"/>
@@ -51,7 +51,7 @@
 			</ice:column>
 			<ice:column>
 				<f:facet name="header">Creation date</f:facet>
-                #{template.date}
+                TODO
 			</ice:column>
 			<ice:column>
 				<f:facet name="header">Last apk</f:facet>

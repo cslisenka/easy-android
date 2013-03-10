@@ -25,6 +25,15 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>easy-android-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>easy-android-database</artifactId>
+		</dependency>
+	
+		<dependency>
 			<groupId>org.icefaces</groupId>
 			<artifactId>icefaces</artifactId>
 			<version>2.0.2</version>

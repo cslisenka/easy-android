@@ -103,7 +103,7 @@ public class EasyAndroidWorkerProcess {
 		r.setReporter(r1);
 		r.setSection(s1);
 		r.setCategory(c1);
-		r.setDesctiption("description " + name);
+		r.setDescription("description " + name);
 		r.setTime(new Date(2013, 10, 10, 5, 30));
 		model.getReports().add(r);
 	}

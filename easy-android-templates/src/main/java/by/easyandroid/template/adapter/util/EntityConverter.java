@@ -62,7 +62,7 @@ public class EntityConverter {
 		reportElement.setAttribute("section", report.getSection().getId());
 		
 		reportElement.appendChild(XmlUtil.appendTextNode("title", report.getTitle(), doc));
-		reportElement.appendChild(XmlUtil.appendTextNode(DESCRIPTION, report.getDesctiption(), doc));
+		reportElement.appendChild(XmlUtil.appendTextNode(DESCRIPTION, report.getDescription(), doc));
 		
 		reportElement.appendChild(toXml(report.getTime(), doc));
 		
