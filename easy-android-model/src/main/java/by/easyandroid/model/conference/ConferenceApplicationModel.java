@@ -3,7 +3,7 @@ package by.easyandroid.model.conference;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.easyandroid.model.Identity;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 /**
  * Model with Conference application data. Represents one application entity in system.
@@ -11,14 +11,18 @@ import by.easyandroid.model.Identity;
  * 
  * @author kslisenko
  */
-public class ConferenceApplicationModel extends Identity {
+public class ConferenceApplicationModel {
 
+	@DBRef
 	private List<Report> reports = new ArrayList<Report>();
 	
+	@DBRef
 	private List<Reporter> reporters = new ArrayList<Reporter>();
 	
+	@DBRef
 	private List<Section> sections = new ArrayList<Section>();
 	
+	@DBRef
 	private List<Category> categories = new ArrayList<Category>();
 	
 	/**

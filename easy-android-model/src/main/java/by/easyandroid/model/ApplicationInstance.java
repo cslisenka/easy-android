@@ -2,6 +2,8 @@ package by.easyandroid.model;
 
 import java.util.Date;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import by.easyandroid.model.conference.ConferenceApplicationModel;
 
 
@@ -10,11 +12,12 @@ import by.easyandroid.model.conference.ConferenceApplicationModel;
  * 
  * @author kslisenko
  */
-public class ApplicationInstance {
+public class ApplicationInstance extends Identity {
 
 	/**
 	 * Template, which this application was copied
 	 */
+	@DBRef
 	private ApplicationTemplate template;
 	
 	/**

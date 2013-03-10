@@ -15,6 +15,8 @@ import by.easyandroid.model.Identity;
 
 public abstract class AbstractGenericServiceTest<S extends AbstractGenericService<T>, T extends Identity> {
 
+	protected MongoOperations mongoOperation;
+	
 	protected S service;
 	
 	protected abstract S createService(MongoOperations mongo);
@@ -27,7 +29,7 @@ public abstract class AbstractGenericServiceTest<S extends AbstractGenericServic
 	public void setUp() {
 		// TODO include production config into test config
 		ApplicationContext ctx = new GenericXmlApplicationContext("test-mongo-config.xml");
-		MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+		mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 		service = createService(mongoOperation);
 		
 		// Clear users
@@ -42,5 +44,6 @@ public abstract class AbstractGenericServiceTest<S extends AbstractGenericServic
 		List<T> objects = service.getAll();
 		Assert.assertEquals(1, objects.size());
 		assertTestEntity(objects.get(0));
+		Assert.assertNotNull(objects.get(0).getId());
 	}
 }
