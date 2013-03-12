@@ -1,13 +1,10 @@
 package org.jazzteam.easyandroid.webapp.beans;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 import org.jazzteam.easyandroid.webapp.beans.form.RegisterForm;
-import org.jazzteam.easyandroid.webapp.util.FacesUtil;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.data.mongodb.core.MongoOperations;
 
 import by.easyandroid.database.service.UserService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
@@ -15,47 +12,49 @@ import by.easyandroid.model.User;
 
 /**
  * Stores information about logged in user.
+ * 
  * @author kslisenko
  */
 @ManagedBean
 @RequestScoped
 public class UserBean {
 
+	@ManagedProperty(value = "#{userService}")
+	private UserService userService;
+
+	@ManagedProperty(value = "#{registerForm}")
+	private RegisterForm registerForm;
+
 	private User user;
 	private boolean isUserLoggedIn = false;
 
 	public String doRegister() {
-		RegisterForm form = FacesUtil.getRequestBean("registerForm"); 
-		ApplicationContext ctx = new GenericXmlApplicationContext("mongo-config.xml");
-		UserService service = (UserService) ctx.getBean("userService");
-		
 		User user = new User();
-		user.setLogin(form.getLogin());
-		user.setEmail(form.getEmail());
-		user.setPassword(form.getPassword());
+		user.setLogin(registerForm.getLogin());
+		user.setEmail(registerForm.getEmail());
+		user.setPassword(registerForm.getPassword());
 
 		try {
-			service.add(user);
+			userService.add(user);
 		} catch (DatabaseServiceException e) {
 			// TODO add error jsf message
 			e.printStackTrace();
 		}
-		
+
 		setUser(user);
-		
+
 		return "/myApplications.xhtml?faces-redirect=true";
 	}
-	
+
 	public String doLogin() {
-		
-		
+
 		return "/myApplications.xhtml?faces-redirect=true";
 	}
-	
+
 	public void doLogout() {
-		
+
 	}
-	
+
 	public boolean isUserLoggedIn() {
 		return isUserLoggedIn;
 	}
@@ -66,5 +65,21 @@ public class UserBean {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public RegisterForm getRegisterForm() {
+		return registerForm;
+	}
+
+	public void setRegisterForm(RegisterForm registerForm) {
+		this.registerForm = registerForm;
 	}
 }

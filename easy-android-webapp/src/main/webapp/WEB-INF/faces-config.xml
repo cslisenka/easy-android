@@ -7,6 +7,9 @@
     version="2.0">
     
 	<application>
+    	<el-resolver>
+    		org.springframework.web.jsf.el.SpringBeanFacesELResolver
+    	</el-resolver>
 	<!-- 
 		<message-bundle>eu.kedev.hotelnavigator.admin_web.Messages</message-bundle>
 		<message-bundle>com.icesoft.faces.resources.messages</message-bundle>
