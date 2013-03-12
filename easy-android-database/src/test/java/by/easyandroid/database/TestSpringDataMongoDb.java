@@ -23,7 +23,7 @@ public class TestSpringDataMongoDb {
 	@Test
 	public void testMongoCrud() {
 		// For XML
-		ApplicationContext ctx = new GenericXmlApplicationContext("mongo-config.xml");
+		ApplicationContext ctx = new GenericXmlApplicationContext("test-database-context.xml");
 
 		MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 

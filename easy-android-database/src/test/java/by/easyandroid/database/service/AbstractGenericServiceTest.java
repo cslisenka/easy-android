@@ -28,7 +28,7 @@ public abstract class AbstractGenericServiceTest<S extends AbstractGenericServic
 	@Before
 	public void setUp() {
 		// TODO include production config into test config
-		ApplicationContext ctx = new GenericXmlApplicationContext("test-mongo-config.xml");
+		ApplicationContext ctx = new GenericXmlApplicationContext("test-database-context.xml");
 		mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 		service = createService(mongoOperation);
 		

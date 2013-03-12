@@ -9,5 +9,5 @@
           http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<import resource="classpath:/database-config.xml" />			
+	<import resource="classpath:/database-context.xml" />			
 </beans>
