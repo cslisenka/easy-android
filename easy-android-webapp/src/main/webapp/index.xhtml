@@ -15,53 +15,28 @@
 			<h1>Create your business class android applications without effort and programming skills!</h1>
 		</center>
 	
-		<h:form>
-			<div style="text-align: center;">
-				<div style="width: 400px; margin: 0 auto; border: #E0E0E0 1px solid; padding-bottom: 20px; margin-top: 20px; background-color: #D3DFED;">
-				<h2><img src="#{resource['images/icons:lock.png']}"/> Please, login to system</h2>
-				<ice:messages errorClass="error" infoClass="info" />
+		<div style="text-align: center;">
+			<div style="width: 400px; margin: 0 auto; border: #E0E0E0 1px solid; padding-bottom: 20px; margin-top: 20px; background-color: #D3DFED;">
+			<h2><img src="#{resource['images/icons:lock.png']}"/> Please, login to system</h2>
+			<ice:messages errorClass="error" infoClass="info" />
 
-				<table align="center">
-					<tr>
-						<td style="text-align: right;"><ice:outputText value="Login:" /></td>
-						<td><ice:inputText size="25" maxlength="80" /></td>
-					</tr>
-					<tr>
-						<td style="text-align: right;"><ice:outputText value="Password: " /></td>
-						<td><ice:inputSecret size="25" maxlength="80" /></td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<ice:commandButton value="Login" action="/myApplications.xhtml?faces-redirect=true" /> 
-							<ice:commandLink styleClass="htmllink" actionListener="#{popupBean.openRegister}">Register new account</ice:commandLink>
-						</td>
-					</tr>
-				</table>
-				</div>
+			<table align="center">
+				<tr>
+					<td style="text-align: right;"><ice:outputText value="Login:" /></td>
+					<td><ice:inputText size="25" maxlength="80" /></td>
+				</tr>
+				<tr>
+					<td style="text-align: right;"><ice:outputText value="Password: " /></td>
+					<td><ice:inputSecret size="25" maxlength="80" /></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<ice:commandButton value="Login" action="/myApplications.xhtml?faces-redirect=true" /> 
+						<ice:commandLink styleClass="htmllink" action="/register.xhtml?faces-redirect=true">Register new account</ice:commandLink>
+					</td>
+				</tr>
+			</table>
 			</div>
-
-			<!-- Delete application dialog -->
-			<ice:panelPopup draggable="true"
-				visible="#{popupBean.registerAccount}" autoCentre="true">
-				<f:facet name="header"><img src="#{resource['images/icons:account.png']}"/> Register new account</f:facet>
-				<f:facet name="body">
-					<ice:panelGrid columns="2">
-               			Login*: <ice:inputText />
-               			Password*: <ice:inputSecret />
-               			Confirm password*: <ice:inputSecret />
-               			Email*: <ice:inputText />
-					</ice:panelGrid>
-					<br />
-					<ice:commandButton
-						action="/myApplications.xhtml?faces-redirect=true"
-						value="Register new account" />
-					<ice:commandButton actionListener="#{popupBean.closeRegister}"
-						value="No, cancel" />
-					<br />
-					<br />
-					<small style="color: red;">* Required fields</small>
-				</f:facet>
-			</ice:panelPopup>
-		</h:form>
+		</div>
 	</ui:define>
 </ui:composition>

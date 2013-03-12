@@ -27,8 +27,7 @@ public class UserBean {
 	public String doRegister() {
 		RegisterForm form = FacesUtil.getRequestBean("registerForm"); 
 		ApplicationContext ctx = new GenericXmlApplicationContext("mongo-config.xml");
-		MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-		UserService service = new UserService(mongoOperation);
+		UserService service = (UserService) ctx.getBean("userService");
 		
 		User user = new User();
 		user.setLogin(form.getLogin());
@@ -43,7 +42,6 @@ public class UserBean {
 		}
 		
 		setUser(user);
-		
 		
 		return "/myApplications.xhtml?faces-redirect=true";
 	}

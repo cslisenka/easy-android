@@ -31,4 +31,33 @@
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 		<constructor-arg name="mongoConverter" ref="mappingMongoConverter" />
 	</bean>
+	
+	<!-- Database services -->
+	<bean id="userService" class="by.easyandroid.database.service.UserService">
+		<constructor-arg name="mongo" ref="mongoTemplate" />
+	</bean>
+	
+	<bean id="templateService" class="by.easyandroid.database.service.TemplateService">
+		<constructor-arg name="mongo" ref="mongoTemplate" />
+	</bean>
+	
+	<bean id="applicationInstanceService" class="by.easyandroid.database.service.ApplicationInstanceService">
+		<constructor-arg name="mongo" ref="mongoTemplate" />
+	</bean>		
+	
+	<bean id="categoryService" class="by.easyandroid.database.service.conference.CategoryService">
+		<constructor-arg name="mongo" ref="mongoTemplate" />
+	</bean>	
+	
+	<bean id="reporterService" class="by.easyandroid.database.service.conference.ReporterService">
+		<constructor-arg name="mongo" ref="mongoTemplate" />
+	</bean>
+	
+	<bean id="reportService" class="by.easyandroid.database.service.conference.ReportService">
+		<constructor-arg name="mongo" ref="mongoTemplate" />
+	</bean>	
+	
+	<bean id="sectionService" class="by.easyandroid.database.service.conference.SectionService">
+		<constructor-arg name="mongo" ref="mongoTemplate" />
+	</bean>				
 </beans>
