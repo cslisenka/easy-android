@@ -1,15 +1,15 @@
-package org.jazzteam.easyandroid.webapp.beans;
+package org.jazzteam.easyandroid.webapp.beans.form;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 
 /**
  * Value bindings for register user popup
  * @author kslisenko
  */
 @ManagedBean
-@SessionScoped
-public class RegisterUserPopup {
+@RequestScoped
+public class RegisterForm {
 
 	private String login;
 	private String password;

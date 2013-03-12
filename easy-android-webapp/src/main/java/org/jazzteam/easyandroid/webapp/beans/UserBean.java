@@ -2,8 +2,15 @@ package org.jazzteam.easyandroid.webapp.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
+import org.jazzteam.easyandroid.webapp.beans.form.RegisterForm;
+import org.jazzteam.easyandroid.webapp.util.FacesUtil;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.data.mongodb.core.MongoOperations;
+
+import by.easyandroid.database.service.UserService;
+import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.User;
 
 /**
@@ -17,30 +24,28 @@ public class UserBean {
 	private User user;
 	private boolean isUserLoggedIn = false;
 
-	private String login;
-	
-	// TODO use private foeld and managed property @ManagedProperty
-	
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String registerNewUser() {
-		RegisterUserPopup popup = (RegisterUserPopup) FacesContext.getCurrentInstance()
-			    .getExternalContext().getSessionMap().get("registerUserPopup");
+	public String doRegister() {
+		RegisterForm form = FacesUtil.getRequestBean("registerForm"); 
+		ApplicationContext ctx = new GenericXmlApplicationContext("mongo-config.xml");
+		MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+		UserService service = new UserService(mongoOperation);
 		
-		String login = popup.getLogin();
-		String password = popup.getPassword();
+		User user = new User();
+		user.setLogin(form.getLogin());
+		user.setEmail(form.getEmail());
+		user.setPassword(form.getPassword());
+
+		try {
+			service.add(user);
+		} catch (DatabaseServiceException e) {
+			// TODO add error jsf message
+			e.printStackTrace();
+		}
 		
-		popup.setLogin("test");
+		setUser(user);
+		
 		
 		return "/myApplications.xhtml?faces-redirect=true";
-		
-		// Do registration
 	}
 	
 	public String doLogin() {
@@ -49,7 +54,7 @@ public class UserBean {
 		return "/myApplications.xhtml?faces-redirect=true";
 	}
 	
-	public void logout() {
+	public void doLogout() {
 		
 	}
 	
