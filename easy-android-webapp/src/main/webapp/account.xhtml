@@ -26,10 +26,10 @@
 		<ice:panelTabSet>
 			<ice:panelTab label="Base settings">
 				<ice:panelGrid columns="2">
-					Login*: <ice:inputText enabled="false" />
-					Password*: <ice:inputSecret />
-					Confirm password*: <ice:inputSecret />
-					Email*: <ice:inputText />
+					Login*: <ice:inputText value="#{accountSettingsForm.login}" enabled="false" />
+					Password*: <ice:inputSecret value="#{accountSettingsForm.password}" />
+					Confirm password*: <ice:inputSecret value="#{accountSettingsForm.passwordConfirm}" />
+					Email*: <ice:inputText value="#{accountSettingsForm.email}" />
 				</ice:panelGrid>
 				<br />
 				<ice:commandButton value="Save" />
@@ -37,7 +37,6 @@
 				<br />
 				<br />
 				<small style="color: red;">* Reaquired fields</small>
-
 			</ice:panelTab>
 		</ice:panelTabSet>
 	</ui:define>

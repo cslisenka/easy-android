@@ -1,4 +1,4 @@
-package org.jazzteam.easyandroid.webapp.beans.reportersAutocomplete;
+package org.jazzteam.easyandroid.webapp.beans;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import org.jazzteam.easyandroid.webapp.beans.PopupBean;
+import org.jazzteam.easyandroid.webapp.PopupBean;
 
 import by.easyandroid.model.conference.Reporter;
 

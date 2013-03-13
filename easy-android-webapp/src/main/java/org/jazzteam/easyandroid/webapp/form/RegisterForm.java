@@ -1,36 +1,18 @@
-package org.jazzteam.easyandroid.webapp.beans.form;
+package org.jazzteam.easyandroid.webapp.form;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 /**
- * Value bindings for register user popup
+ * Value bindings for register user
  * @author kslisenko
  */
 @ManagedBean
 @RequestScoped
-public class RegisterForm {
+public class RegisterForm extends LoginForm {
 
-	private String login;
-	private String password;
 	private String passwordConfirm;
 	private String email;
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public String getPasswordConfirm() {
 		return passwordConfirm;

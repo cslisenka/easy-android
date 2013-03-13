@@ -1,4 +1,4 @@
-package org.jazzteam.easyandroid.webapp.beans;
+package org.jazzteam.easyandroid.webapp;
 
 import javax.faces.bean.ManagedBean;
 

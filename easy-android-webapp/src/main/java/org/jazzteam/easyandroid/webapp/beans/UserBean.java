@@ -4,7 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
-import org.jazzteam.easyandroid.webapp.beans.form.RegisterForm;
+import org.jazzteam.easyandroid.webapp.form.RegisterForm;
 
 import by.easyandroid.database.service.UserService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
