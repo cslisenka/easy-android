@@ -17,8 +17,10 @@
 				<ice:menuItem value="Apps catalog" icon="#{resource['images/icons:apps_catalog.png']}" action="/applicationsCatalog.xhtml?faces-redirect=true" />
 			</ice:menuItem>
 
-			<ice:menuItem value="Account settings" action="/account.xhtml?faces-redirect=true"/>
-			<ice:menuItem value="Logout" action="/index.xhtml?faces-redirect=true" />
+			<ice:menuItem rendered="#{userBean.userLoggedIn}" value="User: #{userBean.user.login}">
+				<ice:menuItem value="Settings" action="/account.xhtml?faces-redirect=true" />
+				<ice:menuItem value="Logout" action="#{userBean.doLogout}" />
+			</ice:menuItem>
 		</ice:menuBar>
 
 		<br />
