@@ -1,4 +1,4 @@
-package org.jazzteam.easyandroid.webapp.form;
+package by.easyandroid.webapp.form;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,12 @@ import by.easyandroid.model.ApplicationTemplate;
 
 @ManagedBean
 @RequestScoped
-public class MyApplicationsForm {
+public class ApplicationsCatalogForm {
 
 	private List<ApplicationTemplate> templates = new ArrayList<ApplicationTemplate>();
 	
-	public MyApplicationsForm() {
+	public ApplicationsCatalogForm() {
+		// TODO [kslisenko] 23.08.2012: init templates
 		ApplicationTemplate t1 = new ApplicationTemplate();
 		t1.setId("1");
 		t1.setTitle("Conference");

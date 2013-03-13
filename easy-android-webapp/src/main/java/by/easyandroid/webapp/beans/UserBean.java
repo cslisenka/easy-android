@@ -1,17 +1,20 @@
-package org.jazzteam.easyandroid.webapp.beans;
+package by.easyandroid.webapp.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
 
-import org.jazzteam.easyandroid.webapp.form.LoginForm;
-import org.jazzteam.easyandroid.webapp.form.RegisterForm;
-import org.jazzteam.easyandroid.webapp.util.FacesUtil;
-import org.jazzteam.easyandroid.webapp.util.Navigation;
 
 import by.easyandroid.database.service.UserService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.User;
+import by.easyandroid.webapp.form.LoginForm;
+import by.easyandroid.webapp.form.RegisterForm;
+import by.easyandroid.webapp.util.FacesUtil;
+import by.easyandroid.webapp.util.Navigation;
 
 /**
  * Stores information about logged in user.
@@ -20,7 +23,7 @@ import by.easyandroid.model.User;
  */
 @ManagedBean
 @SessionScoped
-public class UserBean {
+public class UserBean implements PhaseListener {
 
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
@@ -74,5 +77,17 @@ public class UserBean {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public void afterPhase(PhaseEvent event) {
+		// Nothing to do
+	}
+
+	public void beforePhase(PhaseEvent event) {
+		// Check if user logged in
+	}
+
+	public PhaseId getPhaseId() {
+		return PhaseId.RENDER_RESPONSE;
 	}
 }

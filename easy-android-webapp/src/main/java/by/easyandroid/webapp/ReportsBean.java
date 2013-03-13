@@ -1,4 +1,4 @@
-package org.jazzteam.easyandroid.webapp;
+package by.easyandroid.webapp;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;

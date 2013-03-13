@@ -1,4 +1,4 @@
-package org.jazzteam.easyandroid.webapp.form;
+package by.easyandroid.webapp.form;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;

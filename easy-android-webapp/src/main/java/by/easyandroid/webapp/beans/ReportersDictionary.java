@@ -1,4 +1,4 @@
-package org.jazzteam.easyandroid.webapp.beans;
+package by.easyandroid.webapp.beans;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import org.jazzteam.easyandroid.webapp.PopupBean;
 
 import by.easyandroid.model.conference.Reporter;
+import by.easyandroid.webapp.PopupBean;
 
 import com.icesoft.faces.component.selectinputtext.SelectInputText;
 

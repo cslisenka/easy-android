@@ -63,9 +63,7 @@
   </application>
     
   <lifecycle>
-  <!-- 
-    <phase-listener>eu.kedev.hotelnavigator.admin_web.user.LoginController</phase-listener>
-     -->
+    <phase-listener>by.easyandroid.webapp.beans.UserBean</phase-listener>
   </lifecycle>
    
 </faces-config>

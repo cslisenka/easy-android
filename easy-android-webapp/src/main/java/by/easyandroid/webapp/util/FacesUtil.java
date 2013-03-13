@@ -1,4 +1,4 @@
-package org.jazzteam.easyandroid.webapp.util;
+package by.easyandroid.webapp.util;
 
 import javax.faces.context.FacesContext;
 
