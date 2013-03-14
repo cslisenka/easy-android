@@ -7,13 +7,9 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-
 import by.easyandroid.database.service.UserService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.User;
-import by.easyandroid.webapp.form.LoginForm;
-import by.easyandroid.webapp.form.RegisterForm;
-import by.easyandroid.webapp.util.FacesUtil;
 import by.easyandroid.webapp.util.Navigation;
 
 /**
@@ -29,29 +25,44 @@ public class UserBean implements PhaseListener {
 	private UserService userService;
 
 	private User user;
+	
+	private String login;
+	private String password;
+	private String passwordConfirm;
+	private String email;	
 
-	public String doRegister() throws DatabaseServiceException {
-		RegisterForm registerForm = FacesUtil.getRequestBean("registerForm");
+	public String doRegister() {
 		User user = new User();
-		user.setLogin(registerForm.getLogin());
-		user.setEmail(registerForm.getEmail());
-		user.setPassword(registerForm.getPassword());
+		user.setLogin(login);
+		user.setEmail(email);
+		user.setPassword(password);
 
 		// TODO check required fields
 		
-		userService.add(user);
-
-		setUser(user);
+		try {
+			userService.add(user);
+			setUser(user);
+			clearAll();
+		} catch (DatabaseServiceException e) {
+			// TODO show error
+			e.printStackTrace();
+			clearPassword();
+		}
 
 		return Navigation.MY_APPLICATIONS;
 	}
 
 	public String doLogin() {
-		LoginForm loginForm = FacesUtil.getRequestBean("loginForm");
-		User user = userService.get(loginForm.getLogin(), loginForm.getPassword());
-		// TODO check wrong username
-		setUser(user);
-		return Navigation.MY_APPLICATIONS;
+		User user = userService.get(login, login);
+		
+		if (user != null) {
+			setUser(user);
+			clearAll();
+			return Navigation.MY_APPLICATIONS;
+		} else {
+			clearPassword();
+			return Navigation.LOGIN_PAGE;	
+		}
 	}
 
 	public String doLogout() {
@@ -61,6 +72,17 @@ public class UserBean implements PhaseListener {
 
 	public boolean isUserLoggedIn() {
 		return user != null;
+	}
+	
+	public void clearAll() {
+		clearPassword();
+		login = null;
+		email = null;
+	}
+	
+	public void clearPassword() {
+		password = null;
+		passwordConfirm = null;
 	}
 
 	public User getUser() {
@@ -79,12 +101,44 @@ public class UserBean implements PhaseListener {
 		this.userService = userService;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public void afterPhase(PhaseEvent event) {
 		// Nothing to do
 	}
 
 	public void beforePhase(PhaseEvent event) {
-		// Check if user logged in
+		// TODO Check if user logged in
 	}
 
 	public PhaseId getPhaseId() {

@@ -26,10 +26,10 @@
 		<ice:panelTabSet>
 			<ice:panelTab label="Base settings">
 				<ice:panelGrid columns="2">
-					Login*: <ice:inputText value="#{accountSettingsForm.login}" enabled="false" />
-					Password*: <ice:inputSecret value="#{accountSettingsForm.password}" />
-					Confirm password*: <ice:inputSecret value="#{accountSettingsForm.passwordConfirm}" />
-					Email*: <ice:inputText value="#{accountSettingsForm.email}" />
+					Login*: <ice:inputText value="#{userBean.login}" enabled="false" />
+					Password*: <ice:inputSecret value="#{userBean.password}" />
+					Confirm password*: <ice:inputSecret value="#{userBean.passwordConfirm}" />
+					Email*: <ice:inputText value="#{userBean.email}" />
 				</ice:panelGrid>
 				<br />
 				<ice:commandButton value="Save" />
