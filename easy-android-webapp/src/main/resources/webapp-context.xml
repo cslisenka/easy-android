@@ -9,5 +9,6 @@
           http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+	<context:annotation-config />
 	<import resource="classpath:/database-context.xml" />			
 </beans>

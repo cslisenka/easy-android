@@ -61,13 +61,13 @@ public class UserBean implements PhaseListener {
 			return Navigation.MY_APPLICATIONS;
 		} else {
 			clearPassword();
-			return Navigation.LOGIN_PAGE;	
+			return Navigation.LOGIN;	
 		}
 	}
 
 	public String doLogout() {
 		setUser(null);
-		return Navigation.LOGIN_PAGE;
+		return Navigation.LOGIN;
 	}
 
 	public boolean isUserLoggedIn() {

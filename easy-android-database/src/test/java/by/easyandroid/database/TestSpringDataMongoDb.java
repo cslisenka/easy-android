@@ -3,6 +3,7 @@ package by.easyandroid.database;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -11,6 +12,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
+import by.easyandroid.database.service.TemplateService;
+import by.easyandroid.database.service.exception.DatabaseServiceException;
+import by.easyandroid.model.ApplicationTemplate;
 import by.easyandroid.model.User;
 
 public class TestSpringDataMongoDb {
@@ -20,6 +24,24 @@ public class TestSpringDataMongoDb {
 	private static final String COLLECTION = "users";
 	private static final String USERNAME = "kslisenko";
 
+	@Ignore
+	@Test
+	public void testInsertApplicationTemplate() throws DatabaseServiceException {
+		ApplicationTemplate template = new ApplicationTemplate();
+		template.setTitle("Conference");
+		template.setDescription("Application, which displays conference schedule.");
+		template.setConverterClassName("converter.class.Name");
+		template.setSampleApkUrl("http://sampleapk.url.com");
+		template.setWebUIPartUrl("conference");
+		template.setTemplateSourceUrl("/templates/Conference");
+		
+		ApplicationContext ctx = new GenericXmlApplicationContext("database-context.xml");
+
+		TemplateService service = (TemplateService) ctx.getBean("templateService");
+		service.add(template);
+	}
+	
+	@Ignore
 	@Test
 	public void testMongoCrud() {
 		// For XML

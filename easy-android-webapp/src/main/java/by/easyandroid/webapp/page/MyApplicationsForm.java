@@ -1,4 +1,4 @@
-package by.easyandroid.webapp.form;
+package by.easyandroid.webapp.page;
 
 import java.util.ArrayList;
 import java.util.List;
