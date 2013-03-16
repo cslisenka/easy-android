@@ -39,6 +39,7 @@ public abstract class AbstractGenericService<T extends Identity> {
 	 * @return new copied object
 	 */
 	public T copy(String id) throws DatabaseServiceException {
+		// TODO implement method with Section object as a parameter
 		T entity = mongo.findById(id, type, collection);
 		if (entity == null) {
 			throw new DatabaseServiceException("Can not find entity with id = '" + id + "' to make a copy");
@@ -66,7 +67,12 @@ public abstract class AbstractGenericService<T extends Identity> {
 		mongo.insert(entities, collection);
 		return entities;
 	}
-
+	
+	// TODO unit-test
+	public void save(T entity) {
+		mongo.save(entity, collection);
+	}
+	
 	public Class<T> getType() {
 		return type;
 	}

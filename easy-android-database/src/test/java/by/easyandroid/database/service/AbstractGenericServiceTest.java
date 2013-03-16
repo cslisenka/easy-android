@@ -34,7 +34,11 @@ public abstract class AbstractGenericServiceTest<S extends AbstractGenericServic
 		service = createService(mongoOperation);
 		
 		// Clear users
-		mongoOperation.dropCollection(service.getCollection());
+		for (String collection : mongoOperation.getCollectionNames()) {
+			if (!collection.equals("system.indexes")) {
+				mongoOperation.dropCollection(collection);
+			}
+		}
 	}
 	
 	@Test
