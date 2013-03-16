@@ -1,8 +1,10 @@
 package by.easyandroid.webapp;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean
+@SessionScoped
 public class PopupBean {
 
 	private boolean copyApplication = false;

@@ -7,14 +7,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import by.easyandroid.model.ApplicationTemplate;
+import by.easyandroid.webapp.AbstractBaseForm;
 
 @ManagedBean
 @RequestScoped
-public class MyApplicationsForm {
+public class MyApplicationsForm extends AbstractBaseForm {
 
 	private List<ApplicationTemplate> templates = new ArrayList<ApplicationTemplate>();
 	
-	public MyApplicationsForm() {
+	@Override
+	public void init() {
 		ApplicationTemplate t1 = new ApplicationTemplate();
 		t1.setId("1");
 		t1.setTitle("Conference");
@@ -35,8 +37,8 @@ public class MyApplicationsForm {
 		t3.setDescription("Simple catalog for common needs. You can create your shop catalog here, or you can do helper book for learning something.");
 		
 		templates.add(t3);
-	}
-
+	}	
+	
 	public List<ApplicationTemplate> getTemplates() {
 		return templates;
 	}

@@ -20,25 +20,27 @@
 		<p>You can <b>copy</b> each template and customize it.</p>
 	</ui:define>
 
-	<ice:panelGroup visible="#{popupBean.copyApplication}">
-		<p>
-			Do you really want to copy this application to your applications?
-		</p>
-		New application name: <ice:inputText value="Conference_copy" /><br/>
-		<br/>
-		<ice:commandButton value="OK, copy" />
-		<ice:commandButton value="Cancel" />
-	</ice:panelGroup>
-
 	<ui:define name="pageCenterContent">
-		<ice:panelSeries value="#{appsCatalogPage.templates}" var="template">
+		<ice:panelGroup rendered="#{popupBean.copyApplication}">
+			<div id="copyDialog" style="visibility: hidden; position: absolute; top: 45%; left: 45%; background-color: #E0E0E0; border: 1px solid #A0A0A0; padding: 10px;">
+				<p>
+					Do you really want to copy this application to your applications?
+				</p>
+				New application name: <ice:inputText value="Conference_copy" /><br/>
+				<br/>
+				<ice:commandButton value="OK, copy" />
+				<ice:commandButton onclick="document.getElementById('copyDialog').style.visibility='hidden';" value="Cancel" />
+			</div>
+		</ice:panelGroup>	
+	
+		<ice:panelSeries value="#{appsCatalogForm.templates}" var="template">
 			<h:panelGrid columns="2" width="45%" style="border: #E0E0E0 1px solid; float: left; margin: 10px; padding: 0px 10px 10px 10px; height: 210px;">
 				<img src="#{resource['images:android_logo.jpg']}"/>
 				<h:panelGrid style="margin-left: 20px;">
 					<h3>#{template.title}</h3>
 					<p>#{template.description}</p>
-					<ice:commandLink actionListener="#{popupBean.openCopy}" styleClass="htmllink"><img src="#{resource['images/icons:copy.png']}" style="margin-right: 5px;"/>Copy to "My applications"</ice:commandLink>
-					<ice:commandLink styleClass="htmllink"><img src="#{resource['images/icons:download_apk.png']}" style="margin-right: 5px;"/>Sample APK</ice:commandLink>
+					<ice:commandLink onclick="document.getElementById('copyDialog').style.visibility='visible';" styleClass="htmllink"><img src="#{resource['images/icons:copy.png']}" style="margin-right: 5px;"/>Copy to "My applications"</ice:commandLink>
+					<ice:commandLink onclick="" styleClass="htmllink"><img src="#{resource['images/icons:download_apk.png']}" style="margin-right: 5px;"/>Sample APK</ice:commandLink>
 				</h:panelGrid>
 			</h:panelGrid>
 		</ice:panelSeries>
