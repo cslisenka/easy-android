@@ -2,6 +2,7 @@ package by.easyandroid.database.service;
 
 import junit.framework.Assert;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.data.mongodb.core.MongoOperations;
 
@@ -68,5 +69,15 @@ public class TestUserService extends AbstractGenericServiceTest<UserService, Use
 	@Override
 	protected UserService createService(MongoOperations mongo) {
 		return new UserService(mongo);
+	}
+
+	@Override
+	public void testCopy() throws DatabaseServiceException {
+		// Nothing to do, we can not copy users
+	}
+
+	@Override
+	public void testCopyList() throws DatabaseServiceException {
+		// Nothing to do, we can not copy users		
 	}
 }
