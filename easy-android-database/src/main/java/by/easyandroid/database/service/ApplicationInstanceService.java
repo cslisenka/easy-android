@@ -1,9 +1,7 @@
 package by.easyandroid.database.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 
@@ -12,6 +10,7 @@ import by.easyandroid.database.service.conference.ReportService;
 import by.easyandroid.database.service.conference.ReporterService;
 import by.easyandroid.database.service.conference.SectionService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
+import by.easyandroid.database.util.RelationSavingCopier;
 import by.easyandroid.model.ApplicationInstance;
 import by.easyandroid.model.conference.Category;
 import by.easyandroid.model.conference.ConferenceApplicationModel;
@@ -38,54 +37,24 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 
 		// Copy sections
 		ConferenceApplicationModel model = copied.getModel();
-		Map<String, Section> oldNewSections = new HashMap<String, Section>();
-		Map<String, Category> oldNewCategories = new HashMap<String, Category>();
-		Map<String, Reporter> oldNewReporters = new HashMap<String, Reporter>();
+		RelationSavingCopier<Section> sectionCopier = new RelationSavingCopier<Section>(sectionService);
+		RelationSavingCopier<Category> categoryCopier = new RelationSavingCopier<Category>(categoryService);
+		RelationSavingCopier<Reporter> reporterCopier = new RelationSavingCopier<Reporter>(reporterService);
+		
 		List<Report> newReports = new ArrayList<Report>();
-		for (Report oneReport : model.getReports()) {
-			Report newReport = reportService.copy(oneReport.getId());
+		for (Report report : model.getReports()) {
+			Report newReport = reportService.copy(report.getId());
 			newReports.add(newReport);
-			
-			// Copy section
-			Section section = newReport.getSection();
-			if (!oldNewSections.containsKey(section.getId())) {
-				Section newSection = sectionService.copy(section.getId());
-				oldNewSections.put(section.getId(), newSection);
-				section = newSection;
-			} else {
-				section = oldNewSections.get(section.getId());
-			}
-			
-			newReport.setSection(section);
-			
-			// Copy category
-			Category category = newReport.getCategory();
-			if (!oldNewCategories.containsKey(category.getId())) {
-				Category newCategory = categoryService.copy(category.getId());
-				oldNewCategories.put(category.getId(), newCategory);
-				category = newCategory;
-			} else {
-				category = oldNewCategories.get(category.getId());
-			}
-			
-			Reporter reporter = newReport.getReporter();
-			if (!oldNewReporters.containsKey(reporter.getId())) {
-				Reporter newReporter = reporterService.copy(reporter.getId());
-				oldNewReporters.put(reporter.getId(), newReporter);
-				reporter = newReporter;
-			} else {
-				reporter = oldNewReporters.get(reporter.getId());
-			}
-			
-			newReport.setReporter(reporter);
-			
+			newReport.setSection(sectionCopier.copyOrRelate(newReport.getSection()));
+			newReport.setCategory(categoryCopier.copyOrRelate(newReport.getCategory()));
+			newReport.setReporter(reporterCopier.copyOrRelate(newReport.getReporter()));
 			reportService.save(newReport);
 		}
 		
 		model.setReports(newReports);
-		model.setSections(new ArrayList<Section>(oldNewSections.values()));
-		model.setCategories(new ArrayList<Category>(oldNewCategories.values()));
-		model.setReporters(new ArrayList<Reporter>(oldNewReporters.values()));
+		model.setSections(sectionCopier.getCopiedObjects());
+		model.setCategories(categoryCopier.getCopiedObjects());
+		model.setReporters(reporterCopier.getCopiedObjects());
 		
 		save(copied);
 		

@@ -27,20 +27,29 @@ import by.easyandroid.model.conference.Section;
 
 public class TestApplicationInstanceService extends AbstractGenericServiceTest<ApplicationInstanceService, ApplicationInstance> {
 
-	@Test
-	public void testFullCopy() throws DatabaseServiceException {
-		// TODO to set up
-		TemplateService ts = new TemplateService(mongoOperation);
-		SectionService ss = new SectionService(mongoOperation);
-		CategoryService cs = new CategoryService(mongoOperation);
-		ReportService rs = new ReportService(mongoOperation);
-		ReporterService rrs = new ReporterService(mongoOperation);
+	private TemplateService ts;
+	private SectionService ss;
+	private CategoryService cs;
+	private ReportService rs;
+	private ReporterService rrs;	
+	
+	@Override
+	public void setUp() {
+		super.setUp();
+		ts = new TemplateService(mongoOperation);
+		ss = new SectionService(mongoOperation);
+		cs = new CategoryService(mongoOperation);
+		rs = new ReportService(mongoOperation);
+		rrs = new ReporterService(mongoOperation);
 		
 		service.setCategoryService(cs);
 		service.setSectionService(ss);
 		service.setReportService(rs);
-		service.setReporterService(rrs);
-		
+		service.setReporterService(rrs);		
+	}
+	
+	@Test
+	public void testFullCopy() throws DatabaseServiceException {
 		// Create application instance
 		ApplicationTemplate template = TestObjectCreator.fakeTemplate("test template");
 		ts.add(template);
@@ -101,18 +110,8 @@ public class TestApplicationInstanceService extends AbstractGenericServiceTest<A
 		Assert.assertEquals(2, rrs.getAll().size()); // 2 reporters
 		Assert.assertEquals(4, rs.getAll().size()); // 4 reports
 		
-		Set<String> oldModelObjectIds = new HashSet<String>();
-		oldModelObjectIds.addAll(DatabaseUtil.getIds(model.getReports()));
-		oldModelObjectIds.addAll(DatabaseUtil.getIds(model.getReporters()));
-		oldModelObjectIds.addAll(DatabaseUtil.getIds(model.getSections()));
-		oldModelObjectIds.addAll(DatabaseUtil.getIds(model.getCategories()));
-		
-		ConferenceApplicationModel copiedModel = copied.getModel();
-		Set<String> newModelObjectIds = new HashSet<String>();
-		newModelObjectIds.addAll(DatabaseUtil.getIds(copiedModel.getReports()));
-		newModelObjectIds.addAll(DatabaseUtil.getIds(copiedModel.getReporters()));
-		newModelObjectIds.addAll(DatabaseUtil.getIds(copiedModel.getSections()));
-		newModelObjectIds.addAll(DatabaseUtil.getIds(copiedModel.getCategories()));
+		Set<String> oldModelObjectIds = getObjectIds(model);
+		Set<String> newModelObjectIds = getObjectIds(copied.getModel());
 		
 		for (String newModelId : newModelObjectIds) {
 			Assert.assertFalse(oldModelObjectIds.contains(newModelId));
@@ -158,5 +157,14 @@ public class TestApplicationInstanceService extends AbstractGenericServiceTest<A
 	@Override
 	protected ApplicationInstanceService createService(MongoOperations mongo) {
 		return new ApplicationInstanceService(mongo);
+	}
+	
+	private Set<String> getObjectIds(ConferenceApplicationModel model) {
+		Set<String> objectIds = new HashSet<String>();
+		objectIds.addAll(DatabaseUtil.getIds(model.getReports()));
+		objectIds.addAll(DatabaseUtil.getIds(model.getReporters()));
+		objectIds.addAll(DatabaseUtil.getIds(model.getSections()));
+		objectIds.addAll(DatabaseUtil.getIds(model.getCategories()));
+		return objectIds;
 	}
 }
