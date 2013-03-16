@@ -22,7 +22,7 @@
 
 	<ui:define name="pageCenterContent">
 		<ice:panelGroup rendered="#{copyTemplateDialog.opened}">
-			<div id="copyDialog" style="position: absolute; top: 45%; left: 45%; background-color: #E0E0E0; border: 1px solid #A0A0A0; padding: 10px;">
+			<div class="customDialog">
 				<p>
 					Do you really want to copy this application to your applications?
 				</p>
@@ -39,8 +39,9 @@
 				<h:panelGrid style="margin-left: 20px;">
 					<h3>#{template.title}</h3>
 					<p>#{template.description}</p>
-					<img src="#{resource['images/icons:copy.png']}" style="margin-right: 5px;" />
-					<ice:commandLink actionListener="#{appsCatalogForm.showCopyDialog}" value="Copy to 'My applications'" styleClass="htmllink">
+					
+					<ice:commandLink actionListener="#{appsCatalogForm.showCopyDialog}" styleClass="htmllink">
+						<img src="#{resource['images/icons:copy.png']}" style="margin-right: 5px;" />Copy to 'My applications'
 						<f:attribute name="templateId" value="#{template.id}" />
 						<f:attribute name="templateTitle" value="#{template.title}" />
 					</ice:commandLink>
