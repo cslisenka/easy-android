@@ -1,8 +1,5 @@
 package by.easyandroid.model;
 
-import by.easyandroid.model.conference.ConferenceApplicationModel;
-
-
 /**
  * Android application template. User can create his own android applications from it.
  * 
@@ -29,11 +26,6 @@ public class ApplicationTemplate extends Identity {
 	 * Url or path to template sources (android project)
 	 */
 	private String templateSourceUrl;
-	
-	/**
-	 * Data model for copying and creating templates
-	 */
-	private ConferenceApplicationModel templateModel;
 	
 	/**
 	 * Url to web application part for editing application model
@@ -75,14 +67,6 @@ public class ApplicationTemplate extends Identity {
 
 	public void setTemplateSourceUrl(String templateSourceUrl) {
 		this.templateSourceUrl = templateSourceUrl;
-	}
-
-	public ConferenceApplicationModel getTemplateModel() {
-		return templateModel;
-	}
-
-	public void setTemplateModel(ConferenceApplicationModel templateModel) {
-		this.templateModel = templateModel;
 	}
 
 	public String getWebUIPartUrl() {

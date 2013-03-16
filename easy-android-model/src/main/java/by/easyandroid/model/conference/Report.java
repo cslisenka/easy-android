@@ -2,6 +2,8 @@ package by.easyandroid.model.conference;
 
 import java.util.Date;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import by.easyandroid.model.Identity;
 
 public class Report extends Identity {
@@ -12,10 +14,13 @@ public class Report extends Identity {
 	
 	private Date time;
 	
+	@DBRef
 	private Section section;
 	
+	@DBRef
 	private Category category;
 	
+	@DBRef
 	private Reporter reporter;
 
 	public String getTitle() {
