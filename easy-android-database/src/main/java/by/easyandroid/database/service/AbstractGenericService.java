@@ -25,6 +25,10 @@ public abstract class AbstractGenericService<T extends Identity> {
 		this.collection = collection;
 	}
 	
+	public T get(String id) {
+		return mongo.findById(id, type, collection);
+	}
+	
 	public void add(T obj) throws DatabaseServiceException {
 		mongo.save(obj, collection);
 	}

@@ -12,6 +12,8 @@ import by.easyandroid.database.service.conference.SectionService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.database.util.RelationSavingCopier;
 import by.easyandroid.model.ApplicationInstance;
+import by.easyandroid.model.ApplicationTemplate;
+import by.easyandroid.model.User;
 import by.easyandroid.model.conference.Category;
 import by.easyandroid.model.conference.ConferenceApplicationModel;
 import by.easyandroid.model.conference.Report;
@@ -22,10 +24,12 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 
 	private static final String APPLICATION_INSTANCE = "applicationInstance";
 
+	private TemplateService templateService;
 	private SectionService sectionService;
 	private CategoryService categoryService;
 	private ReporterService reporterService;
 	private ReportService reportService;
+	private UserService userService;
 	
 	public ApplicationInstanceService(MongoOperations mongo) {
 		super(mongo, ApplicationInstance.class, APPLICATION_INSTANCE);
@@ -61,6 +65,24 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 		return copied;
 	}
 
+	public ApplicationInstance copyFromTemplate(String templateId, User currentUser) throws DatabaseServiceException {
+		if (currentUser == null) {
+			throw new DatabaseServiceException("Can not copy application model because no current user in the system");			
+		}
+		
+		ApplicationTemplate template = templateService.get(templateId);
+		if (template == null) {
+			throw new DatabaseServiceException("Can not copy application model because template with id = '" + templateId + " not exists");
+		}
+		
+		ApplicationInstance copiedInstance = fullCopy(template.getInitialInstance().getId());
+		
+		currentUser.getApplications().add(copiedInstance);
+		userService.save(currentUser);
+		
+		return copiedInstance;
+	}
+	
 	public SectionService getSectionService() {
 		return sectionService;
 	}
@@ -91,5 +113,21 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 
 	public void setReportService(ReportService reportService) {
 		this.reportService = reportService;
+	}
+
+	public TemplateService getTemplateService() {
+		return templateService;
+	}
+
+	public void setTemplateService(TemplateService templateService) {
+		this.templateService = templateService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }
