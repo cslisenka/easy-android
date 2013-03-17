@@ -3,6 +3,7 @@ package by.easyandroid.database;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -14,9 +15,15 @@ import org.springframework.data.mongodb.core.query.Update;
 
 import by.easyandroid.database.service.TemplateService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
+import by.easyandroid.database.util.TestDatabaseUtil;
 import by.easyandroid.model.ApplicationTemplate;
 import by.easyandroid.model.User;
 
+/**
+ * TestCase for experiments with mongo db
+ * @author kslisenko
+ *
+ */
 public class TestSpringDataMongoDb {
 
 	private static final String F_LOGIN = "login";
@@ -24,6 +31,17 @@ public class TestSpringDataMongoDb {
 	private static final String COLLECTION = "users";
 	private static final String USERNAME = "kslisenko";
 
+	private ApplicationContext ctx;
+	private MongoOperations mongo;
+	
+	// TODO create base class for all database tests
+	@Before
+	public void setUp() {
+		ctx = new GenericXmlApplicationContext("test-database-context.xml");
+		mongo = (MongoOperations) ctx.getBean("mongoTemplate");
+		TestDatabaseUtil.cleanCurentDatabase(mongo);
+	}
+	
 	@Ignore
 	@Test
 	public void testInsertApplicationTemplate() throws DatabaseServiceException {

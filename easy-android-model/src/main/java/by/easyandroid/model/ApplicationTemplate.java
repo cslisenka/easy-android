@@ -1,6 +1,5 @@
 package by.easyandroid.model;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 /**
  * Android application template. User can create his own android applications from it.
@@ -39,11 +38,11 @@ public class ApplicationTemplate extends Identity {
 	 */
 	private String converterClassName;
 	
-	/**
-	 * Instance with initial data model. Users can not change this instance and allow only copy it themself.
-	 */
-	@DBRef
-	private ApplicationInstance initialInstance;
+//	/**
+//	 * Instance with initial data model. Users can not change this instance and allow only copy it themself.
+//	 * Instance is a part of template object because or spring data issues (cyclic references bug and no possibility for querying objects by reference objid)
+//	 */
+//	private ApplicationInstance initialInstance;
 
 	public String getTitle() {
 		return title;
@@ -92,12 +91,12 @@ public class ApplicationTemplate extends Identity {
 	public void setConverterClassName(String converterClassName) {
 		this.converterClassName = converterClassName;
 	}
-
-	public ApplicationInstance getInitialInstance() {
-		return initialInstance;
-	}
-
-	public void setInitialInstance(ApplicationInstance initialInstance) {
-		this.initialInstance = initialInstance;
-	}
+//
+//	public ApplicationInstance getInitialInstance() {
+//		return initialInstance;
+//	}
+//
+//	public void setInitialInstance(ApplicationInstance initialInstance) {
+//		this.initialInstance = initialInstance;
+//	}
 }

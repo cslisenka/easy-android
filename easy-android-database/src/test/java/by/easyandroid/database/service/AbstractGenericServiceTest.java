@@ -9,9 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.dao.CleanupFailureDataAccessException;
 import org.springframework.data.mongodb.core.MongoOperations;
 
 import by.easyandroid.database.service.exception.DatabaseServiceException;
+import by.easyandroid.database.util.TestDatabaseUtil;
 import by.easyandroid.model.Identity;
 
 public abstract class AbstractGenericServiceTest<S extends AbstractGenericService<T>, T extends Identity> {
@@ -33,12 +35,7 @@ public abstract class AbstractGenericServiceTest<S extends AbstractGenericServic
 		mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 		service = createService(mongoOperation);
 		
-		// Clear users
-		for (String collection : mongoOperation.getCollectionNames()) {
-			if (!collection.equals("system.indexes")) {
-				mongoOperation.dropCollection(collection);
-			}
-		}
+		TestDatabaseUtil.cleanCurentDatabase(mongoOperation);
 	}
 	
 	@Test

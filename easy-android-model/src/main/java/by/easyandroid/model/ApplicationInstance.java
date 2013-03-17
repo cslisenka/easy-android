@@ -41,6 +41,12 @@ public class ApplicationInstance extends Identity {
 	 * True if there were no changes in the model until last apk build
 	 */
 	private boolean lastApkUpToDate;
+	
+	/**
+	 * If true, this instance used as template for creating new applications.
+	 * There could be only one instance for each ApplicationTemplate with this flag true.
+	 */
+	private boolean isTemplateInstance;
 
 	public ApplicationTemplate getTemplate() {
 		return template;
@@ -88,5 +94,13 @@ public class ApplicationInstance extends Identity {
 
 	public void setLastApkUpToDate(boolean lastApkUpToDate) {
 		this.lastApkUpToDate = lastApkUpToDate;
+	}
+
+	public boolean isTemplateInstance() {
+		return isTemplateInstance;
+	}
+
+	public void setTemplateInstance(boolean isTemplateInstance) {
+		this.isTemplateInstance = isTemplateInstance;
 	}
 }

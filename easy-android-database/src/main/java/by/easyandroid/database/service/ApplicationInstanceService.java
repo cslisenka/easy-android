@@ -3,7 +3,10 @@ package by.easyandroid.database.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import by.easyandroid.database.service.conference.CategoryService;
 import by.easyandroid.database.service.conference.ReportService;
@@ -12,7 +15,6 @@ import by.easyandroid.database.service.conference.SectionService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.database.util.RelationSavingCopier;
 import by.easyandroid.model.ApplicationInstance;
-import by.easyandroid.model.ApplicationTemplate;
 import by.easyandroid.model.User;
 import by.easyandroid.model.conference.Category;
 import by.easyandroid.model.conference.ConferenceApplicationModel;
@@ -24,7 +26,6 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 
 	private static final String APPLICATION_INSTANCE = "applicationInstance";
 
-	private TemplateService templateService;
 	private SectionService sectionService;
 	private CategoryService categoryService;
 	private ReporterService reporterService;
@@ -37,6 +38,8 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 	
 	public ApplicationInstance fullCopy(String id) throws DatabaseServiceException {
 		// Copy instance
+		mongo.findById(id, type, collection);
+		
 		ApplicationInstance copied = copy(id);
 
 		// Copy sections
@@ -70,17 +73,23 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 			throw new DatabaseServiceException("Can not copy application model because no current user in the system");			
 		}
 		
-		ApplicationTemplate template = templateService.get(templateId);
-		if (template == null) {
-			throw new DatabaseServiceException("Can not copy application model because template with id = '" + templateId + " not exists");
-		}
+		ApplicationInstance initialInstance = findTemplateInstance(templateId);
 		
-		ApplicationInstance copiedInstance = fullCopy(template.getInitialInstance().getId());
+		// Copy instance, remove "template" flag to false because new instance is user customizable now
+		ApplicationInstance copiedInstance = fullCopy(initialInstance.getId());
+		copiedInstance.setTemplateInstance(false);
+		save(copiedInstance);
 		
 		currentUser.getApplications().add(copiedInstance);
 		userService.save(currentUser);
 		
 		return copiedInstance;
+	}
+	
+	public ApplicationInstance findTemplateInstance(String templateId) {
+		Query q = new Query();
+		q.addCriteria(Criteria.where("template.$id").is(new ObjectId(templateId)));
+		return mongo.findOne(q, type, collection);
 	}
 	
 	public SectionService getSectionService() {
@@ -113,14 +122,6 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 
 	public void setReportService(ReportService reportService) {
 		this.reportService = reportService;
-	}
-
-	public TemplateService getTemplateService() {
-		return templateService;
-	}
-
-	public void setTemplateService(TemplateService templateService) {
-		this.templateService = templateService;
 	}
 
 	public UserService getUserService() {

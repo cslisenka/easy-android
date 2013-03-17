@@ -53,7 +53,14 @@ public class TestApplicationInstanceService extends AbstractGenericServiceTest<A
 		service.setReportService(rs);
 		service.setReporterService(rrs);	
 		service.setUserService(us);
-		service.setTemplateService(ts);
+	}
+
+	@Test
+	public void testTemplateInstanct() throws DatabaseServiceException {
+		populateDatabaseWithTemplateAndApplication();
+		ApplicationInstance instance = service.findTemplateInstance(template.getId());
+		Assert.assertNotNull(instance);
+		Assert.assertTrue(instance.isTemplateInstance());
 	}
 	
 	@Test
@@ -66,9 +73,15 @@ public class TestApplicationInstanceService extends AbstractGenericServiceTest<A
 		us.add(u);
 		
 		ApplicationInstance copied = service.copyFromTemplate(template.getId(), u);
+		// Check that instanct copied
 		Assert.assertEquals(2, service.getAll().size());
+		
+		// Check that instance assigned to user
 		Assert.assertEquals(1, u.getApplications().size());
 		Assert.assertEquals(copied, u.getApplications().get(0));
+		
+		// Check that instance is not a template now
+		Assert.assertFalse(copied.isTemplateInstance());
 	}
 	
 	@Test
@@ -180,6 +193,7 @@ public class TestApplicationInstanceService extends AbstractGenericServiceTest<A
 		ConferenceApplicationModel model = TestObjectCreator.fakeModel("some conference");
 		instance = TestObjectCreator.fakeInstance("testname");
 		instance.setModel(model);
+		instance.setTemplateInstance(true);
 		
 		model.getReports().add(r1);
 		model.getReports().add(r2);
@@ -191,9 +205,9 @@ public class TestApplicationInstanceService extends AbstractGenericServiceTest<A
 		
 		service.add(instance);
 		
-		template.setInitialInstance(instance);		
 		ts.add(template);
 		
-		// TODO if wet relations in both directions, stackoverflow error appears
+		instance.setTemplate(template);
+		service.save(instance);
 	}
 }

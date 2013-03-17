@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<project name="easy-android-deploy" default="usage" basedir=".">
+	<!--property file="${basedir}/tomcat/local.properties"/-->
+	<property name="tomcat.home" value="/usr/local/tomcat/apache-tomcat-7.0.34"/>
+
+	<!-- TODO -->
+	<target name="usage" description="Echos the usage and different targets">
+		<echo message="Usage : ant target-name"/>
+		<echo message="Valid target names are : "/>
+		<echo message="clean  --> Delete existing WebApp and WAR file from TOMCAT_HOME\webapps"/>
+		<echo message="deploy --> Deploy the WAR file to TOMCAT_HOME\webapps"/>
+		<echo message="start-tomcat --> Start tomcat"/>
+		<echo message="stop-tomcat  --> Stop tomcat"/>
+		<echo message="stop-deploy-start --> ..."/>
+		<echo message="deploy-start --> ..."/>
+	</target>
+	
+	<target name="stop-tomcat" description="Stop Tomcat application">
+		<exec dir="${tomcat.home}/bin" executable="sh">
+			<arg line="shutdown.sh"/>
+		</exec>
+	</target>
+
+	<target name="start-tomcat" description="Start Tomcat application">
+		<sshexec host="localhost"
+	    	username="root"
+	    	password=""
+	    	command="${tomcat.home}/bin/startup.sh"/>
+		<!--exec dir="${tomcat.home}/bin" executable="sh">
+			<arg line="startup.sh"/>
+		</exec-->
+	</target>
+
+	<!-- Delete exitsing WebApp and WAR file from TOMCAT_HOME\webapps -->
+	<target name="clean">
+		<echo>Clean Tomcat environment ...</echo>
+		<delete includeemptydirs="true">
+		    <fileset dir="${tomcat.home}/webapps/" includes="**/*"/>
+		</delete>
+	</target>
+
+	<!-- Deploy the WAR file to TOMCAT_HOME\webapps -->
+	<target name="deploy" depends="clean">
+		<echo>Deploying to ${tomcat.home}</echo>
+		<copy file="${basedir}/target/${ant.project.name}-1.0-SNAPSHOT.war" todir="${tomcat.home}/webapps"/>
+	</target>
+	
+	<target name="echo">
+		<echo message="${basedir}"/>
+	</target>
+</project>
