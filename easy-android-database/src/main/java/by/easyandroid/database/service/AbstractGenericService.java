@@ -71,6 +71,14 @@ public abstract class AbstractGenericService<T extends Identity> {
 		mongo.insert(entities, collection);
 		return entities;
 	}
+
+	public List<T> find(Query query) {
+		return mongo.find(query, type, collection);
+	}
+	
+	public T findOne(Query query) {
+		return mongo.findOne(query, type, collection);
+	}	
 	
 	// TODO unit-test
 	public void save(T entity) {

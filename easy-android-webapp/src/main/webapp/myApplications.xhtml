@@ -35,12 +35,11 @@
 		<ice:dataTable value="#{myApplicationsForm.templates}" var="template"
 			resizable="true" rows="#{dataTable.defaultRows}" width="600"
 			cellspacing="0" cellpadding="0"
-			columnClasses="tableIdCol,tableNameCol,tableChassisCol,
-                                          tableWeightCol,tableAccelCol,tableMpgCol,tableCostCol">
+			columnClasses="tableIdCol,tableNameCol,tableChassisCol,tableWeightCol,tableAccelCol,tableMpgCol,tableCostCol">
 			<ice:column>
 				<f:facet name="header">Name</f:facet>
 				<ice:panelGroup menuPopup="menuPopup">
-					<ice:commandLink action="/appConferenceData.xhtml?faces-redirect=true" styleClass="htmllink">#{template.title}</ice:commandLink>
+					<ice:commandLink action="/appConferenceData.xhtml?faces-redirect=true" styleClass="htmllink">#{template.name}</ice:commandLink>
 				</ice:panelGroup>
 				<ice:menuPopup id="menuPopup">
 					<ice:menuItem value="Copy" icon="#{resource['images/icons:copy.png']}" actionListener="#{popupBean.openCopy}"/>
@@ -51,12 +50,12 @@
 			</ice:column>
 			<ice:column>
 				<f:facet name="header">Creation date</f:facet>
-                TODO
+                #{template.creationDate}
 			</ice:column>
 			<ice:column>
 				<f:facet name="header">Last apk</f:facet>
 				<div style="text-align: center;">
-					<ice:commandLink styleClass="htmllink">
+					<ice:commandLink styleClass="htmllink" value="#{template.lastCreatedApkUrl}">
 						<img src="#{resource['images/icons:download_apk.png']}" style="margin-right: 5px;"/>
 					</ice:commandLink>
 				</div> 
@@ -64,6 +63,7 @@
 			<ice:column>
 				<f:facet name="header">Apk up to date</f:facet>
 				<div style="text-align: center">
+					<!-- TODO use c:if to show difference images -->
 					<img src="#{resource['images/icons:plus.png']}"/>
 				</div>
 			</ice:column>

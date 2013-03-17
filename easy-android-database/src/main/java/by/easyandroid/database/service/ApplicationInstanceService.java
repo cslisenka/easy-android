@@ -87,7 +87,7 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 	public ApplicationInstance findTemplateInstance(String templateId) {
 		Query q = new Query();
 		q.addCriteria(Criteria.where("template.$id").is(new ObjectId(templateId)));
-		return mongo.findOne(q, type, collection);
+		return findOne(q);
 	}
 	
 	public SectionService getSectionService() {
