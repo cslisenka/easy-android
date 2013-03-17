@@ -66,7 +66,7 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 		return copied;
 	}
 
-	public ApplicationInstance copyFromTemplate(String templateId, User currentUser) throws DatabaseServiceException {
+	public ApplicationInstance copyFromTemplate(String templateId, String newAppTitle, User currentUser) throws DatabaseServiceException {
 		if (currentUser == null) {
 			throw new DatabaseServiceException("Can not copy application model because no current user in the system");			
 		}
@@ -75,6 +75,7 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 		
 		// Copy instance, remove "template" flag to false because new instance is user customizable now
 		ApplicationInstance copiedInstance = fullCopy(initialInstance.getId());
+		copiedInstance.setName(newAppTitle);
 		copiedInstance.setTemplateInstance(false);
 		save(copiedInstance);
 		

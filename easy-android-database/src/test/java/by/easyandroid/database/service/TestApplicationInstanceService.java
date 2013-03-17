@@ -72,13 +72,16 @@ public class TestApplicationInstanceService extends AbstractGenericServiceTest<A
 		u.setPassword("user");
 		us.add(u);
 		
-		ApplicationInstance copied = service.copyFromTemplate(template.getId(), u);
+		ApplicationInstance copied = service.copyFromTemplate(template.getId(), "newtitle", u);
 		// Check that instanct copied
 		Assert.assertEquals(2, service.getAll().size());
 		
 		// Check that instance assigned to user
 		Assert.assertEquals(1, u.getApplications().size());
 		Assert.assertEquals(copied, u.getApplications().get(0));
+		
+		// Check that instance has new title
+		Assert.assertEquals("newtitle", copied.getName());
 		
 		// Check that instance is not a template now
 		Assert.assertFalse(copied.isTemplateInstance());

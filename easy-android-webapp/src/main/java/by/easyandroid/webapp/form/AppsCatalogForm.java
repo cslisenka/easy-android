@@ -41,7 +41,7 @@ public class AppsCatalogForm extends AbstractBaseForm {
 	
 	public void copy() {
 		try {
-			applicationInstanceService.copyFromTemplate(copyTemplDialog.getTemplateId(), userBean.getUser());
+			applicationInstanceService.copyFromTemplate(copyTemplDialog.getTemplateId(), copyTemplDialog.getTemplateTitle(), userBean.getUser());
 			copyTemplDialog.close();
 			// TODO show confirmation dialog that copy was successful
 		} catch (DatabaseServiceException e) {
