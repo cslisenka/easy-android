@@ -7,7 +7,7 @@
 	xmlns:icecore="http://www.icefaces.org/icefaces/core"
 	xmlns:ace="http://www.icefaces.org/icefaces/components"
 	xmlns:ice="http://www.icesoft.com/icefaces/component">
-	<ice:dataTable value="#{reportsBean.reporters}" var="reporter"
+	<ice:dataTable value="#{reportersForm.reporters}" var="reporter"
 		resizable="true" width="100%" cellspacing="0" cellpadding="0">
 		<ice:column>
 			<f:facet name="header">Name</f:facet>
@@ -20,12 +20,21 @@
 			</ice:menuPopup>
 		</ice:column>
 		<ice:column>
+			<f:facet name="header">Description</f:facet>
+			#{reporter.description}
+		</ice:column>
+		<ice:column>
+			<f:facet name="header">Email</f:facet>
+			#{reporter.email}
+		</ice:column>
+		<ice:column>
+			<f:facet name="header">Company</f:facet>
+			#{reporter.company}
+		</ice:column>		
+				
+		<ice:column>
 			<f:facet name="header">Position</f:facet>
 			#{reporter.position}
-			</ice:column>
-		<ice:column>
-			<f:facet name="header">City</f:facet>
-			TODO 
 			</ice:column>
 	</ice:dataTable>
 

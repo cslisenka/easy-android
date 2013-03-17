@@ -8,7 +8,14 @@
 	xmlns:ace="http://www.icefaces.org/icefaces/components"
 	xmlns:ice="http://www.icesoft.com/icefaces/component">
 
-	<ice:inputRichText height="400" width="700"/>
-	<ice:commandButton value="Save"/>
+	Conference name:<br/>
+	<ice:inputText size="50" value="#{aboutConferenceForm.name}" /><br/><br/>
+	
+	Conference website:<br/>
+	<ice:inputText size="50" value="#{aboutConferenceForm.website}" /><br/><br/>
+	
+	About conference text:<br/>
+	<ice:inputRichText height="400" width="700" value="#{aboutConferenceForm.about}"/>
+	<ice:commandButton value="Save" actionListener="#{aboutConferenceForm.save}"/>
 	<ice:commandButton value="Reset" type="reset"/>
 </div>

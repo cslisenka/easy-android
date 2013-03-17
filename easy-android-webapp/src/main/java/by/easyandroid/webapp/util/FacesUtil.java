@@ -9,6 +9,13 @@ public class FacesUtil {
 		return (T) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(name);
 	}
 	
+	public static String getParameter(String parameterName) {
+		String parameter = FacesContext.getCurrentInstance()
+		    .getExternalContext().getRequestParameterMap()
+		    .get(parameterName);
+		return parameter;
+	}	
+	
 	public static String getAttribute(ActionEvent event, String attrName) {
 		Object value = event.getComponent().getAttributes().get(attrName);
 		if (value != null) {
