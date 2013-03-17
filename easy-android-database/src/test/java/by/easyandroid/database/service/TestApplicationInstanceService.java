@@ -56,7 +56,7 @@ public class TestApplicationInstanceService extends AbstractGenericServiceTest<A
 	}
 
 	@Test
-	public void testTemplateInstanct() throws DatabaseServiceException {
+	public void testFindTemplateInstance() throws DatabaseServiceException {
 		populateDatabaseWithTemplateAndApplication();
 		ApplicationInstance instance = service.findTemplateInstance(template.getId());
 		Assert.assertNotNull(instance);

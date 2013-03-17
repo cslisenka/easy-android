@@ -10,11 +10,8 @@ import javax.faces.event.ActionEvent;
 
 import by.easyandroid.database.service.ApplicationInstanceService;
 import by.easyandroid.database.service.TemplateService;
-import by.easyandroid.database.service.UserService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
-import by.easyandroid.model.ApplicationInstance;
 import by.easyandroid.model.ApplicationTemplate;
-import by.easyandroid.model.User;
 import by.easyandroid.webapp.AbstractBaseForm;
 import by.easyandroid.webapp.beans.UserBean;
 import by.easyandroid.webapp.util.FacesUtil;
@@ -28,9 +25,6 @@ public class AppsCatalogForm extends AbstractBaseForm {
 	
 	@ManagedProperty(value = "#{applicationInstanceService}")
 	private ApplicationInstanceService applicationInstanceService;
-	
-	@ManagedProperty(value = "#{userService}")
-	private UserService userService;
 	
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
@@ -47,18 +41,7 @@ public class AppsCatalogForm extends AbstractBaseForm {
 	
 	public void copy() {
 		try {
-			// TODO put into service method and unit-test
-			ApplicationTemplate template = templateService.get(copyTemplDialog.getTemplateId());
-			if (template == null) {
-				throw new DatabaseServiceException("Can not copy application model because template with id = '" + copyTemplDialog.getTemplateId() + " not exists");
-			}
-			
-			ApplicationInstance copiedInstance = applicationInstanceService.fullCopy(template.getInitialInstance().getId());
-			
-			User currentUser = userBean.getUser();
-			currentUser.getApplications().add(copiedInstance);
-			userService.save(currentUser);
-			
+			applicationInstanceService.copyFromTemplate(copyTemplDialog.getTemplateId(), userBean.getUser());
 			copyTemplDialog.close();
 			// TODO show confirmation dialog that copy was successful
 		} catch (DatabaseServiceException e) {
@@ -93,14 +76,6 @@ public class AppsCatalogForm extends AbstractBaseForm {
 
 	public void setCopyTemplDialog(CopyTemplateDialog copyTemplDialog) {
 		this.copyTemplDialog = copyTemplDialog;
-	}
-
-	public UserService getUserService() {
-		return userService;
-	}
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
 	}
 
 	public UserBean getUserBean() {

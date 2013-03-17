@@ -38,8 +38,6 @@ public class ApplicationInstanceService extends AbstractGenericService<Applicati
 	
 	public ApplicationInstance fullCopy(String id) throws DatabaseServiceException {
 		// Copy instance
-		mongo.findById(id, type, collection);
-		
 		ApplicationInstance copied = copy(id);
 
 		// Copy sections
