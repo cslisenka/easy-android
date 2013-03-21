@@ -24,9 +24,8 @@
 	</ice:dataTable>
 
 	<br />
-	<ice:commandButton value="Add new section" actionListener="#{popupBean.openCopy}" />
+	<ice:commandButton value="Add new section" actionListener="#{createSectionDialog.open}" />
 
-	<!-- Delete application dialog -->
 	<ice:panelPopup draggable="true"
 		visible="#{popupBean.deleteApplication}" autoCentre="true">
 		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}" /> Delete section</f:facet>
@@ -38,16 +37,15 @@
 		</f:facet>
 	</ice:panelPopup>
 
-	<!-- Edit report form -->
-	<ice:panelPopup draggable="true" visible="#{popupBean.copyApplication}" autoCentre="true">
-		<f:facet name="header"><img src="#{resource['images/icons:edit.png']}"/> Section parameters</f:facet>
-		<f:facet name="body">
+	<ice:panelGroup rendered="#{createSectionDialog.opened}">
+		<div class="customDialog">
+			<!-- TODO insert icons -->
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText />
+				Name: <ice:inputText value="#{createSectionDialog.name}" />
 			</ice:panelGrid>
-
-			<ice:commandButton actionListener="#{popupBean.closeCopy}" value="Ok" />
-			<ice:commandButton actionListener="#{popupBean.closeCopy}" value="Cancel" />
-		</f:facet>
-	</ice:panelPopup>
+	
+			<ice:commandButton actionListener="#{sectionsForm.create}" value="Ok" />
+			<ice:commandButton actionListener="#{createSectionDialog.close}" value="Cancel" />
+		</div>
+	</ice:panelGroup>
 </div>

@@ -1,4 +1,4 @@
-package by.easyandroid.webapp.form.appCustomization;
+package by.easyandroid.webapp.form.appCustomization.report;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import by.easyandroid.model.conference.Report;
+import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 
 @ManagedBean
 @RequestScoped

@@ -58,17 +58,21 @@
 	
 	<bean id="categoryService" class="by.easyandroid.database.service.conference.CategoryService">
 		<constructor-arg name="mongo" ref="mongoTemplate" />
+		<property name="applicationInstanceService" ref="applicationInstanceService"/>
 	</bean>	
 	
 	<bean id="reporterService" class="by.easyandroid.database.service.conference.ReporterService">
 		<constructor-arg name="mongo" ref="mongoTemplate" />
+		<property name="applicationInstanceService" ref="applicationInstanceService"/>
 	</bean>
 	
 	<bean id="reportService" class="by.easyandroid.database.service.conference.ReportService">
 		<constructor-arg name="mongo" ref="mongoTemplate" />
+		<property name="applicationInstanceService" ref="applicationInstanceService"/>
 	</bean>	
 	
 	<bean id="sectionService" class="by.easyandroid.database.service.conference.SectionService">
 		<constructor-arg name="mongo" ref="mongoTemplate" />
+		<property name="applicationInstanceService" ref="applicationInstanceService"/>
 	</bean>				
 </beans>

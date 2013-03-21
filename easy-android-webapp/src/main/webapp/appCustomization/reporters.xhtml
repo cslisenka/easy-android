@@ -39,7 +39,7 @@
 	</ice:dataTable>
 
 	<br />
-	<ice:commandButton value="Add new reporter" actionListener="#{popupBean.openCopy}" />
+	<ice:commandButton value="Add new reporter" actionListener="#{createReporterDialog.open}" />
 
 	<!-- Delete application dialog -->
 	<ice:panelPopup draggable="true" visible="#{popupBean.deleteApplication}" autoCentre="true">
@@ -51,19 +51,20 @@
 			<ice:commandButton actionListener="#{popupBean.closeDelete}" value="No, cancel" />
 		</f:facet>
 	</ice:panelPopup>
-
-	<!-- Edit report form -->
-	<ice:panelPopup draggable="true" visible="#{popupBean.copyApplication}" autoCentre="true">
-		<f:facet name="header"><img src="#{resource['images/icons:edit.png']}"/> Reporter parameters</f:facet>
-		<f:facet name="body">
+	
+	<ice:panelGroup rendered="#{createReporterDialog.opened}">
+		<div class="customDialog">
+			<!-- TODO insert icons images/icons:edit.png -->
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText />
-				Position: <ice:inputText />
-				City: <ice:inputText />
+				Name: <ice:inputText value="#{createReporterDialog.name}" />
+				Description: <ice:inputText value="#{createReporterDialog.description}" />
+				Email: <ice:inputText value="#{createReporterDialog.email}" />
+				Company: <ice:inputText value="#{createReporterDialog.company}" />
+				Position: <ice:inputText value="#{createReporterDialog.position}" />
 			</ice:panelGrid>
-
-			<ice:commandButton actionListener="#{popupBean.closeCopy}" value="Ok" />
-			<ice:commandButton actionListener="#{popupBean.closeCopy}" value="Cancel" />
-		</f:facet>
-	</ice:panelPopup>
+	
+			<ice:commandButton actionListener="#{reportersForm.create}" value="Ok" />
+			<ice:commandButton actionListener="#{createReporterDialog.close}" value="Cancel" />
+		</div>
+	</ice:panelGroup>		
 </div>
