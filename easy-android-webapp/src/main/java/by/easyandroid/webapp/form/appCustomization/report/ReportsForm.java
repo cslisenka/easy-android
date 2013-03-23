@@ -9,7 +9,9 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.event.ActionEvent;
 
 import by.easyandroid.database.service.conference.ReportService;
+import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Report;
+import by.easyandroid.model.util.ModelUtil;
 import by.easyandroid.webapp.form.ICrudForm;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 import by.easyandroid.webapp.util.Bean;
@@ -49,19 +51,29 @@ public class ReportsForm extends AbstractConferenceBaseForm implements ICrudForm
 
 	@Override
 	public void delete(ActionEvent event) {
-		// TODO Auto-generated method stub
+		reportService.delete(deleteDialog.getObject().getId(), template);
 		deleteDialog.close();
 	}
 
 	@Override
 	public void create(ActionEvent event) {
-		// TODO Auto-generated method stub
-		createDialog.close();
+		try {
+			if (template != null) {
+				reportService.add(createDialog.getObject(), template);
+				createDialog.close();
+			}
+		} catch (DatabaseServiceException e) {
+			// TODO display error message
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void edit(ActionEvent event) {
-		// TODO Auto-generated method stub
+		reportService.save(editDialog.getObject());
+		
+		// Update UI
+		ModelUtil.replaceById(getAll(), editDialog.getObject());
 		editDialog.close();
 	}
 

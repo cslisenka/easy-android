@@ -54,19 +54,24 @@
 		<div style="border: #E0E0E0 1px solid; padding: 0px 0px 20px 20px;">
 			<h3>Create report: </h3>
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText size="70" />
-				Description: <ice:inputRichText toolbar="Basic" width="500" />
-				Type: <ice:inputText size="70" />
-				Reporter: 
-				<!-- ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
-    				<f:selectItems value="#{reportersDictionary.reportersMatchPossibilities}"/>
-    			</ice:selectInputText -->>
+				Title: <ice:inputText size="70" value="#{reportsForm.createDialog.object.title}" />
+				Description: <ice:inputTextarea cols="70" rows="5" value="#{reportsForm.createDialog.object.description}" />
     			Start time: 
-				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true">
+				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true" value="#{reportsForm.createDialog.object.time}">
             		<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
         		</ice:selectInputDate>
+				Section:
+				<ice:selectOneMenu>
+				</ice:selectOneMenu>				
+				 
+				Category:
+				<ice:selectOneMenu>
+				</ice:selectOneMenu> 
+				<!-- ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
+    				<f:selectItems value="#{reportersDictionary.reportersMatchPossibilities}"/>
+    			</ice:selectInputText -->
     			
-    			Section: 
+    			Reporter: 
     			<ice:selectOneMenu>
     				<!-- f:selectItems value="#{reportsBean.sectionsSelectItems}"/ -->
     			</ice:selectOneMenu>
@@ -81,19 +86,24 @@
 		<div style="border: #E0E0E0 1px solid; padding: 0px 0px 20px 20px;">
 			<h3>Edit report: </h3>
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText size="70" />
-				Description: <ice:inputRichText toolbar="Basic" width="500" />
-				Type: <ice:inputText size="70" />
-				Reporter: 
-				<!-- ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
-    				<f:selectItems value="#{reportersDictionary.reportersMatchPossibilities}"/>
-    			</ice:selectInputText -->>
+				Title: <ice:inputText size="70" value="#{reportsForm.editDialog.object.title}" />
+				Description: <ice:inputTextarea cols="70" rows="5" value="#{reportsForm.editDialog.object.description}" />
     			Start time: 
-				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true">
+				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true" value="#{reportsForm.editDialog.object.time}">
             		<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
         		</ice:selectInputDate>
+				Section:
+				<ice:selectOneMenu>
+				</ice:selectOneMenu>				
+				 
+				Category:
+				<ice:selectOneMenu>
+				</ice:selectOneMenu> 
+				<!-- ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
+    				<f:selectItems value="#{reportersDictionary.reportersMatchPossibilities}"/>
+    			</ice:selectInputText -->
     			
-    			Section: 
+    			Reporter: 
     			<ice:selectOneMenu>
     				<!-- f:selectItems value="#{reportsBean.sectionsSelectItems}"/ -->
     			</ice:selectOneMenu>
