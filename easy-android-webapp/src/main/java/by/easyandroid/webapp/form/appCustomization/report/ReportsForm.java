@@ -7,14 +7,22 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
+import by.easyandroid.database.service.conference.CategoryService;
 import by.easyandroid.database.service.conference.ReportService;
+import by.easyandroid.database.service.conference.ReporterService;
+import by.easyandroid.database.service.conference.SectionService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
+import by.easyandroid.model.conference.Category;
 import by.easyandroid.model.conference.Report;
+import by.easyandroid.model.conference.Reporter;
+import by.easyandroid.model.conference.Section;
 import by.easyandroid.model.util.ModelUtil;
 import by.easyandroid.webapp.form.ICrudForm;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 import by.easyandroid.webapp.util.Bean;
+import by.easyandroid.webapp.util.FacesUtil;
 
 @ManagedBean
 @RequestScoped
@@ -32,6 +40,15 @@ public class ReportsForm extends AbstractConferenceBaseForm implements ICrudForm
 	@ManagedProperty(value = Bean.SRV_REPORT)
 	private ReportService reportService;
 	
+	@ManagedProperty(value = Bean.SRV_SECTION)
+	private SectionService sectionService;
+	
+	@ManagedProperty(value = Bean.SRV_CAGETORY)
+	private CategoryService categoryService;
+	
+	@ManagedProperty(value = Bean.SRV_REPORTER)
+	private ReporterService reporterService;		
+	
 	private List<Report> reports = new ArrayList<Report>(); 
 	
 	@Override
@@ -48,6 +65,11 @@ public class ReportsForm extends AbstractConferenceBaseForm implements ICrudForm
 	public List<Report> getAll() {
 		return reports;
 	}
+	
+	// TODO to interface or base class
+	public List<SelectItem> getSelectItems() {
+		return FacesUtil.toSelectItems(reports);
+	}	
 
 	@Override
 	public void delete(ActionEvent event) {
@@ -59,7 +81,10 @@ public class ReportsForm extends AbstractConferenceBaseForm implements ICrudForm
 	public void create(ActionEvent event) {
 		try {
 			if (template != null) {
-				reportService.add(createDialog.getObject(), template);
+				Section section = sectionService.get(createDialog.getSectionId());
+				Reporter reporter = reporterService.get(createDialog.getReporterId());
+				Category category = categoryService.get(createDialog.getCategoryId());
+				reportService.add(createDialog.getObject(), section, category, reporter, template);
 				createDialog.close();
 			}
 		} catch (DatabaseServiceException e) {
@@ -70,10 +95,17 @@ public class ReportsForm extends AbstractConferenceBaseForm implements ICrudForm
 
 	@Override
 	public void edit(ActionEvent event) {
-		reportService.save(editDialog.getObject());
+		Section section = sectionService.get(createDialog.getSectionId());
+		Reporter reporter = reporterService.get(createDialog.getReporterId());
+		Category category = categoryService.get(createDialog.getCategoryId());
+		Report report = editDialog.getObject();
+		report.setCategory(category);
+		report.setSection(section);
+		report.setReporter(reporter);
+		reportService.save(report);
 		
 		// Update UI
-		ModelUtil.replaceById(getAll(), editDialog.getObject());
+		ModelUtil.replaceById(getAll(), report);
 		editDialog.close();
 	}
 
@@ -107,5 +139,29 @@ public class ReportsForm extends AbstractConferenceBaseForm implements ICrudForm
 
 	public void setReportService(ReportService reportService) {
 		this.reportService = reportService;
+	}
+
+	public SectionService getSectionService() {
+		return sectionService;
+	}
+
+	public void setSectionService(SectionService sectionService) {
+		this.sectionService = sectionService;
+	}
+
+	public CategoryService getCategoryService() {
+		return categoryService;
+	}
+
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
+
+	public ReporterService getReporterService() {
+		return reporterService;
+	}
+
+	public void setReporterService(ReporterService reporterService) {
+		this.reporterService = reporterService;
 	}
 }

@@ -30,7 +30,7 @@
 			#{report.description}
 			</ice:column>
 		<ice:column>
-			<f:facet name="header">Type</f:facet>
+			<f:facet name="header">Category</f:facet>
 			#{report.category.name} 
 			</ice:column>
 		<ice:column>
@@ -61,19 +61,18 @@
             		<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
         		</ice:selectInputDate>
 				Section:
-				<ice:selectOneMenu>
+				<ice:selectOneMenu value="#{reportsForm.createDialog.sectionId}">
+					<f:selectItems value="#{sectionsForm.selectItems}" />
 				</ice:selectOneMenu>				
 				 
 				Category:
-				<ice:selectOneMenu>
+				<ice:selectOneMenu value="#{reportsForm.createDialog.categoryId}">
+					<f:selectItems value="#{categoriesForm.selectItems}" />
 				</ice:selectOneMenu> 
-				<!-- ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
-    				<f:selectItems value="#{reportersDictionary.reportersMatchPossibilities}"/>
-    			</ice:selectInputText -->
     			
     			Reporter: 
-    			<ice:selectOneMenu>
-    				<!-- f:selectItems value="#{reportsBean.sectionsSelectItems}"/ -->
+    			<ice:selectOneMenu value="#{reportsForm.createDialog.reporterId}">
+    				<f:selectItems value="#{reportersForm.selectItems}" />
     			</ice:selectOneMenu>
 			</ice:panelGrid>
 
@@ -92,20 +91,19 @@
 				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true" value="#{reportsForm.editDialog.object.time}">
             		<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
         		</ice:selectInputDate>
-				Section:
-				<ice:selectOneMenu>
+					Section:
+				<ice:selectOneMenu value="#{reportsForm.createDialog.sectionId}">
+					<f:selectItems value="#{sectionsForm.selectItems}" />
 				</ice:selectOneMenu>				
 				 
 				Category:
-				<ice:selectOneMenu>
+				<ice:selectOneMenu value="#{reportsForm.createDialog.categoryId}">
+					<f:selectItems value="#{categoriesForm.selectItems}" />
 				</ice:selectOneMenu> 
-				<!-- ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
-    				<f:selectItems value="#{reportersDictionary.reportersMatchPossibilities}"/>
-    			</ice:selectInputText -->
     			
     			Reporter: 
-    			<ice:selectOneMenu>
-    				<!-- f:selectItems value="#{reportsBean.sectionsSelectItems}"/ -->
+    			<ice:selectOneMenu value="#{reportsForm.createDialog.reporterId}">
+    				<f:selectItems value="#{reportersForm.selectItems}" />
     			</ice:selectOneMenu>
 			</ice:panelGrid>
 

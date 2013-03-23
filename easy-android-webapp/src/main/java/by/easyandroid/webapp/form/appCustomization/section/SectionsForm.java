@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import by.easyandroid.database.service.conference.SectionService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
@@ -15,6 +16,7 @@ import by.easyandroid.model.util.ModelUtil;
 import by.easyandroid.webapp.form.ICrudForm;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 import by.easyandroid.webapp.util.Bean;
+import by.easyandroid.webapp.util.FacesUtil;
 
 @ManagedBean
 @RequestScoped
@@ -76,6 +78,11 @@ public class SectionsForm extends AbstractConferenceBaseForm implements ICrudFor
 	@Override
 	public List<Section> getAll() {
 		return sections;
+	}
+	
+	// TODO to interface or base class
+	public List<SelectItem> getSelectItems() {
+		return FacesUtil.toSelectItems(sections);
 	}
 
 	public SectionDialog getEditDialog() {

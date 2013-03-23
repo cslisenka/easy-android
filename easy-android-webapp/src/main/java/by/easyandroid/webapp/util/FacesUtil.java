@@ -1,10 +1,24 @@
 package by.easyandroid.webapp.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+
+import by.easyandroid.model.Identity;
 
 public class FacesUtil {
 
+	public static <T extends Identity> List<SelectItem> toSelectItems(List<T> objects) {
+		List<SelectItem> result = new ArrayList<SelectItem>();
+		for (T obj : objects) {
+			result.add(new SelectItem(obj.getId(), obj.toString()));
+		}
+		return result;
+	}
+	
 	public static <T> T getRequestBean(String name) {
 		return (T) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(name);
 	}

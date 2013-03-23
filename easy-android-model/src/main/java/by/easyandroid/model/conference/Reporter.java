@@ -53,4 +53,9 @@ public class Reporter extends Identity {
 	public void setPosition(String position) {
 		this.position = position;
 	}
+	
+	@Override
+	public String toString() {
+		return name + ", " + company + ", " + position;
+	}	
 }
