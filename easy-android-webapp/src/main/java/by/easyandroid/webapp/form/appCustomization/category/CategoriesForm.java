@@ -21,13 +21,13 @@ import by.easyandroid.webapp.util.Bean;
 public class CategoriesForm extends AbstractConferenceBaseForm implements ICrudForm<Category> {
 
 	@ManagedProperty(value = "#{createCategoryDialog}")
-	private CreateCategoryDialog createDialog;
+	private CategoryDialog createDialog;
 	
 	@ManagedProperty(value = "#{editCategoryDialog}")
-	private EditCategoryDialog editDialog;	
+	private CategoryDialog editDialog;	
 	
 	@ManagedProperty(value = "#{deleteCategoryDialog}")
-	private DeleteCategoryDialog deleteDialog;
+	private CategoryDialog deleteDialog;
 	
 	@ManagedProperty(value = Bean.SRV_CATEGORY)
 	private CategoryService categoryService;
@@ -78,27 +78,27 @@ public class CategoriesForm extends AbstractConferenceBaseForm implements ICrudF
 		return categories;
 	}
 
-	public CreateCategoryDialog getCreateDialog() {
+	public CategoryDialog getCreateDialog() {
 		return createDialog;
 	}
 
-	public void setCreateDialog(CreateCategoryDialog createDialog) {
+	public void setCreateDialog(CategoryDialog createDialog) {
 		this.createDialog = createDialog;
 	}
 
-	public EditCategoryDialog getEditDialog() {
+	public CategoryDialog getEditDialog() {
 		return editDialog;
 	}
 
-	public void setEditDialog(EditCategoryDialog editDialog) {
+	public void setEditDialog(CategoryDialog editDialog) {
 		this.editDialog = editDialog;
 	}
 
-	public DeleteCategoryDialog getDeleteDialog() {
+	public CategoryDialog getDeleteDialog() {
 		return deleteDialog;
 	}
 
-	public void setDeleteDialog(DeleteCategoryDialog deleteDialog) {
+	public void setDeleteDialog(CategoryDialog deleteDialog) {
 		this.deleteDialog = deleteDialog;
 	}
 

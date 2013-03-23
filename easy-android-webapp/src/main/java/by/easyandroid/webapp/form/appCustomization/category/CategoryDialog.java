@@ -8,9 +8,9 @@ import by.easyandroid.webapp.form.AbstractEntityDialog;
 
 @ManagedBean
 @SessionScoped
-public class DeleteCategoryDialog extends AbstractEntityDialog<Category> {
+public class CategoryDialog extends AbstractEntityDialog<Category> {
 
-	public DeleteCategoryDialog() throws InstantiationException, IllegalAccessException {
+	public CategoryDialog() throws InstantiationException, IllegalAccessException {
 		super(Category.class);
 	}
 }

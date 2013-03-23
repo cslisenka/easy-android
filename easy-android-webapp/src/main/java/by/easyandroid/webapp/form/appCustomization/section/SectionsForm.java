@@ -21,13 +21,13 @@ import by.easyandroid.webapp.util.Bean;
 public class SectionsForm extends AbstractConferenceBaseForm implements ICrudForm<Section> {
 
 	@ManagedProperty(value = "#{createSectionDialog}")
-	private CreateSectionDialog createDialog;
+	private SectionDialog createDialog;
 	
 	@ManagedProperty(value = "#{editSectionDialog}")
-	private EditSectionDialog editDialog;	
+	private SectionDialog editDialog;	
 	
 	@ManagedProperty(value = "#{deleteSectionDialog}")
-	private DeleteSectionDialog deleteDialog;
+	private SectionDialog deleteDialog;
 	
 	@ManagedProperty(value = Bean.SRV_SECTION)
 	private SectionService sectionService;
@@ -78,28 +78,12 @@ public class SectionsForm extends AbstractConferenceBaseForm implements ICrudFor
 		return sections;
 	}
 
-	public CreateSectionDialog getCreateDialog() {
-		return createDialog;
-	}
-
-	public void setCreateDialog(CreateSectionDialog createDialog) {
-		this.createDialog = createDialog;
-	}
-
-	public EditSectionDialog getEditDialog() {
+	public SectionDialog getEditDialog() {
 		return editDialog;
 	}
 
-	public void setEditDialog(EditSectionDialog editDialog) {
+	public void setEditDialog(SectionDialog editDialog) {
 		this.editDialog = editDialog;
-	}
-
-	public DeleteSectionDialog getDeleteDialog() {
-		return deleteDialog;
-	}
-
-	public void setDeleteDialog(DeleteSectionDialog deleteDialog) {
-		this.deleteDialog = deleteDialog;
 	}
 
 	public SectionService getSectionService() {
@@ -108,5 +92,21 @@ public class SectionsForm extends AbstractConferenceBaseForm implements ICrudFor
 
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
+	}
+
+	public SectionDialog getCreateDialog() {
+		return createDialog;
+	}
+
+	public void setCreateDialog(SectionDialog createDialog) {
+		this.createDialog = createDialog;
+	}
+
+	public SectionDialog getDeleteDialog() {
+		return deleteDialog;
+	}
+
+	public void setDeleteDialog(SectionDialog deleteDialog) {
+		this.deleteDialog = deleteDialog;
 	}
 }

@@ -21,13 +21,13 @@ import by.easyandroid.webapp.util.Bean;
 public class ReportersForm extends AbstractConferenceBaseForm implements ICrudForm<Reporter> {
 
 	@ManagedProperty(value = "#{createReporterDialog}")
-	private CreateReporterDialog createDialog;
+	private ReporterDialog createDialog;
 	
 	@ManagedProperty(value = "#{editReporterDialog}")
-	private EditReporterDialog editDialog;
+	private ReporterDialog editDialog;
 	
 	@ManagedProperty(value = "#{deleteReporterDialog}")
-	private DeleteReporterDialog deleteDialog;
+	private ReporterDialog deleteDialog;
 	
 	@ManagedProperty(value = Bean.SRV_REPORTER)
 	private ReporterService reporterService;
@@ -87,27 +87,27 @@ public class ReportersForm extends AbstractConferenceBaseForm implements ICrudFo
 		this.reporterService = reporterService;
 	}
 
-	public EditReporterDialog getEditDialog() {
+	public ReporterDialog getEditDialog() {
 		return editDialog;
 	}
 
-	public void setEditDialog(EditReporterDialog editDialog) {
+	public void setEditDialog(ReporterDialog editDialog) {
 		this.editDialog = editDialog;
 	}
 
-	public DeleteReporterDialog getDeleteDialog() {
-		return deleteDialog;
-	}
-
-	public void setDeleteDialog(DeleteReporterDialog deleteDialog) {
-		this.deleteDialog = deleteDialog;
-	}
-
-	public CreateReporterDialog getCreateDialog() {
+	public ReporterDialog getCreateDialog() {
 		return createDialog;
 	}
 
-	public void setCreateDialog(CreateReporterDialog createDialog) {
+	public void setCreateDialog(ReporterDialog createDialog) {
 		this.createDialog = createDialog;
+	}
+
+	public ReporterDialog getDeleteDialog() {
+		return deleteDialog;
+	}
+
+	public void setDeleteDialog(ReporterDialog deleteDialog) {
+		this.deleteDialog = deleteDialog;
 	}
 }

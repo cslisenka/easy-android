@@ -10,5 +10,18 @@
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<context:annotation-config />
-	<import resource="classpath:/database-context.xml" />			
+	<import resource="classpath:/database-context.xml" />
+	
+	<!-- Dialogs -->
+	<bean id="editSectionDialog" class="by.easyandroid.webapp.form.appCustomization.section.SectionDialog" scope="session" />
+	<bean id="createSectionDialog" class="by.easyandroid.webapp.form.appCustomization.section.SectionDialog" scope="session" />
+	<bean id="deleteSectionDialog" class="by.easyandroid.webapp.form.appCustomization.section.SectionDialog" scope="session" />
+	
+	<bean id="editCategoryDialog" class="by.easyandroid.webapp.form.appCustomization.category.CategoryDialog" scope="session" />
+	<bean id="createCategoryDialog" class="by.easyandroid.webapp.form.appCustomization.category.CategoryDialog" scope="session" />
+	<bean id="deleteCategoryDialog" class="by.easyandroid.webapp.form.appCustomization.category.CategoryDialog" scope="session" />
+	
+	<bean id="editReporterDialog" class="by.easyandroid.webapp.form.appCustomization.reporter.ReporterDialog" scope="session" />
+	<bean id="createReporterDialog" class="by.easyandroid.webapp.form.appCustomization.reporter.ReporterDialog" scope="session" />
+	<bean id="deleteReporterDialog" class="by.easyandroid.webapp.form.appCustomization.reporter.ReporterDialog" scope="session" />		
 </beans>

@@ -8,9 +8,9 @@ import by.easyandroid.webapp.form.AbstractEntityDialog;
 
 @ManagedBean
 @SessionScoped
-public class CreateSectionDialog extends AbstractEntityDialog<Section> {
-	
-	public CreateSectionDialog() throws InstantiationException, IllegalAccessException {
+public class SectionDialog extends AbstractEntityDialog<Section> {
+
+	public SectionDialog() throws InstantiationException, IllegalAccessException {
 		super(Section.class);
 	}
 }

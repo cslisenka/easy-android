@@ -8,9 +8,9 @@ import by.easyandroid.webapp.form.AbstractEntityDialog;
 
 @ManagedBean
 @SessionScoped
-public class EditReporterDialog extends AbstractEntityDialog<Reporter> {
+public class ReporterDialog extends AbstractEntityDialog<Reporter> {
 
-	public EditReporterDialog() throws InstantiationException, IllegalAccessException {
+	public ReporterDialog() throws InstantiationException, IllegalAccessException {
 		super(Reporter.class);
 	}
 }
