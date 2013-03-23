@@ -17,8 +17,12 @@
 				</ice:commandLink>
 			</ice:panelGroup>
 			<ice:menuPopup id="menuPopup">
-				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{popupBean.openCopy}" />
-				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{popupBean.openDelete}" />
+				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{popupBean.openCopy}">
+					<f:attribute name="objectId" value="#{section.id}" />
+				</ice:menuItem>
+				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{deleteSectionDialog.open}">
+					<f:attribute name="objectId" value="#{section.id}" />
+				</ice:menuItem>
 			</ice:menuPopup>
 		</ice:column>
 	</ice:dataTable>
@@ -26,14 +30,15 @@
 	<br />
 	<ice:commandButton value="Add new section" actionListener="#{createSectionDialog.open}" />
 
-	<ice:panelPopup draggable="true"
-		visible="#{popupBean.deleteApplication}" autoCentre="true">
+	<ice:panelPopup draggable="true" visible="#{deleteSectionDialog.opened}" autoCentre="true">
 		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}" /> Delete section</f:facet>
 		<f:facet name="body">
 			Do you really want to delete this section?<br />
 			<br/>
-			<ice:commandButton actionListener="#{popupBean.closeDelete}" value="Yes" />
-			<ice:commandButton actionListener="#{popupBean.closeDelete}" value="No, cancel" />
+			<ice:commandButton actionListener="#{sectionsForm.delete}" value="Yes">
+				<f:attribute name="objectId" value="#{deleteSectionDialog.deletedId}" />
+			</ice:commandButton>
+			<ice:commandButton actionListener="#{deleteSectionDialog.close}" value="No, cancel" />
 		</f:facet>
 	</ice:panelPopup>
 

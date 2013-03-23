@@ -2,6 +2,7 @@ package by.easyandroid.database.service;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -85,9 +86,8 @@ public abstract class AbstractGenericService<T extends Identity> {
 		mongo.save(entity, collection);
 	}
 	
-	// TODO unit-test
 	public void delete(String id) {
-		mongo.remove(id, collection);
+		mongo.remove(new Query(Criteria.where("_id").is(new ObjectId(id))), collection); //
 	}
 	
 	public Class<T> getType() {

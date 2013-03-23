@@ -14,4 +14,13 @@ public class Identity {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Identity && id != null) {
+			return id.equals(((Identity) obj).getId());
+		}
+		
+		return false;
+	}
 }

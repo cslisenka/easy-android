@@ -20,6 +20,9 @@ public class CategoriesForm extends AbstractConferenceBaseForm {
 	@ManagedProperty(value = "#{createCategoryDialog}")
 	private CreateCategoryDialog createCategoryDialog;
 	
+	@ManagedProperty(value = "#{deleteCategoryDialog}")
+	private DeleteCategoryDialog deleteCategoryDialog;
+	
 	@ManagedProperty(value = "#{categoryService}")
 	private CategoryService categoryService;
 	
@@ -51,6 +54,12 @@ public class CategoriesForm extends AbstractConferenceBaseForm {
 		}
 	}	
 	
+	@Override
+	public void deleteById(String id) {
+		categoryService.delete(id, template);
+		deleteCategoryDialog.close();
+	}
+	
 	public List<Category> getCategories() {
 		return categories;
 	}
@@ -73,5 +82,13 @@ public class CategoriesForm extends AbstractConferenceBaseForm {
 
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
+	}
+
+	public DeleteCategoryDialog getDeleteCategoryDialog() {
+		return deleteCategoryDialog;
+	}
+
+	public void setDeleteCategoryDialog(DeleteCategoryDialog deleteCategoryDialog) {
+		this.deleteCategoryDialog = deleteCategoryDialog;
 	}
 }

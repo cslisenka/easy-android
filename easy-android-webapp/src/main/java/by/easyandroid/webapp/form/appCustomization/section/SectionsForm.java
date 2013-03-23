@@ -20,6 +20,9 @@ public class SectionsForm extends AbstractConferenceBaseForm {
 	@ManagedProperty(value = "#{createSectionDialog}")
 	private CreateSectionDialog createSectionDialog;
 	
+	@ManagedProperty(value = "#{deleteSectionDialog}")
+	private DeleteSectionDialog deleteSectionDialog;
+	
 	@ManagedProperty(value = "#{sectionService}")
 	private SectionService sectionService;
 	
@@ -50,6 +53,11 @@ public class SectionsForm extends AbstractConferenceBaseForm {
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteById(String id) {
+		sectionService.delete(id, template);
+		deleteSectionDialog.close();
+	}
 
 	public List<Section> getSections() {
 		return sections;
@@ -73,5 +81,13 @@ public class SectionsForm extends AbstractConferenceBaseForm {
 
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
+	}
+
+	public DeleteSectionDialog getDeleteSectionDialog() {
+		return deleteSectionDialog;
+	}
+
+	public void setDeleteSectionDialog(DeleteSectionDialog deleteSectionDialog) {
+		this.deleteSectionDialog = deleteSectionDialog;
 	}
 }

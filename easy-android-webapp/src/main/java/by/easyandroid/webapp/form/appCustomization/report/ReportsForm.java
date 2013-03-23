@@ -32,4 +32,9 @@ public class ReportsForm extends AbstractConferenceBaseForm {
 	public void setReports(List<Report> reports) {
 		this.reports = reports;
 	}
+
+	@Override
+	public void deleteById(String id) {
+		// TODO Auto-generated method stub
+	}
 }

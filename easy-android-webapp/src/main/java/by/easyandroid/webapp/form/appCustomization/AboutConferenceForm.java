@@ -62,4 +62,9 @@ public class AboutConferenceForm extends AbstractConferenceBaseForm {
 	public void setAbout(String about) {
 		this.about = about;
 	}
+
+	@Override
+	public void deleteById(String id) {
+		// TODO nothing to do, throw exception
+	}
 }

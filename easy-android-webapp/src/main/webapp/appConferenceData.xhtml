@@ -22,21 +22,21 @@
 
 	<ui:define name="pageCenterContent">
 		<ice:panelTabSet>
+			<ice:panelTab label="About conference">
+				<ui:include src="appCustomization/aboutConference.xhtml" />
+			</ice:panelTab>		
 			<ice:panelTab label="Reports/events">
 				<ui:include src="appCustomization/reports.xhtml" />
 			</ice:panelTab>
 			<ice:panelTab label="Reporters">
 				<ui:include src="appCustomization/reporters.xhtml" />
 			</ice:panelTab>
-			<ice:panelTab label="About conference">
-				<ui:include src="appCustomization/aboutConference.xhtml" />
-			</ice:panelTab>
 			<ice:panelTab label="Sections">
 				<ui:include src="appCustomization/sections.xhtml" />
 			</ice:panelTab>
 			<ice:panelTab label="Categories">
 				<ui:include src="appCustomization/categories.xhtml" />
-			</ice:panelTab>						
+			</ice:panelTab>
 		</ice:panelTabSet>
 	</ui:define>
 </ui:composition>

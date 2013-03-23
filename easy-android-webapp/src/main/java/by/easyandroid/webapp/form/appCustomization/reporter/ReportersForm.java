@@ -17,8 +17,12 @@ import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 @RequestScoped
 public class ReportersForm extends AbstractConferenceBaseForm {
 
+	// TODO move strings to Bean interface
 	@ManagedProperty(value = "#{createReporterDialog}")
 	private CreateReporterDialog createReporterDialog;
+	
+	@ManagedProperty(value = "#{deleteReporterDialog}")
+	private DeleteReporterDialog deleteReporterDialog;
 	
 	@ManagedProperty(value = "#{reporterService}")
 	private ReporterService reporterService;
@@ -55,6 +59,12 @@ public class ReportersForm extends AbstractConferenceBaseForm {
 		}
 	}	
 	
+	@Override
+	public void deleteById(String id) {
+		reporterService.delete(id, template);
+		deleteReporterDialog.close();
+	}	
+	
 	public List<Reporter> getReporters() {
 		return reporters;
 	}
@@ -77,5 +87,13 @@ public class ReportersForm extends AbstractConferenceBaseForm {
 
 	public void setReporterService(ReporterService reporterService) {
 		this.reporterService = reporterService;
+	}
+
+	public DeleteReporterDialog getDeleteReporterDialog() {
+		return deleteReporterDialog;
+	}
+
+	public void setDeleteReporterDialog(DeleteReporterDialog deleteReporterDialog) {
+		this.deleteReporterDialog = deleteReporterDialog;
 	}
 }

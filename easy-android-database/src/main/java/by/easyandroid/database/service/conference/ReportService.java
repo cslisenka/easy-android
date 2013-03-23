@@ -1,5 +1,7 @@
 package by.easyandroid.database.service.conference;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.core.MongoOperations;
 
 import by.easyandroid.database.service.exception.DatabaseServiceException;
@@ -23,10 +25,11 @@ public class ReportService extends AbstractConferenceService<Report> {
 		report.setCategory(category);
 		report.setReporter(reporter);
 		
-		add(report);
-		
-		// Adding section to conference model
-		application.getModel().getReports().add(report);
-		applicationInstanceService.save(application);
-	}		
+		super.add(report, application);
+	}
+
+	@Override
+	protected List<Report> getApplicationRelationList(ApplicationInstance application) {
+		return application.getModel().getReports();
+	}	
 }

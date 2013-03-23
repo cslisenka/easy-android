@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.dao.CleanupFailureDataAccessException;
 import org.springframework.data.mongodb.core.MongoOperations;
 
 import by.easyandroid.database.service.exception.DatabaseServiceException;
@@ -58,6 +57,16 @@ public abstract class AbstractGenericServiceTest<S extends AbstractGenericServic
 		assertTestEntity(copy);
 		Assert.assertNotSame(copy.getId(), entity.getId());
 		Assert.assertEquals(2, service.getAll().size());
+	}
+	
+	@Test
+	public void testDelete() throws DatabaseServiceException {
+		T entity = createTestEntity();
+		service.add(entity);
+		
+		Assert.assertEquals(1, service.getAll().size());
+		service.delete(entity.getId());
+		Assert.assertEquals(0, service.getAll().size());
 	}
 	
 	@Test(expected = DatabaseServiceException.class)

@@ -7,8 +7,7 @@
 	xmlns:icecore="http://www.icefaces.org/icefaces/core"
 	xmlns:ace="http://www.icefaces.org/icefaces/components"
 	xmlns:ice="http://www.icesoft.com/icefaces/component">
-	<ice:dataTable value="#{categoriesForm.categories}" var="category"
-		resizable="true" width="100%" cellspacing="0" cellpadding="0">
+	<ice:dataTable value="#{categoriesForm.categories}" var="category" resizable="true" width="100%" cellspacing="0" cellpadding="0">
 		<ice:column>
 			<f:facet name="header">Name</f:facet>
 			<ice:panelGroup menuPopup="menuPopup">
@@ -17,8 +16,12 @@
 				</ice:commandLink>
 			</ice:panelGroup>
 			<ice:menuPopup id="menuPopup">
-				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{popupBean.openCopy}" />
-				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{popupBean.openDelete}" />
+				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{deleteCategoryDialog.open}">
+					<f:attribute name="objectId" value="#{category.id}" />
+				</ice:menuItem>
+				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{deleteCategoryDialog.open}">
+					<f:attribute name="objectId" value="#{category.id}" />
+				</ice:menuItem>
 			</ice:menuPopup>
 		</ice:column>
 	</ice:dataTable>
@@ -26,14 +29,16 @@
 	<br />
 	<ice:commandButton value="Add new category" actionListener="#{createCategoryDialog.open}" />
 
-	<ice:panelPopup draggable="true"
-		visible="#{popupBean.deleteApplication}" autoCentre="true">
+	<ice:panelPopup draggable="true" visible="#{deleteCategoryDialog.opened}" autoCentre="true">
 		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}" /> Delete section</f:facet>
 		<f:facet name="body">
 			Do you really want to delete this section?<br />
 			<br/>
-			<ice:commandButton actionListener="#{popupBean.closeDelete}" value="Yes" />
-			<ice:commandButton actionListener="#{popupBean.closeDelete}" value="No, cancel" />
+			<ice:commandButton actionListener="#{categoriesForm.delete}" value="Yes">
+				<!-- TODO to think, not put this parameter, take id from dialog in delete method -->
+				<f:attribute name="objectId" value="#{deleteCategoryDialog.deletedId}" />
+			</ice:commandButton>
+			<ice:commandButton actionListener="#{deleteCategoryDialog.close}" value="No, cancel" />
 		</f:facet>
 	</ice:panelPopup>
 
