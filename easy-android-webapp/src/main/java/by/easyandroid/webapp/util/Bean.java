@@ -1,7 +1,12 @@
 package by.easyandroid.webapp.util;
 
+/**
+ * Commonly used ManagedProperty names in web application
+ * @author kslisenko
+ */
 public interface Bean {
 
+	// Services	
 	public static final String SRV_CATEGORY = "#{categoryService}";
 	public static final String SRV_REPORTER = "#{reporterService}";
 	public static final String SRV_REPORT = "#{reportService}";
@@ -10,7 +15,9 @@ public interface Bean {
 	public static final String SRV_APPLICATION = "#{applicationInstanceService}";
 	public static final String SRV_TEMPLATE = "#{templateService}";
 	
+	// Beans with business logic
 	public static final String BN_USER = "#{userBean}";
-	
+
+	// Forms
 	public static final String FRM_CONFERENCE = "#{conferenceForm}";
 }

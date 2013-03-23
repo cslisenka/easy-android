@@ -11,12 +11,13 @@ import javax.faces.event.ActionEvent;
 import by.easyandroid.database.service.conference.ReporterService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Reporter;
+import by.easyandroid.webapp.form.ICrudForm;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 import by.easyandroid.webapp.util.Bean;
 
 @ManagedBean
 @RequestScoped
-public class ReportersForm extends AbstractConferenceBaseForm {
+public class ReportersForm extends AbstractConferenceBaseForm implements ICrudForm<Reporter> {
 
 	// TODO move strings to Bean interface
 	@ManagedProperty(value = "#{createReporterDialog}")
@@ -41,6 +42,7 @@ public class ReportersForm extends AbstractConferenceBaseForm {
 		}
 	}
 
+	@Override
 	public void create(ActionEvent event) {
 		Reporter reporter = new Reporter();
 		reporter.setName(createReporterDialog.getName());
@@ -61,17 +63,21 @@ public class ReportersForm extends AbstractConferenceBaseForm {
 	}	
 	
 	@Override
-	public void deleteById(String id) {
-		reporterService.delete(id, template);
+	public void delete(ActionEvent event) {
+		reporterService.delete(deleteReporterDialog.getDeletedId(), template);
 		deleteReporterDialog.close();
 	}	
 	
-	public List<Reporter> getReporters() {
-		return reporters;
-	}
 
-	public void setReporters(List<Reporter> reporters) {
-		this.reporters = reporters;
+	@Override
+	public void edit(ActionEvent event) {
+		// TODO Auto-generated method stub
+		
+	}	
+	
+	@Override
+	public List<Reporter> getAll() {
+		return reporters;
 	}
 
 	public CreateReporterDialog getCreateReporterDialog() {

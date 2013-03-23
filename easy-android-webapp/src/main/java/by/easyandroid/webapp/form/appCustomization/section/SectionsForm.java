@@ -11,12 +11,13 @@ import javax.faces.event.ActionEvent;
 import by.easyandroid.database.service.conference.SectionService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Section;
+import by.easyandroid.webapp.form.ICrudForm;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 import by.easyandroid.webapp.util.Bean;
 
 @ManagedBean
 @RequestScoped
-public class SectionsForm extends AbstractConferenceBaseForm {
+public class SectionsForm extends AbstractConferenceBaseForm implements ICrudForm<Section> {
 
 	@ManagedProperty(value = "#{createSectionDialog}")
 	private CreateSectionDialog createSectionDialog;
@@ -40,6 +41,7 @@ public class SectionsForm extends AbstractConferenceBaseForm {
 		}
 	}
 	
+	@Override
 	public void create(ActionEvent event) {
 		Section section = new Section();
 		section.setName(createSectionDialog.getName());
@@ -55,17 +57,21 @@ public class SectionsForm extends AbstractConferenceBaseForm {
 		}
 	}
 	
-	public void deleteById(String id) {
-		sectionService.delete(id, template);
+	@Override
+	public void delete(ActionEvent id) {
+		sectionService.delete(deleteSectionDialog.getDeletedId(), template);
 		deleteSectionDialog.close();
 	}
 
-	public List<Section> getSections() {
+	@Override
+	public void edit(ActionEvent event) {
+		// TODO Auto-generated method stub
+		
+	}	
+	
+	@Override
+	public List<Section> getAll() {
 		return sections;
-	}
-
-	public void setSections(List<Section> sections) {
-		this.sections = sections;
 	}
 
 	public CreateSectionDialog getCreateSectionDialog() {

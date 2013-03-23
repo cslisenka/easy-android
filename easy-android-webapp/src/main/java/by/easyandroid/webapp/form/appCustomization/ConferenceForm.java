@@ -5,7 +5,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import by.easyandroid.webapp.util.FacesUtil;
-import by.easyandroid.webapp.util.RequestAttr;
+import by.easyandroid.webapp.util.Field;
 
 @ManagedBean
 @SessionScoped
@@ -14,7 +14,7 @@ public class ConferenceForm {
 	private String selectedTemplateId;
 
 	public void open(ActionEvent event) {
-		selectedTemplateId = FacesUtil.getAttribute(event, RequestAttr.TEMPLATE_ID);
+		selectedTemplateId = FacesUtil.getAttribute(event, Field.TEMPLATE_ID);
 	}
 	
 	public String getSelectedTemplateId() {

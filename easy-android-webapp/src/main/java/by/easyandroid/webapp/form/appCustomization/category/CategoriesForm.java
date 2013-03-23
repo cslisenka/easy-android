@@ -11,12 +11,13 @@ import javax.faces.event.ActionEvent;
 import by.easyandroid.database.service.conference.CategoryService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Category;
+import by.easyandroid.webapp.form.ICrudForm;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 import by.easyandroid.webapp.util.Bean;
 
 @ManagedBean
 @RequestScoped
-public class CategoriesForm extends AbstractConferenceBaseForm {
+public class CategoriesForm extends AbstractConferenceBaseForm implements ICrudForm<Category> {
 
 	@ManagedProperty(value = "#{createCategoryDialog}")
 	private CreateCategoryDialog createCategoryDialog;
@@ -40,6 +41,7 @@ public class CategoriesForm extends AbstractConferenceBaseForm {
 		}
 	}
 
+	@Override
 	public void create(ActionEvent event) {
 		Category category = new Category();
 		category.setName(createCategoryDialog.getName());
@@ -56,17 +58,20 @@ public class CategoriesForm extends AbstractConferenceBaseForm {
 	}	
 	
 	@Override
-	public void deleteById(String id) {
-		categoryService.delete(id, template);
+	public void delete(ActionEvent event) {
+		categoryService.delete(deleteCategoryDialog.getDeletedId(), template);
 		deleteCategoryDialog.close();
 	}
 	
-	public List<Category> getCategories() {
-		return categories;
+	@Override
+	public void edit(ActionEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
+	@Override
+	public List<Category> getAll() {
+		return categories;
 	}
 
 	public CreateCategoryDialog getCreateCategoryDialog() {
