@@ -23,5 +23,9 @@
 	
 	<bean id="editReporterDialog" class="by.easyandroid.webapp.form.appCustomization.reporter.ReporterDialog" scope="session" />
 	<bean id="createReporterDialog" class="by.easyandroid.webapp.form.appCustomization.reporter.ReporterDialog" scope="session" />
-	<bean id="deleteReporterDialog" class="by.easyandroid.webapp.form.appCustomization.reporter.ReporterDialog" scope="session" />		
+	<bean id="deleteReporterDialog" class="by.easyandroid.webapp.form.appCustomization.reporter.ReporterDialog" scope="session" />
+	
+	<bean id="editReportDialog" class="by.easyandroid.webapp.form.appCustomization.report.ReportDialog" scope="session" />
+	<bean id="createReportDialog" class="by.easyandroid.webapp.form.appCustomization.report.ReportDialog" scope="session" />
+	<bean id="deleteReportDialog" class="by.easyandroid.webapp.form.appCustomization.report.ReportDialog" scope="session" />			
 </beans>

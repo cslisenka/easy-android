@@ -7,16 +7,22 @@
 	xmlns:icecore="http://www.icefaces.org/icefaces/core"
 	xmlns:ace="http://www.icefaces.org/icefaces/components"
 	xmlns:ice="http://www.icesoft.com/icefaces/component">
-	<ice:dataTable id="reports" value="#{reportsForm.all}" var="report"
-		resizable="true" width="100%" cellspacing="0" cellpadding="0">
+	<ice:dataTable id="reports" value="#{reportsForm.all}" var="report" resizable="true" width="100%" cellspacing="0" cellpadding="0">
 		<ice:column>
 			<f:facet name="header">Title</f:facet>
 			<ice:panelGroup menuPopup="menuPopup">
-				<ice:commandLink styleClass="htmllink" actionListener="#{reportsBean.openAddReportsForm}">#{report.title}</ice:commandLink>
+				<ice:commandLink styleClass="htmllink" actionListener="#{reportsForm.editDialog.open}">
+					#{report.title}
+					<f:attribute name="object" value="#{report}" />
+				</ice:commandLink>
 			</ice:panelGroup>
 			<ice:menuPopup id="menuPopup">
-				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{reportsBean.openAddReportsForm}" />
-				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{popupBean.openDelete}" />
+				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{reportsForm.editDialog.open}">
+					<f:attribute name="object" value="#{report}" />
+				</ice:menuItem>
+				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{reportsForm.deleteDialog.open}">
+					<f:attribute name="object" value="#{report}" />
+				</ice:menuItem>
 			</ice:menuPopup>
 		</ice:column>
 		<ice:column>
@@ -42,19 +48,19 @@
 	</ice:dataTable>
 	<br/>
 
-	<ice:commandButton value="Add new report" actionListener="#{reportsBean.openAddReportsForm}" rendered="#{!reportsBean.addReportsForm}" />
+	<ice:commandButton value="Add new report" actionListener="#{reportsForm.createDialog.open}" rendered="#{!reportsForm.createDialog.opened and !reportsForm.editDialog.opened}" />
 	
-	<h:panelGroup rendered="#{reportsBean.addReportsForm}">
+	<ice:panelGroup rendered="#{reportsForm.createDialog.opened}">
 		<div style="border: #E0E0E0 1px solid; padding: 0px 0px 20px 20px;">
-			<h3>Report parameters</h3>
+			<h3>Create report: </h3>
 			<ice:panelGrid columns="2">
 				Name: <ice:inputText size="70" />
 				Description: <ice:inputRichText toolbar="Basic" width="500" />
 				Type: <ice:inputText size="70" />
 				Reporter: 
-				<ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
+				<!-- ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
     				<f:selectItems value="#{reportersDictionary.reportersMatchPossibilities}"/>
-    			</ice:selectInputText>
+    			</ice:selectInputText -->>
     			Start time: 
 				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true">
             		<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
@@ -62,23 +68,49 @@
     			
     			Section: 
     			<ice:selectOneMenu>
-    				<f:selectItems value="#{reportsBean.sectionsSelectItems}"/>
+    				<!-- f:selectItems value="#{reportsBean.sectionsSelectItems}"/ -->
     			</ice:selectOneMenu>
 			</ice:panelGrid>
 
-			<ice:commandButton actionListener="#{reportsBean.closeAddReportsForm}" value="Ok" />
-			<ice:commandButton actionListener="#{reportsBean.closeAddReportsForm}" value="Cancel" />
+			<ice:commandButton actionListener="#{reportsForm.create}" value="Ok" />
+			<ice:commandButton actionListener="#{reportsForm.createDialog.close}" value="Cancel" />
 		</div>	
-	</h:panelGroup>	
+	</ice:panelGroup>	
+	
+	<ice:panelGroup rendered="#{reportsForm.editDialog.opened}">
+		<div style="border: #E0E0E0 1px solid; padding: 0px 0px 20px 20px;">
+			<h3>Edit report: </h3>
+			<ice:panelGrid columns="2">
+				Name: <ice:inputText size="70" />
+				Description: <ice:inputRichText toolbar="Basic" width="500" />
+				Type: <ice:inputText size="70" />
+				Reporter: 
+				<!-- ice:selectInputText width="250" valueChangeListener="#{reportersDictionary.selectInputValueChanged}">
+    				<f:selectItems value="#{reportersDictionary.reportersMatchPossibilities}"/>
+    			</ice:selectInputText -->>
+    			Start time: 
+				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true">
+            		<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+        		</ice:selectInputDate>
+    			
+    			Section: 
+    			<ice:selectOneMenu>
+    				<!-- f:selectItems value="#{reportsBean.sectionsSelectItems}"/ -->
+    			</ice:selectOneMenu>
+			</ice:panelGrid>
 
-	<!-- Delete application dialog -->
-	<ice:panelPopup draggable="true" visible="#{popupBean.deleteApplication}" autoCentre="true">
+			<ice:commandButton actionListener="#{reportsForm.edit}" value="Save" />
+			<ice:commandButton actionListener="#{reportsForm.editDialog.close}" value="Cancel" />
+		</div>	
+	</ice:panelGroup>	
+
+	<ice:panelPopup draggable="true" visible="#{reportsForm.deleteDialog.opened}" autoCentre="true">
 		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}"/> Delete report</f:facet>
 		<f:facet name="body">
 			Do you really want to delete this report?<br />
 			<br/>
-			<ice:commandButton actionListener="#{popupBean.closeDelete}" value="Yes" />
-			<ice:commandButton actionListener="#{popupBean.closeDelete}" value="No, cancel" />
+			<ice:commandButton actionListener="#{reportsForm.delete}" value="Yes" />
+			<ice:commandButton actionListener="#{reportsForm.deleteDialog.close}" value="No, cancel" />
 		</f:facet>
 	</ice:panelPopup>
 </div>
