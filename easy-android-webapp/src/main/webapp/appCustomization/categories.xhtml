@@ -11,43 +11,58 @@
 		<ice:column>
 			<f:facet name="header">Name</f:facet>
 			<ice:panelGroup menuPopup="menuPopup">
-				<ice:commandLink styleClass="htmllink" actionListener="#{popupBean.openCopy}">
+				<ice:commandLink styleClass="htmllink" actionListener="#{categoriesForm.editDialog.open}">
 					#{category.name}
+					<f:attribute name="object" value="#{category}" />
 				</ice:commandLink>
 			</ice:panelGroup>
 			<ice:menuPopup id="menuPopup">
-				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{deleteCategoryDialog.open}">
-					<f:attribute name="objectId" value="#{category.id}" />
+				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{categoriesForm.editDialog.open}">
+					<f:attribute name="object" value="#{category}" />
 				</ice:menuItem>
-				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{deleteCategoryDialog.open}">
-					<f:attribute name="objectId" value="#{category.id}" />
+				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{categoriesForm.deleteDialog.open}">
+					<f:attribute name="object" value="#{category}" />
 				</ice:menuItem>
 			</ice:menuPopup>
 		</ice:column>
 	</ice:dataTable>
 
 	<br />
-	<ice:commandButton value="Add new category" actionListener="#{createCategoryDialog.open}" />
+	<ice:commandButton value="Add new category" actionListener="#{categoriesForm.createDialog.open}" />
 
-	<ice:panelPopup draggable="true" visible="#{deleteCategoryDialog.opened}" autoCentre="true">
+	<ice:panelPopup draggable="true" visible="#{categoriesForm.deleteDialog.opened}" autoCentre="true">
 		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}" /> Delete section</f:facet>
 		<f:facet name="body">
 			Do you really want to delete this section?<br />
 			<br/>
 			<ice:commandButton actionListener="#{categoriesForm.delete}" value="Yes" />
-			<ice:commandButton actionListener="#{deleteCategoryDialog.close}" value="No, cancel" />
+			<ice:commandButton actionListener="#{categoriesForm.deleteDialog.close}" value="No, cancel" />
 		</f:facet>
 	</ice:panelPopup>
 
-	<ice:panelGroup rendered="#{createCategoryDialog.opened}">
+	<ice:panelGroup rendered="#{categoriesForm.createDialog.opened}">
 		<div class="customDialog">
 			<!-- TODO insert icons images/icons:edit.png -->
+			Create category:
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText value="#{createCategoryDialog.name}" />
+				Name: <ice:inputText value="#{categoriesForm.createDialog.object.name}" />
 			</ice:panelGrid>
 	
 			<ice:commandButton actionListener="#{categoriesForm.create}" value="Ok" />
-			<ice:commandButton actionListener="#{createCategoryDialog.close}" value="Cancel" />
+			<ice:commandButton actionListener="#{categoriesForm.createDialog.close}" value="Cancel" />
+		</div>
+	</ice:panelGroup>	
+	
+	<ice:panelGroup rendered="#{categoriesForm.editDialog.opened}">
+		<div class="customDialog">
+			<!-- TODO insert icons images/icons:edit.png -->
+			Edit category:
+			<ice:panelGrid columns="2">
+				Name: <ice:inputText value="#{categoriesForm.editDialog.object.name}" />
+			</ice:panelGrid>
+	
+			<ice:commandButton actionListener="#{categoriesForm.edit}" value="Save" />
+			<ice:commandButton actionListener="#{categoriesForm.editDialog.close}" value="Cancel" />
 		</div>
 	</ice:panelGroup>	
 </div>

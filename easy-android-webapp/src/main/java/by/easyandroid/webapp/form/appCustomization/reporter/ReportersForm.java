@@ -11,6 +11,7 @@ import javax.faces.event.ActionEvent;
 import by.easyandroid.database.service.conference.ReporterService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Reporter;
+import by.easyandroid.model.util.ModelUtil;
 import by.easyandroid.webapp.form.ICrudForm;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 import by.easyandroid.webapp.util.Bean;
@@ -19,12 +20,14 @@ import by.easyandroid.webapp.util.Bean;
 @RequestScoped
 public class ReportersForm extends AbstractConferenceBaseForm implements ICrudForm<Reporter> {
 
-	// TODO move strings to Bean interface
 	@ManagedProperty(value = "#{createReporterDialog}")
-	private CreateReporterDialog createReporterDialog;
+	private CreateReporterDialog createDialog;
+	
+	@ManagedProperty(value = "#{editReporterDialog}")
+	private EditReporterDialog editDialog;
 	
 	@ManagedProperty(value = "#{deleteReporterDialog}")
-	private DeleteReporterDialog deleteReporterDialog;
+	private DeleteReporterDialog deleteDialog;
 	
 	@ManagedProperty(value = Bean.SRV_REPORTER)
 	private ReporterService reporterService;
@@ -44,17 +47,10 @@ public class ReportersForm extends AbstractConferenceBaseForm implements ICrudFo
 
 	@Override
 	public void create(ActionEvent event) {
-		Reporter reporter = new Reporter();
-		reporter.setName(createReporterDialog.getName());
-		reporter.setCompany(createReporterDialog.getCompany());
-		reporter.setDescription(createReporterDialog.getDescription());
-		reporter.setEmail(createReporterDialog.getEmail());
-		reporter.setPosition(createReporterDialog.getPosition());
-		
 		try {
 			if (template != null) {
-				reporterService.add(reporter, template);
-				createReporterDialog.close();
+				reporterService.add(createDialog.getObject(), template);
+				createDialog.close();
 			}
 		} catch (DatabaseServiceException e) {
 			// TODO display error message
@@ -64,28 +60,23 @@ public class ReportersForm extends AbstractConferenceBaseForm implements ICrudFo
 	
 	@Override
 	public void delete(ActionEvent event) {
-		reporterService.delete(deleteReporterDialog.getObjectId(), template);
-		deleteReporterDialog.close();
+		reporterService.delete(deleteDialog.getObject().getId(), template);
+		deleteDialog.close();
 	}	
 	
 
 	@Override
 	public void edit(ActionEvent event) {
-		// TODO Auto-generated method stub
+		reporterService.save(editDialog.getObject());
 		
+		// Update UI
+		ModelUtil.replaceById(reporters, editDialog.getObject());
+		editDialog.close();
 	}	
 	
 	@Override
 	public List<Reporter> getAll() {
 		return reporters;
-	}
-
-	public CreateReporterDialog getCreateReporterDialog() {
-		return createReporterDialog;
-	}
-
-	public void setCreateReporterDialog(CreateReporterDialog createReporterDialog) {
-		this.createReporterDialog = createReporterDialog;
 	}
 
 	public ReporterService getReporterService() {
@@ -96,11 +87,27 @@ public class ReportersForm extends AbstractConferenceBaseForm implements ICrudFo
 		this.reporterService = reporterService;
 	}
 
-	public DeleteReporterDialog getDeleteReporterDialog() {
-		return deleteReporterDialog;
+	public EditReporterDialog getEditDialog() {
+		return editDialog;
 	}
 
-	public void setDeleteReporterDialog(DeleteReporterDialog deleteReporterDialog) {
-		this.deleteReporterDialog = deleteReporterDialog;
+	public void setEditDialog(EditReporterDialog editDialog) {
+		this.editDialog = editDialog;
+	}
+
+	public DeleteReporterDialog getDeleteDialog() {
+		return deleteDialog;
+	}
+
+	public void setDeleteDialog(DeleteReporterDialog deleteDialog) {
+		this.deleteDialog = deleteDialog;
+	}
+
+	public CreateReporterDialog getCreateDialog() {
+		return createDialog;
+	}
+
+	public void setCreateDialog(CreateReporterDialog createDialog) {
+		this.createDialog = createDialog;
 	}
 }

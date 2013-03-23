@@ -16,7 +16,7 @@ public class FacesUtil {
 		return parameter;
 	}	
 	
-	public static String getAttribute(ActionEvent event, String attrName) {
+	public static String getStringAttribute(ActionEvent event, String attrName) {
 		Object value = event.getComponent().getAttributes().get(attrName);
 		if (value != null) {
 			return (String) value;
@@ -24,4 +24,8 @@ public class FacesUtil {
 		
 		return null;
 	}
+	
+	public static Object getAttribute(ActionEvent event, String attrName) {
+		return event.getComponent().getAttributes().get(attrName);
+	}	
 }

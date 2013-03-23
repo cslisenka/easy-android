@@ -11,14 +11,17 @@
 		<ice:column>
 			<f:facet name="header">Name</f:facet>
 			<ice:panelGroup menuPopup="menuPopup">
-				<ice:commandLink styleClass="htmllink" actionListener="#{popupBean.openCopy}">#{reporter.name}</ice:commandLink>
+				<ice:commandLink styleClass="htmllink" actionListener="#{reportersForm.editDialog.open}">
+					#{reporter.name}
+					<f:attribute name="object" value="#{reporter}" />
+				</ice:commandLink>
 			</ice:panelGroup>
 			<ice:menuPopup id="menuPopup">
-				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{popupBean.openCopy}">
-					<f:attribute name="objectId" value="#{reporter.id}" />
+				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{reportersForm.editDialog.open}">
+					<f:attribute name="object" value="#{reporter}" />
 				</ice:menuItem>
-				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{deleteReporterDialog.open}">
-					<f:attribute name="objectId" value="#{reporter.id}" />
+				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{reportersForm.deleteDialog.open}">
+					<f:attribute name="object" value="#{reporter}" />
 				</ice:menuItem>
 			</ice:menuPopup>
 		</ice:column>
@@ -41,31 +44,49 @@
 	</ice:dataTable>
 
 	<br />
-	<ice:commandButton value="Add new reporter" actionListener="#{createReporterDialog.open}" />
+	<ice:commandButton value="Add new reporter" actionListener="#{reportersForm.createDialog.open}" />
 
-	<ice:panelPopup draggable="true" visible="#{deleteReporterDialog.opened}" autoCentre="true">
+	<ice:panelPopup draggable="true" visible="#{reportersForm.deleteDialog.opened}" autoCentre="true">
 		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}" /> Delete reporter</f:facet>
 		<f:facet name="body">
 			Do you really want to delete this reporter?<br />
 			<br/>
 			<ice:commandButton actionListener="#{reportersForm.delete}" value="Yes" />
-			<ice:commandButton actionListener="#{deleteReporterDialog.close}" value="No, cancel" />
+			<ice:commandButton actionListener="#{reportersForm.deleteDialog.close}" value="No, cancel" />
 		</f:facet>
 	</ice:panelPopup>
 
-	<ice:panelGroup rendered="#{createReporterDialog.opened}">
+	<ice:panelGroup rendered="#{reportersForm.createDialog.opened}">
 		<div class="customDialog">
 			<!-- TODO insert icons images/icons:edit.png -->
+			Create reporter: <br/>
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText value="#{createReporterDialog.name}" />
-				Description: <ice:inputText value="#{createReporterDialog.description}" />
-				Email: <ice:inputText value="#{createReporterDialog.email}" />
-				Company: <ice:inputText value="#{createReporterDialog.company}" />
-				Position: <ice:inputText value="#{createReporterDialog.position}" />
+				Name: <ice:inputText value="#{reportersForm.createDialog.object.name}" />
+				Description: <ice:inputText value="#{reportersForm.createDialog.object.description}" />
+				Email: <ice:inputText value="#{reportersForm.createDialog.object.email}" />
+				Company: <ice:inputText value="#{reportersForm.createDialog.object.company}" />
+				Position: <ice:inputText value="#{reportersForm.createDialog.object.position}" />
 			</ice:panelGrid>
 	
 			<ice:commandButton actionListener="#{reportersForm.create}" value="Ok" />
-			<ice:commandButton actionListener="#{createReporterDialog.close}" value="Cancel" />
+			<ice:commandButton actionListener="#{reportersForm.createDialog.close}" value="Cancel" />
+		</div>
+	</ice:panelGroup>	
+	
+	<ice:panelGroup rendered="#{reportersForm.editDialog.opened}">
+		<div class="customDialog">
+			<!-- TODO insert icons images/icons:edit.png -->
+			Edit reporter: <br/>
+			<ice:panelGrid columns="2">
+				Name: <ice:inputText value="#{reportersForm.editDialog.object.name}" />
+				Description: <ice:inputText value="#{reportersForm.editDialog.object.description}" />
+				Email: <ice:inputText value="#{reportersForm.editDialog.object.email}" />
+				Company: <ice:inputText value="#{reportersForm.editDialog.object.company}" />
+				Position: <ice:inputText value="#{reportersForm.editDialog.object.position}" />
+			</ice:panelGrid>
+	
+			<ice:commandButton actionListener="#{reportersForm.edit}" value="Ok" />
+			<ice:commandButton actionListener="#{reportersForm.editDialog.close}" value="Cancel" />
 		</div>
 	</ice:panelGroup>		
 </div>

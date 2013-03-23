@@ -14,7 +14,7 @@ public class ConferenceForm {
 	private String selectedTemplateId;
 
 	public void open(ActionEvent event) {
-		selectedTemplateId = FacesUtil.getAttribute(event, Field.TEMPLATE_ID);
+		selectedTemplateId = FacesUtil.getStringAttribute(event, Field.TEMPLATE_ID);
 	}
 	
 	public String getSelectedTemplateId() {

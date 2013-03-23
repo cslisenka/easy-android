@@ -54,8 +54,8 @@ public class AppsCatalogForm extends AbstractBaseForm {
 	}
 	
 	public void showCopyDialog(ActionEvent event) {
-		copyTemplDialog.setTemplateId(FacesUtil.getAttribute(event, "templateId"));
-		copyTemplDialog.setTemplateTitle(FacesUtil.getAttribute(event, "templateTitle"));
+		copyTemplDialog.setTemplateId(FacesUtil.getStringAttribute(event, "templateId"));
+		copyTemplDialog.setTemplateTitle(FacesUtil.getStringAttribute(event, "templateTitle"));
 		copyTemplDialog.open();
 	}
 	

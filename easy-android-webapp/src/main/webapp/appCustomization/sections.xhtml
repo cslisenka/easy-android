@@ -14,17 +14,15 @@
 			<ice:panelGroup menuPopup="menuPopup">
 				<ice:commandLink styleClass="htmllink" actionListener="#{sectionsForm.editDialog.open}">
 					#{section.name}
-					<f:attribute name="objectId" value="#{section.id}" />
-					<f:attribute name="name" value="#{section.name}" />					
+					<f:attribute name="object" value="#{section}" />					
 				</ice:commandLink>
 			</ice:panelGroup>
 			<ice:menuPopup id="menuPopup">
 				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{sectionsForm.editDialog.open}">
-					<f:attribute name="objectId" value="#{section.id}" />
-					<f:attribute name="name" value="#{section.name}" />
+					<f:attribute name="object" value="#{section}" />
 				</ice:menuItem>
 				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{sectionsForm.deleteDialog.open}">
-					<f:attribute name="objectId" value="#{section.id}" />
+					<f:attribute name="object" value="#{section}" />
 				</ice:menuItem>
 			</ice:menuPopup>
 		</ice:column>
@@ -48,7 +46,7 @@
 			<!-- TODO insert icons -->
 			Edit section: <br/>
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText value="#{sectionsForm.editDialog.name}" />
+				Name: <ice:inputText value="#{sectionsForm.editDialog.object.name}" />
 			</ice:panelGrid>
 	
 			<ice:commandButton actionListener="#{sectionsForm.edit}" value="Save" />
@@ -61,7 +59,7 @@
 			<!-- TODO insert icons -->
 			Create section: <br/>
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText value="#{sectionsForm.createDialog.name}" />
+				Name: <ice:inputText value="#{sectionsForm.createDialog.object.name}" />
 			</ice:panelGrid>
 	
 			<ice:commandButton actionListener="#{sectionsForm.create}" value="Ok" />

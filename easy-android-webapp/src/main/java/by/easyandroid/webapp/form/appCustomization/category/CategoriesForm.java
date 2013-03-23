@@ -11,6 +11,7 @@ import javax.faces.event.ActionEvent;
 import by.easyandroid.database.service.conference.CategoryService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Category;
+import by.easyandroid.model.util.ModelUtil;
 import by.easyandroid.webapp.form.ICrudForm;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 import by.easyandroid.webapp.util.Bean;
@@ -20,10 +21,13 @@ import by.easyandroid.webapp.util.Bean;
 public class CategoriesForm extends AbstractConferenceBaseForm implements ICrudForm<Category> {
 
 	@ManagedProperty(value = "#{createCategoryDialog}")
-	private CreateCategoryDialog createCategoryDialog;
+	private CreateCategoryDialog createDialog;
+	
+	@ManagedProperty(value = "#{editCategoryDialog}")
+	private EditCategoryDialog editDialog;	
 	
 	@ManagedProperty(value = "#{deleteCategoryDialog}")
-	private DeleteCategoryDialog deleteCategoryDialog;
+	private DeleteCategoryDialog deleteDialog;
 	
 	@ManagedProperty(value = Bean.SRV_CATEGORY)
 	private CategoryService categoryService;
@@ -43,13 +47,10 @@ public class CategoriesForm extends AbstractConferenceBaseForm implements ICrudF
 
 	@Override
 	public void create(ActionEvent event) {
-		Category category = new Category();
-		category.setName(createCategoryDialog.getName());
-		
 		try {
 			if (template != null) {
-				categoryService.add(category, template);
-				createCategoryDialog.close();
+				categoryService.add(createDialog.getObject(), template);
+				createDialog.close();
 			}
 		} catch (DatabaseServiceException e) {
 			// TODO display error message
@@ -59,14 +60,17 @@ public class CategoriesForm extends AbstractConferenceBaseForm implements ICrudF
 	
 	@Override
 	public void delete(ActionEvent event) {
-		categoryService.delete(deleteCategoryDialog.getObjectId(), template);
-		deleteCategoryDialog.close();
+		categoryService.delete(deleteDialog.getObject().getId(), template);
+		deleteDialog.close();
 	}
 	
 	@Override
 	public void edit(ActionEvent event) {
-		// TODO Auto-generated method stub
+		categoryService.save(editDialog.getObject());
 		
+		// Update UI
+		ModelUtil.replaceById(getAll(), editDialog.getObject());
+		editDialog.close();
 	}
 
 	@Override
@@ -74,12 +78,28 @@ public class CategoriesForm extends AbstractConferenceBaseForm implements ICrudF
 		return categories;
 	}
 
-	public CreateCategoryDialog getCreateCategoryDialog() {
-		return createCategoryDialog;
+	public CreateCategoryDialog getCreateDialog() {
+		return createDialog;
 	}
 
-	public void setCreateCategoryDialog(CreateCategoryDialog createCategoryDialog) {
-		this.createCategoryDialog = createCategoryDialog;
+	public void setCreateDialog(CreateCategoryDialog createDialog) {
+		this.createDialog = createDialog;
+	}
+
+	public EditCategoryDialog getEditDialog() {
+		return editDialog;
+	}
+
+	public void setEditDialog(EditCategoryDialog editDialog) {
+		this.editDialog = editDialog;
+	}
+
+	public DeleteCategoryDialog getDeleteDialog() {
+		return deleteDialog;
+	}
+
+	public void setDeleteDialog(DeleteCategoryDialog deleteDialog) {
+		this.deleteDialog = deleteDialog;
 	}
 
 	public CategoryService getCategoryService() {
@@ -88,13 +108,5 @@ public class CategoriesForm extends AbstractConferenceBaseForm implements ICrudF
 
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
-	}
-
-	public DeleteCategoryDialog getDeleteCategoryDialog() {
-		return deleteCategoryDialog;
-	}
-
-	public void setDeleteCategoryDialog(DeleteCategoryDialog deleteCategoryDialog) {
-		this.deleteCategoryDialog = deleteCategoryDialog;
 	}
 }

@@ -8,8 +8,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.event.ActionEvent;
 
-import org.springframework.ui.Model;
-
 import by.easyandroid.database.service.conference.SectionService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Section;
@@ -49,12 +47,9 @@ public class SectionsForm extends AbstractConferenceBaseForm implements ICrudFor
 	
 	@Override
 	public void create(ActionEvent event) {
-		Section section = new Section();
-		section.setName(createDialog.getName());
-		
 		try {
 			if (template != null) {
-				sectionService.add(section, template);
+				sectionService.add(createDialog.getObject(), template);
 				createDialog.close();
 			}
 		} catch (DatabaseServiceException e) {
@@ -65,21 +60,17 @@ public class SectionsForm extends AbstractConferenceBaseForm implements ICrudFor
 	
 	@Override
 	public void delete(ActionEvent id) {
-		sectionService.delete(deleteDialog.getObjectId(), template);
+		sectionService.delete(deleteDialog.getObject().getId(), template);
 		deleteDialog.close();
 	}
 
 	@Override
 	public void edit(ActionEvent event) {
-		Section section = sectionService.get(editDialog.getObjectId());
-		if (section != null) {
-			section.setName(editDialog.getName());
-			sectionService.save(section);
-			
-			// Update UI
-			ModelUtil.replaceById(sections, section);
-			editDialog.close();
-		}
+		sectionService.save(editDialog.getObject());
+		
+		// Update UI
+		ModelUtil.replaceById(sections, editDialog.getObject());
+		editDialog.close();
 	}	
 	
 	@Override
