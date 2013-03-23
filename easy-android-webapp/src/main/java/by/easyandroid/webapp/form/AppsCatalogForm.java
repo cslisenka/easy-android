@@ -14,19 +14,20 @@ import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.ApplicationTemplate;
 import by.easyandroid.webapp.AbstractBaseForm;
 import by.easyandroid.webapp.beans.UserBean;
+import by.easyandroid.webapp.util.Bean;
 import by.easyandroid.webapp.util.FacesUtil;
 
 @ManagedBean
 @RequestScoped
 public class AppsCatalogForm extends AbstractBaseForm {
 
-	@ManagedProperty(value = "#{templateService}")
+	@ManagedProperty(value = Bean.SRV_TEMPLATE)
 	private TemplateService templateService;
 	
-	@ManagedProperty(value = "#{applicationInstanceService}")
+	@ManagedProperty(value = Bean.SRV_APPLICATION)
 	private ApplicationInstanceService applicationInstanceService;
 	
-	@ManagedProperty(value = "#{userBean}")
+	@ManagedProperty(value = Bean.BN_USER)
 	private UserBean userBean;
 
 	@ManagedProperty(value = "#{copyTemplateDialog}")

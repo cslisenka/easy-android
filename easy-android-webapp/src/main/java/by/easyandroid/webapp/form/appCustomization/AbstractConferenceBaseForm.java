@@ -6,15 +6,16 @@ import javax.faces.event.ActionEvent;
 import by.easyandroid.database.service.ApplicationInstanceService;
 import by.easyandroid.model.ApplicationInstance;
 import by.easyandroid.webapp.AbstractBaseForm;
+import by.easyandroid.webapp.util.Bean;
 import by.easyandroid.webapp.util.FacesUtil;
 import by.easyandroid.webapp.util.RequestAttr;
 
 public abstract class AbstractConferenceBaseForm extends AbstractBaseForm {
 
-	@ManagedProperty(value = "#{applicationInstanceService}")
+	@ManagedProperty(value = Bean.SRV_APPLICATION)
 	protected ApplicationInstanceService instanceService;
 	
-	@ManagedProperty(value = "#{conferenceForm}")
+	@ManagedProperty(value = Bean.FRM_CONFERENCE)
 	protected ConferenceForm conferenceForm;	
 	
 	protected ApplicationInstance template;

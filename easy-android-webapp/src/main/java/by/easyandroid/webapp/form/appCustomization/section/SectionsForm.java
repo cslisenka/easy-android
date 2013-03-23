@@ -12,6 +12,7 @@ import by.easyandroid.database.service.conference.SectionService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Section;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
+import by.easyandroid.webapp.util.Bean;
 
 @ManagedBean
 @RequestScoped
@@ -23,7 +24,7 @@ public class SectionsForm extends AbstractConferenceBaseForm {
 	@ManagedProperty(value = "#{deleteSectionDialog}")
 	private DeleteSectionDialog deleteSectionDialog;
 	
-	@ManagedProperty(value = "#{sectionService}")
+	@ManagedProperty(value = Bean.SRV_SECTION)
 	private SectionService sectionService;
 	
 	private List<Section> sections = new ArrayList<Section>(); 

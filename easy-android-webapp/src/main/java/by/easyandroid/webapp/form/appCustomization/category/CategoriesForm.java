@@ -12,6 +12,7 @@ import by.easyandroid.database.service.conference.CategoryService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Category;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
+import by.easyandroid.webapp.util.Bean;
 
 @ManagedBean
 @RequestScoped
@@ -23,7 +24,7 @@ public class CategoriesForm extends AbstractConferenceBaseForm {
 	@ManagedProperty(value = "#{deleteCategoryDialog}")
 	private DeleteCategoryDialog deleteCategoryDialog;
 	
-	@ManagedProperty(value = "#{categoryService}")
+	@ManagedProperty(value = Bean.SRV_CATEGORY)
 	private CategoryService categoryService;
 	
 	private List<Category> categories = new ArrayList<Category>(); 

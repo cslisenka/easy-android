@@ -12,6 +12,7 @@ import by.easyandroid.database.service.conference.ReporterService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Reporter;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
+import by.easyandroid.webapp.util.Bean;
 
 @ManagedBean
 @RequestScoped
@@ -24,7 +25,7 @@ public class ReportersForm extends AbstractConferenceBaseForm {
 	@ManagedProperty(value = "#{deleteReporterDialog}")
 	private DeleteReporterDialog deleteReporterDialog;
 	
-	@ManagedProperty(value = "#{reporterService}")
+	@ManagedProperty(value = Bean.SRV_REPORTER)
 	private ReporterService reporterService;
 	
 	private List<Reporter> reporters = new ArrayList<Reporter>(); 

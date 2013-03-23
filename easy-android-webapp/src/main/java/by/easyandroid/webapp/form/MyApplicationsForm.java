@@ -12,15 +12,16 @@ import by.easyandroid.model.ApplicationInstance;
 import by.easyandroid.model.User;
 import by.easyandroid.webapp.AbstractBaseForm;
 import by.easyandroid.webapp.beans.UserBean;
+import by.easyandroid.webapp.util.Bean;
 
 @ManagedBean
 @RequestScoped
 public class MyApplicationsForm extends AbstractBaseForm {
 
-	@ManagedProperty(value = "#{applicationInstanceService}")
+	@ManagedProperty(value = Bean.SRV_APPLICATION)
 	private ApplicationInstanceService instanceService;
 	
-	@ManagedProperty(value = "#{userBean}")
+	@ManagedProperty(value = Bean.BN_USER)
 	private UserBean userBean;
 	
 	private List<ApplicationInstance> templates = new ArrayList<ApplicationInstance>();
