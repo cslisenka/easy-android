@@ -59,7 +59,7 @@ public class CategoriesForm extends AbstractConferenceBaseForm implements ICrudF
 	
 	@Override
 	public void delete(ActionEvent event) {
-		categoryService.delete(deleteCategoryDialog.getDeletedId(), template);
+		categoryService.delete(deleteCategoryDialog.getObjectId(), template);
 		deleteCategoryDialog.close();
 	}
 	

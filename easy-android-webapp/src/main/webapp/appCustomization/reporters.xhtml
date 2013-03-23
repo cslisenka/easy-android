@@ -48,9 +48,7 @@
 		<f:facet name="body">
 			Do you really want to delete this reporter?<br />
 			<br/>
-			<ice:commandButton actionListener="#{reportersForm.delete}" value="Yes">
-				<f:attribute name="objectId" value="#{deleteReporterDialog.deletedId}" />
-			</ice:commandButton>
+			<ice:commandButton actionListener="#{reportersForm.delete}" value="Yes" />
 			<ice:commandButton actionListener="#{deleteReporterDialog.close}" value="No, cancel" />
 		</f:facet>
 	</ice:panelPopup>

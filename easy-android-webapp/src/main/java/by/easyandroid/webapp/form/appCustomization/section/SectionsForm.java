@@ -8,9 +8,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.event.ActionEvent;
 
+import org.springframework.ui.Model;
+
 import by.easyandroid.database.service.conference.SectionService;
 import by.easyandroid.database.service.exception.DatabaseServiceException;
 import by.easyandroid.model.conference.Section;
+import by.easyandroid.model.util.ModelUtil;
 import by.easyandroid.webapp.form.ICrudForm;
 import by.easyandroid.webapp.form.appCustomization.AbstractConferenceBaseForm;
 import by.easyandroid.webapp.util.Bean;
@@ -20,10 +23,13 @@ import by.easyandroid.webapp.util.Bean;
 public class SectionsForm extends AbstractConferenceBaseForm implements ICrudForm<Section> {
 
 	@ManagedProperty(value = "#{createSectionDialog}")
-	private CreateSectionDialog createSectionDialog;
+	private CreateSectionDialog createDialog;
+	
+	@ManagedProperty(value = "#{editSectionDialog}")
+	private EditSectionDialog editDialog;	
 	
 	@ManagedProperty(value = "#{deleteSectionDialog}")
-	private DeleteSectionDialog deleteSectionDialog;
+	private DeleteSectionDialog deleteDialog;
 	
 	@ManagedProperty(value = Bean.SRV_SECTION)
 	private SectionService sectionService;
@@ -44,12 +50,12 @@ public class SectionsForm extends AbstractConferenceBaseForm implements ICrudFor
 	@Override
 	public void create(ActionEvent event) {
 		Section section = new Section();
-		section.setName(createSectionDialog.getName());
+		section.setName(createDialog.getName());
 		
 		try {
 			if (template != null) {
 				sectionService.add(section, template);
-				createSectionDialog.close();
+				createDialog.close();
 			}
 		} catch (DatabaseServiceException e) {
 			// TODO display error message
@@ -59,14 +65,21 @@ public class SectionsForm extends AbstractConferenceBaseForm implements ICrudFor
 	
 	@Override
 	public void delete(ActionEvent id) {
-		sectionService.delete(deleteSectionDialog.getDeletedId(), template);
-		deleteSectionDialog.close();
+		sectionService.delete(deleteDialog.getObjectId(), template);
+		deleteDialog.close();
 	}
 
 	@Override
 	public void edit(ActionEvent event) {
-		// TODO Auto-generated method stub
-		
+		Section section = sectionService.get(editDialog.getObjectId());
+		if (section != null) {
+			section.setName(editDialog.getName());
+			sectionService.save(section);
+			
+			// Update UI
+			ModelUtil.replaceById(sections, section);
+			editDialog.close();
+		}
 	}	
 	
 	@Override
@@ -74,12 +87,28 @@ public class SectionsForm extends AbstractConferenceBaseForm implements ICrudFor
 		return sections;
 	}
 
-	public CreateSectionDialog getCreateSectionDialog() {
-		return createSectionDialog;
+	public CreateSectionDialog getCreateDialog() {
+		return createDialog;
 	}
 
-	public void setCreateSectionDialog(CreateSectionDialog createSectionDialog) {
-		this.createSectionDialog = createSectionDialog;
+	public void setCreateDialog(CreateSectionDialog createDialog) {
+		this.createDialog = createDialog;
+	}
+
+	public EditSectionDialog getEditDialog() {
+		return editDialog;
+	}
+
+	public void setEditDialog(EditSectionDialog editDialog) {
+		this.editDialog = editDialog;
+	}
+
+	public DeleteSectionDialog getDeleteDialog() {
+		return deleteDialog;
+	}
+
+	public void setDeleteDialog(DeleteSectionDialog deleteDialog) {
+		this.deleteDialog = deleteDialog;
 	}
 
 	public SectionService getSectionService() {
@@ -88,13 +117,5 @@ public class SectionsForm extends AbstractConferenceBaseForm implements ICrudFor
 
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
-	}
-
-	public DeleteSectionDialog getDeleteSectionDialog() {
-		return deleteSectionDialog;
-	}
-
-	public void setDeleteSectionDialog(DeleteSectionDialog deleteSectionDialog) {
-		this.deleteSectionDialog = deleteSectionDialog;
 	}
 }

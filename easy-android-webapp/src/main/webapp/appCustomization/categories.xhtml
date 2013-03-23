@@ -34,10 +34,7 @@
 		<f:facet name="body">
 			Do you really want to delete this section?<br />
 			<br/>
-			<ice:commandButton actionListener="#{categoriesForm.delete}" value="Yes">
-				<!-- TODO to think, not put this parameter, take id from dialog in delete method -->
-				<f:attribute name="objectId" value="#{deleteCategoryDialog.deletedId}" />
-			</ice:commandButton>
+			<ice:commandButton actionListener="#{categoriesForm.delete}" value="Yes" />
 			<ice:commandButton actionListener="#{deleteCategoryDialog.close}" value="No, cancel" />
 		</f:facet>
 	</ice:panelPopup>

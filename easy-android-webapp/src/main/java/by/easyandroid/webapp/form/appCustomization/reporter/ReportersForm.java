@@ -64,7 +64,7 @@ public class ReportersForm extends AbstractConferenceBaseForm implements ICrudFo
 	
 	@Override
 	public void delete(ActionEvent event) {
-		reporterService.delete(deleteReporterDialog.getDeletedId(), template);
+		reporterService.delete(deleteReporterDialog.getObjectId(), template);
 		deleteReporterDialog.close();
 	}	
 	

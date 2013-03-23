@@ -19,4 +19,18 @@ public class ModelUtil {
 			}
 		}
 	}
+	
+	/**
+	 * Removes objects from list by specified id
+	 * @param list
+	 * @param id
+	 */
+	public static <T extends Identity> void replaceById(List<T> list, T objToReplace ) {
+		for (int i = 0; i < list.size(); i++) {
+			if (objToReplace.getId().equals(list.get(i).getId())) {
+				list.set(i, objToReplace);
+				return;
+			}
+		}
+	}
 }

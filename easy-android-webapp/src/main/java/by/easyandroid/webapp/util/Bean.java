@@ -1,5 +1,6 @@
 package by.easyandroid.webapp.util;
 
+
 /**
  * Commonly used ManagedProperty names in web application
  * @author kslisenko
