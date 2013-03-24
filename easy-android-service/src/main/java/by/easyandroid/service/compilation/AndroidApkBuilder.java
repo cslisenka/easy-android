@@ -10,8 +10,6 @@ import org.apache.tools.ant.ProjectHelper;
 
 public class AndroidApkBuilder {
 	
-//	private static final String BUILDFILE = "src/test/resources/showcase/ant/android/MyAndroidAppProject/build.xml";
-
 	public void build(String workingDirectoryPath) {
 		// TODO now build file is in the working directory, but in future we should store it in this project resources
 		File buildFile = new File(workingDirectoryPath + "/build.xml");

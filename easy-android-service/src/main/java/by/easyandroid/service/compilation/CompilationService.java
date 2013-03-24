@@ -41,24 +41,32 @@ public class CompilationService {
 			throw new ApplicationServiceException("Can not find application with id '" + applicationId + "'");
 		}
 		
-		build(application.getModel());
+		String workingDirectoryPath = new File("").getAbsolutePath() + "/target/buildResults";
+		String templatePath = new File("").getAbsolutePath() + "/../Conference";
+		
+		runBuildProcess(application.getModel(), workingDirectoryPath, templatePath);
+		// TODO copy result apk to web folder
 	}
 
-	protected void build(ConferenceApplicationModel model) throws ApplicationServiceException {
+	/**
+	 * 1. Copies template to working directory.
+	 * 2. Uses adapter to convert model to project source files, copies them into working directory.
+	 * 3. Executes build script in working directory
+	 * @param model
+	 * @throws ApplicationServiceException
+	 */
+	protected void runBuildProcess(ConferenceApplicationModel model, String workingDirectoryPath, String templatePath) throws ApplicationServiceException {
 		// 2. Create adapter
 		ConferenceAdapter adapter = new ConferenceAdapter(model);
+		adapter.setSourcesPath(templatePath);		
 		
-		// TODO temporary path to template in WEB-INF
-		String pathToSources = new File("").getAbsolutePath() + "/../Conference";
-		// TODO this is temporary solution, we need to put project sources into target folder during build
-		adapter.setSourcesPath(pathToSources);		
+		Copier copier = new Copier();
+		copier.setOutputDir(workingDirectoryPath);
+		copier.add(templatePath);		
 		
 		try {
 			List<FileEntry> convertedFiles = adapter.convert();
-			Copier copier = new Copier();
-			// TODO now we copy to target, in future we need to copy to special directory on server
-			copier.setOutputDir(new File("").getAbsolutePath() + "/target/buildResults");
-			copier.add(new File("").getAbsolutePath() + "/../Conference");
+			
 			for (FileEntry entry : convertedFiles) {
 				copier.createFile(entry.getPathInProject(), entry.getFileContent());
 			}
@@ -67,8 +75,6 @@ public class CompilationService {
 			
 			AndroidApkBuilder builder = new AndroidApkBuilder();
 			builder.build(copier.getOutputDir());	
-			
-			// TODO return link to compiled apk
 		} catch (TemplateAdapterException e) {
 			throw new ApplicationServiceException(e);
 		} catch (TaskExecutionException e) {

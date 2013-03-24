@@ -1,5 +1,6 @@
 package by.easyandroid.service.compilation;
 
+import java.io.File;
 import java.util.Date;
 
 import org.junit.Test;
@@ -33,7 +34,10 @@ public class TestCompilationService {
 	@Test
 	public void testApplicationBuilding() throws ApplicationServiceException {
 		createFakeModel();
-		compilationService.build(model);
+		// TODO copy android project sources to target folder during build
+		String workingDirectoryPath = new File("").getAbsolutePath() + "/target/buildResults";
+		String templatePath = new File("").getAbsolutePath() + "/../Conference";		
+		compilationService.runBuildProcess(model, workingDirectoryPath, templatePath);
 	}
 
 	private void createFakeModel() {
