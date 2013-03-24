@@ -1,0 +1,22 @@
+/media/Work/Workspace/easy-android/easy-android/Conference/gen/by/easyandroid/template/conference/R.java \
+ : /media/Work/Workspace/easy-android/easy-android/Conference/res/drawable-hdpi/ic_launcher.png \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/drawable-mdpi/ic_launcher.png \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/drawable-xhdpi/ic_launcher.png \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/drawable-xxhdpi/ic_launcher.png \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/activity_about.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/activity_main.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/activity_reporters.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/activity_reporter_information.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/activity_reports.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/activity_schedule.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/activity_single_report.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/include_header.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/list_elem_reporters.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/list_elem_reports.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/layout/list_elem_schedule.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/values/dimens.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/values/strings.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/values/styles.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/values-sw600dp/dimens.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/res/values-sw720dp-land/dimens.xml \
+/media/Work/Workspace/easy-android/easy-android/Conference/bin/AndroidManifest.xml \
