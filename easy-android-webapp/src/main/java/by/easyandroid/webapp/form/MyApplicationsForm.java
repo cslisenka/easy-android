@@ -11,6 +11,8 @@ import javax.faces.event.ActionEvent;
 import by.easyandroid.database.service.ApplicationInstanceService;
 import by.easyandroid.model.ApplicationInstance;
 import by.easyandroid.model.User;
+import by.easyandroid.service.compilation.CompilationService;
+import by.easyandroid.service.exception.ApplicationServiceException;
 import by.easyandroid.webapp.AbstractBaseForm;
 import by.easyandroid.webapp.beans.UserBean;
 import by.easyandroid.webapp.util.Bean;
@@ -24,6 +26,9 @@ public class MyApplicationsForm extends AbstractBaseForm {
 	
 	@ManagedProperty(value = Bean.SRV_APPLICATION)
 	private ApplicationInstanceService instanceService;
+	
+	@ManagedProperty(value = Bean.SRV_COMPILATION)
+	private CompilationService compilationService;
 	
 	@ManagedProperty(value = Bean.BN_USER)
 	private UserBean userBean;
@@ -39,8 +44,13 @@ public class MyApplicationsForm extends AbstractBaseForm {
 	}
 
 	public void compile(ActionEvent event) {
-		// Call app compilation service
-		compileDialog.close();
+		try {
+			compilationService.doCompilation(compileDialog.getObject().getId());
+			compileDialog.close();
+		} catch (ApplicationServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public List<ApplicationInstance> getTemplates() {
@@ -69,5 +79,13 @@ public class MyApplicationsForm extends AbstractBaseForm {
 
 	public void setCompileDialog(ApplicationDialog compileDialog) {
 		this.compileDialog = compileDialog;
+	}
+
+	public CompilationService getCompilationService() {
+		return compilationService;
+	}
+
+	public void setCompilationService(CompilationService compilationService) {
+		this.compilationService = compilationService;
 	}
 }

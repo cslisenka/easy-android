@@ -46,16 +46,16 @@
 				</ice:panelGroup>
 				<ice:menuPopup id="menuPopup">
 					<ice:menuItem value="Copy" icon="#{resource['images/icons:copy.png']}" actionListener="#{popupBean.openCopy}">
-						<f:param name="templateId" value="#{template.id}" />
+						<f:attribute name="templateId" value="#{template.id}" />
 					</ice:menuItem>
 					<ice:menuItem value="Customize" icon="#{resource['images/icons:customize.png']}" action="#{conferenceForm.open}">
-						<f:param name="templateId" value="#{template.id}" />
+						<f:attribute name="templateId" value="#{template.id}" />
 					</ice:menuItem>
 					<ice:menuItem value="Compile" icon="#{resource['images/icons:compile.png']}" actionListener="#{applicationCompileDialog.open}">
-						<f:param name="object" value="#{template}" />
+						<f:attribute name="object" value="#{template}" />
 					</ice:menuItem>
 					<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{popupBean.openDelete}">
-						<f:param name="templateId" value="#{template.id}" />
+						<f:attribute name="templateId" value="#{template.id}" />
 					</ice:menuItem>
 				</ice:menuPopup>
 			</ice:column>

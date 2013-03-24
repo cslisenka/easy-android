@@ -26,7 +26,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>by.easyandroid</groupId>
-			<artifactId>easy-android-database</artifactId>
+			<artifactId>easy-android-service</artifactId>
 		</dependency>
 	
 		<dependency>

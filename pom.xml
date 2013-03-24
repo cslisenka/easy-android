@@ -43,7 +43,12 @@
 				<groupId>by.easyandroid</groupId>
 				<artifactId>easy-android-deploy</artifactId>
 				<version>${project.version}</version>
-			</dependency>	
+			</dependency>
+			<dependency>
+				<groupId>by.easyandroid</groupId>
+				<artifactId>easy-android-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>					
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
