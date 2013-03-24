@@ -51,8 +51,8 @@
 					<ice:menuItem value="Customize" icon="#{resource['images/icons:customize.png']}" action="#{conferenceForm.open}">
 						<f:param name="templateId" value="#{template.id}" />
 					</ice:menuItem>
-					<ice:menuItem value="Compile" icon="#{resource['images/icons:compile.png']}" actionListener="#{popupBean.openCompile}">
-						<f:param name="templateId" value="#{template.id}" />
+					<ice:menuItem value="Compile" icon="#{resource['images/icons:compile.png']}" actionListener="#{applicationCompileDialog.open}">
+						<f:param name="object" value="#{template}" />
 					</ice:menuItem>
 					<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{popupBean.openDelete}">
 						<f:param name="templateId" value="#{template.id}" />
@@ -95,18 +95,20 @@
 		</ice:panelPopup>
 		
 		<!-- Compile application dialog -->
-		<ice:panelPopup draggable="true" visible="#{popupBean.compileApplication}" autoCentre="true">
+		<ice:panelPopup draggable="true" visible="#{applicationCompileDialog.opened}" autoCentre="true">
 			<f:facet name="header"><img src="#{resource['images/icons:compile.png']}"/> Compile application</f:facet>
 			<f:facet name="body">
 				Application compilation takes time. Amount of this time depends on our servers load.<br/>
 				You need to wait some time and link to compiled apk appears at "my applications" page.<br/>
 				You can set email and we'll send result apk to it.<br/>
 				<br/>
+				<!-- 
                 Send result apk to email: <ice:selectBooleanCheckbox/><br/>
                 E-mail: <ice:inputText value="kslisenko@gmail.com" /><br/>
                 <br/>
-				<ice:commandButton actionListener="#{popupBean.closeCompile}" style="margin-right: 10px;" value="Ok, start compilation" />
-				<ice:commandButton actionListener="#{popupBean.closeCompile}" value="Cancel" />
+                 -->
+				<ice:commandButton actionListener="#{myApplicationsForm.compile}" style="margin-right: 10px;" value="Ok, start compilation" />
+				<ice:commandButton actionListener="#{applicationCompileDialog.close}" value="Cancel" />
 			</f:facet>
 		</ice:panelPopup>
 		

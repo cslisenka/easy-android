@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.event.ActionEvent;
 
 import by.easyandroid.database.service.ApplicationInstanceService;
 import by.easyandroid.model.ApplicationInstance;
@@ -18,6 +19,9 @@ import by.easyandroid.webapp.util.Bean;
 @RequestScoped
 public class MyApplicationsForm extends AbstractBaseForm {
 
+	@ManagedProperty(value = "#{applicationCompileDialog}")
+	private ApplicationDialog compileDialog;
+	
 	@ManagedProperty(value = Bean.SRV_APPLICATION)
 	private ApplicationInstanceService instanceService;
 	
@@ -34,6 +38,11 @@ public class MyApplicationsForm extends AbstractBaseForm {
 		}
 	}
 
+	public void compile(ActionEvent event) {
+		// Call app compilation service
+		compileDialog.close();
+	}
+	
 	public List<ApplicationInstance> getTemplates() {
 		return templates;
 	}
@@ -52,5 +61,13 @@ public class MyApplicationsForm extends AbstractBaseForm {
 
 	public void setUserBean(UserBean userBean) {
 		this.userBean = userBean;
+	}
+
+	public ApplicationDialog getCompileDialog() {
+		return compileDialog;
+	}
+
+	public void setCompileDialog(ApplicationDialog compileDialog) {
+		this.compileDialog = compileDialog;
 	}
 }
