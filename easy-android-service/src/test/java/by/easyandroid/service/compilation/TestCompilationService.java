@@ -27,8 +27,7 @@ public class TestCompilationService {
 
 	@Test(expected = ApplicationServiceException.class)
 	public void testWrongApplication() throws ApplicationServiceException {
-		compilationService.doCompilation("wrongid");
-		// TODO check that compilation were success
+		compilationService.doCompilation("wrongid", "");
 	}
 
 	@Test
@@ -38,6 +37,7 @@ public class TestCompilationService {
 		String workingDirectoryPath = new File("").getAbsolutePath() + "/target/buildResults";
 		String templatePath = new File("").getAbsolutePath() + "/../Conference";		
 		compilationService.runBuildProcess(model, workingDirectoryPath, templatePath);
+		// TODO check that compilation were success		
 	}
 
 	private void createFakeModel() {

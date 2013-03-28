@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<project name="mongodb-remote" default="usage" basedir=".">
+	<path id="antlib_classpath">
+		<pathelement location="${basedir}/../../antLib" />
+	</path>
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />	
+
+	<target name="usage" description="Echos the usage and different targets">
+		<echo message="Usage : ant target-name"/>
+		<echo message="Valid target names are : "/>
+		<echo message="mongo-drop-db  --> Delete existing database data"/>
+		<echo message="mongo-upload-dump --> Removes old dump and uploads new dump"/>
+		<echo message="mongo-import-dump --> Drop database, upload and import new dump"/>
+	</target>
+
+	<target name="mongo-drop-db" description="Delete existing database data">
+		<echo message="Drop database..." />
+		<sshexec host="${host}"
+	    	username="${myuser.name}"
+			keyfile="${myuser.keyfile.location}"
+			trust="true"
+	    	command="mongo ${mongodb.db.name} --eval 'db.dropDatabase()'"/>		
+	</target>
+	
+	<target name="mongo-upload-dump" description="Removes old dump and uploads new dump">
+		<echo message="Deleting old dump..." />
+		<sshexec host="${host}"
+	    	username="${myuser.name}"
+			keyfile="${myuser.keyfile.location}"
+			trust="true"
+	    	command="rm -rf ${mongodb.dump.path.remote}"/>	
+		<sshexec host="${host}"
+	    	username="${myuser.name}"
+			keyfile="${myuser.keyfile.location}"
+			trust="true"
+	    	command="mkdir ${mongodb.dump.path.remote}"/>	
+		<echo message="Uploading new dump..." />
+		<scp 
+			keyfile="${myuser.keyfile.location}"
+			todir="${myuser.name}:${myuser.password}@${host}:${mongodb.dump.path.remote}" 
+			trust="true"
+			verbose="true">
+			<fileset dir="${mongodb.dump.path.local}" />
+		</scp>			
+	</target>
+	
+	<target name="mongo-import-dump" depends="mongo-drop-db, mongo-upload-dump" description="Imports dump to remote server">
+		<echo message="Importing dump..." />
+		<sshexec host="${host}"
+	    	username="${myuser.name}"
+			keyfile="${myuser.keyfile.location}"
+			trust="true"
+	    	command="mongorestore --host localhost:${mongodb.port} --db ${mongodb.db.name} ${mongodb.dump.path.remote}"/>
+	</target>
+</project>

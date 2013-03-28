@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="mongodb-local" default="usage" basedir=".">
+	<path id="antlib_classpath">
+		<pathelement location="${basedir}/../../antLib" />
+	</path>
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />	
+
+	<target name="usage" description="Echos the usage and different targets">
+		<echo message="Usage : ant target-name"/>
+		<echo message="Valid target names are : "/>
+		<echo message="mongo-drop-db  --> Delete existing database data"/>
+		<echo message="mongo-import-dump --> Drop database, upload and import new dump"/>
+	</target>
+
+	<target name="mongo-drop-db" description="">
+		<echo message="Drop database..." />
+		<exec executable="mongo">
+			<arg line="${mongodb.db.name} --eval 'db.dropDatabase()'"/>
+		</exec>
+	</target>
+	
+	<target name="mongo-import-dump" depends="mongo-drop-db" description="TODO">
+		<echo message="Importing dump..." />
+		<exec executable="mongorestore">
+			<arg line="--host ${host}:${mongodb.port} --db ${mongodb.db.name} ${mongodb.dump.path}"/>
+		</exec>		
+	</target>
+</project>

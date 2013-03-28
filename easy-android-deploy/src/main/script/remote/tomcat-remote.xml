@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project name="tomcat-remote" default="usage" basedir=".">
+	<path id="antlib_classpath">
+		<pathelement location="${basedir}/../../antLib" />
+	</path>
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />	
+
+	<target name="usage" description="Echos the usage and different targets">
+		<echo message="Usage : ant target-name"/>
+		<echo message="Valid target names are : "/>
+		<echo message="clean-tomcat  --> Delete existing WebApp and WAR file from TOMCAT_HOME\webapps"/>
+		<echo message="deploy-webapp --> Deploy the WAR file to TOMCAT_HOME\webapps"/>
+		<echo message="start-tomcat --> Start tomcat"/>
+		<echo message="stop-tomcat  --> Stop tomcat"/>
+		<echo message="full-deploy --> Stop, clean, deploy, start"/>
+	</target>
+
+	<target name="clean-tomcat" description="Remove webapp from tomcat server">
+		<echo message="Cleaning tomcat..." />
+		<sshexec host="${host}"
+	    	username="${myuser.name}"
+			keyfile="${myuser.keyfile.location}"
+			trust="true"
+	    	command="rm -rf ${tomcat.home}/webapps/ea-webapp"/>
+		<sshexec host="${host}"
+	    	username="${myuser.name}"
+			keyfile="${myuser.keyfile.location}"
+			trust="true"
+	    	command="rm -rf ${tomcat.home}/webapps/ea-webapp.war"/>		
+	</target>
+	
+	<target name="deploy-webapp" depends="clean-tomcat" description="Deploy webapp to tomcat">
+		<echo message="Copying webapp to tomcat..."/>
+		<scp 
+			file="${webapp.war.path}"
+			keyfile="${myuser.keyfile.location}"
+			todir="${myuser.name}:${myuser.password}@${host}:${tomcat.home}/webapps" 
+			trust="true"
+			verbose="true">
+		</scp>		
+	</target>
+	
+	<target name="stop-tomcat" description="Stop Tomcat server">
+		<echo message="Stopping tomcat..." />
+		<sshexec host="${host}"
+	    	username="${myuser.name}"
+			keyfile="${myuser.keyfile.location}"
+			trust="true"
+	    	command="${tomcat.home}/bin/shutdown.sh"/>
+	</target>	
+	
+	<target name="start-tomcat" description="Start Tomcat server">
+		<echo message="Starting tomcat..." />
+		<sshexec host="${host}"
+	    	username="${myuser.name}"
+			keyfile="${myuser.keyfile.location}"
+			trust="true"
+	    	command="${tomcat.home}/bin/startup.sh"/>
+	</target>
+	
+	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-webapp, start-tomcat">
+		<echo>Deploying ea-webapp to ${tomcat.home}</echo>
+	</target>	
+</project>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<project name="ea-webapp-deploy" default="deploy-ea-webapp" basedir=".">
+	<property file="${basedir}/enviroment.properties"/>
+	<property file="${basedir}/${enviroment}/${enviroment}.credientials.properties"/>
+	<property file="${basedir}/${enviroment}/${enviroment}.properties"/>
+
+	<path id="antlib_classpath">
+		<pathelement location="${basedir}/../../antLib" />
+	</path>
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />
+	
+	<target name="deploy-ea-webapp">
+		<ant antfile="${basedir}/${enviroment}/tomcat-${enviroment}.xml" target="full-deploy" />
+		<ant antfile="${basedir}/${enviroment}/mongodb-${enviroment}.xml" target="mongo-import-dump" />
+	</target>
+	
+	<target name="import-database-dump">
+		<ant antfile="${basedir}/${enviroment}/mongodb-${enviroment}.xml" target="mongo-import-dump" />
+	</target>	
+	
+	<target name="deploy-tomcat-webapp">
+		<ant antfile="${basedir}/${enviroment}/tomcat-${enviroment}.xml" target="full-deploy" />
+	</target>	
+</project>

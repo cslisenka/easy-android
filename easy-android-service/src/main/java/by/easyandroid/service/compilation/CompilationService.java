@@ -1,7 +1,11 @@
 package by.easyandroid.service.compilation;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 import by.easyandroid.database.service.ApplicationInstanceService;
 import by.easyandroid.framework.Copier;
@@ -9,6 +13,7 @@ import by.easyandroid.framework.exception.TaskExecutionException;
 import by.easyandroid.model.ApplicationInstance;
 import by.easyandroid.model.conference.ConferenceApplicationModel;
 import by.easyandroid.service.exception.ApplicationServiceException;
+import by.easyandroid.service.util.FileUtil;
 import by.easyandroid.template.adapter.FileEntry;
 import by.easyandroid.template.adapter.conference.ConferenceAdapter;
 import by.easyandroid.template.adapter.exception.TemplateAdapterException;
@@ -34,18 +39,33 @@ public class CompilationService {
 	 * @param applicationId
 	 * @throws ApplicationServiceException
 	 */
-	public void doCompilation(String applicationId) throws ApplicationServiceException {
+	public void doCompilation(String applicationId, String pathToWebRoot) throws ApplicationServiceException {
 		// 1. get application from database
 		ApplicationInstance application = applicationService.get(applicationId);
 		if (application == null) {
 			throw new ApplicationServiceException("Can not find application with id '" + applicationId + "'");
 		}
 		
-		String workingDirectoryPath = new File("").getAbsolutePath() + "/target/buildResults";
-		String templatePath = new File("").getAbsolutePath() + "/../Conference";
+		String workingDirectoryPath = null;
+		try {
+			workingDirectoryPath = FileUtil.createTempDirectory().getAbsolutePath();
+		} catch (IOException e) {
+			throw new ApplicationServiceException("Can not create temporary folder", e);
+		}
 		
-		runBuildProcess(application.getModel(), workingDirectoryPath, templatePath);
-		// TODO copy result apk to web folder
+		String templatePath = pathToWebRoot + "/androidTemplate/Conference";
+		runBuildProcess(application.getModel(), workingDirectoryPath, templatePath);	
+		
+		File srcFile = new File(workingDirectoryPath + 
+				File.separator + "bin" + File.separator + "MyAndroidApp-debug.apk");
+		File dstFile = new File(pathToWebRoot + File.separator + "androidApplication" + 
+				File.separator + "conference" + new GregorianCalendar().getTimeInMillis() + ".apk");
+		// Copy result apk from temp directory to web directory
+		try {
+			FileUtils.copyFile(srcFile, dstFile);
+		} catch (IOException e) {
+			throw new ApplicationServiceException("Can not copy result application to web directory", e);
+		}
 	}
 
 	/**

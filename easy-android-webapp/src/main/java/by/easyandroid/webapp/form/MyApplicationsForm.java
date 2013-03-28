@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import by.easyandroid.database.service.ApplicationInstanceService;
@@ -45,7 +46,8 @@ public class MyApplicationsForm extends AbstractBaseForm {
 
 	public void compile(ActionEvent event) {
 		try {
-			compilationService.doCompilation(compileDialog.getObject().getId());
+			String webRootPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+			compilationService.doCompilation(compileDialog.getObject().getId(), webRootPath);
 			compileDialog.close();
 		} catch (ApplicationServiceException e) {
 			// TODO Auto-generated catch block
