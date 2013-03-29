@@ -5,6 +5,7 @@
 	</path>
 	
 	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />	
+	<import file="${basedir}../common/common.xml" />
 
 	<target name="usage" description="Echos the usage and different targets">
 		<echo message="Usage : ant target-name"/>
@@ -18,45 +19,29 @@
 
 	<target name="clean-tomcat" description="Remove webapp from tomcat server">
 		<echo message="Cleaning tomcat..." />
-		<sshexec host="${host}"
-	    	username="${myuser.name}"
-			keyfile="${myuser.keyfile.location}"
-			trust="true"
-	    	command="rm -rf ${tomcat.home}/webapps/ea-webapp"/>
-		<sshexec host="${host}"
-	    	username="${myuser.name}"
-			keyfile="${myuser.keyfile.location}"
-			trust="true"
-	    	command="rm -rf ${tomcat.home}/webapps/ea-webapp.war"/>		
+		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-webapp"/>
+		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-webapp.war"/>		
 	</target>
 	
 	<target name="deploy-webapp" depends="clean-tomcat" description="Deploy webapp to tomcat">
 		<echo message="Copying webapp to tomcat..."/>
-		<scp 
+		<scp_env 
 			file="${webapp.war.path}"
-			keyfile="${myuser.keyfile.location}"
-			todir="${myuser.name}:${myuser.password}@${host}:${tomcat.home}/webapps" 
-			trust="true"
-			verbose="true">
-		</scp>		
+			todir="${myuser.name}:${myuser.password}@${host}:${tomcat.home}/webapps" />
 	</target>
 	
 	<target name="stop-tomcat" description="Stop Tomcat server">
 		<echo message="Stopping tomcat..." />
-		<sshexec host="${host}"
-	    	username="${myuser.name}"
-			keyfile="${myuser.keyfile.location}"
-			trust="true"
-	    	command="${tomcat.home}/bin/shutdown.sh"/>
+		<ssh_exec_env command="${tomcat.home}/bin/shutdown.sh"/>
 	</target>	
 	
 	<target name="start-tomcat" description="Start Tomcat server">
 		<echo message="Starting tomcat..." />
-		<sshexec host="${host}"
-	    	username="${myuser.name}"
-			keyfile="${myuser.keyfile.location}"
-			trust="true"
-	    	command="${tomcat.home}/bin/startup.sh"/>
+		<ssh_exec_env command="${tomcat.home}/bin/startup.sh"/>
+		<!-- TODO to test -->
+		<waitfor maxwait="5" maxwaitunit="minute" checkevery="500" checkeveryunit="millisecond" timeoutproperty="noserverfound"> 
+          <socket port="7080" server="${host}"/> 
+      </waitfor>
 	</target>
 	
 	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-webapp, start-tomcat">

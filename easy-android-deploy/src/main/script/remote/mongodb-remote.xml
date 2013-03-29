@@ -16,25 +16,13 @@
 
 	<target name="mongo-drop-db" description="Delete existing database data">
 		<echo message="Drop database..." />
-		<sshexec host="${host}"
-	    	username="${myuser.name}"
-			keyfile="${myuser.keyfile.location}"
-			trust="true"
-	    	command="mongo ${mongodb.db.name} --eval 'db.dropDatabase()'"/>		
+		<ssh_exec_env command="mongo ${mongodb.db.name} --eval 'db.dropDatabase()'"/>		
 	</target>
 	
 	<target name="mongo-upload-dump" description="Removes old dump and uploads new dump">
 		<echo message="Deleting old dump..." />
-		<sshexec host="${host}"
-	    	username="${myuser.name}"
-			keyfile="${myuser.keyfile.location}"
-			trust="true"
-	    	command="rm -rf ${mongodb.dump.path.remote}"/>	
-		<sshexec host="${host}"
-	    	username="${myuser.name}"
-			keyfile="${myuser.keyfile.location}"
-			trust="true"
-	    	command="mkdir ${mongodb.dump.path.remote}"/>	
+		<ssh_exec_env command="rm -rf ${mongodb.dump.path.remote}"/>	
+		<ssh_exec_env command="mkdir ${mongodb.dump.path.remote}"/>	
 		<echo message="Uploading new dump..." />
 		<scp 
 			keyfile="${myuser.keyfile.location}"
@@ -47,10 +35,6 @@
 	
 	<target name="mongo-import-dump" depends="mongo-drop-db, mongo-upload-dump" description="Imports dump to remote server">
 		<echo message="Importing dump..." />
-		<sshexec host="${host}"
-	    	username="${myuser.name}"
-			keyfile="${myuser.keyfile.location}"
-			trust="true"
-	    	command="mongorestore --host localhost:${mongodb.port} --db ${mongodb.db.name} ${mongodb.dump.path.remote}"/>
+		<ssh_exec_env command="mongorestore --host localhost:${mongodb.port} --db ${mongodb.db.name} ${mongodb.dump.path.remote}"/>
 	</target>
 </project>

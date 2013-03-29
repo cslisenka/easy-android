@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="common">
+	<path id="antlib_classpath">
+		<pathelement location="${basedir}/../../antLib" />
+	</path>
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />	
+
+	<macrodef name="ssh_exec_env">
+		<attribute name="command" />
+		<sequential>
+			<sshexec 
+				host="${host}" 
+				username="${myuser.name}" 
+				keyfile="${myuser.keyfile.location}" 
+				trust="true" 
+				command="@{command}" />
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="scp_env">
+		<attribute name="file" />
+		<attribute name="todir" />
+		<sequential>
+			<scp 
+				file="@{file}"
+				keyfile="${myuser.keyfile.location}"
+				todir="@{todir}" 
+				trust="true"
+				verbose="true">
+			</scp>
+		</sequential>
+	</macrodef>	
+</project>
