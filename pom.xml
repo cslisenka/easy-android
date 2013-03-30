@@ -26,7 +26,7 @@
 			</dependency>
 			<dependency>
 				<groupId>by.easyandroid</groupId>
-				<artifactId>easy-android-framework</artifactId>
+				<artifactId>worker-copier</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -92,6 +92,5 @@
 		<module>easy-android-worker</module>
 		<module>easy-android-admin</module>
 		<module>easy-android-webapp</module>
-		<module>easy-android-framework</module>
 	</modules>
 </project>

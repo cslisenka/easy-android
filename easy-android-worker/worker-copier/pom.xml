@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>by.easyandroid</groupId>
-		<artifactId>easy-android</artifactId>
+		<artifactId>easy-android-worker</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>easy-android-framework</artifactId>
+	<artifactId>worker-copier</artifactId>
 
 	<properties>
 		<ant.version>1.8.4</ant.version>

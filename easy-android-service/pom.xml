@@ -18,7 +18,7 @@
 		</dependency>
 		<dependency>
 			<groupId>by.easyandroid</groupId>
-			<artifactId>easy-android-framework</artifactId>
+			<artifactId>worker-copier</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>by.easyandroid</groupId>
