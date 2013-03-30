@@ -27,7 +27,7 @@ public class FileSystemTemplateSourceService implements ITemplateSourceService {
 	public void getApkTemplate(String templateId, File destDirectory) throws ApplicationServiceException {
 		// TODO now we have only one template and first argument templateId is ignored
 		
-		File dirWithTemplate = new File(destDirectory, "conference");
+		File dirWithTemplate = new File(templatesDir, "app-conference");
 		if (!dirWithTemplate.exists() || !dirWithTemplate.isDirectory()) {
 			throw new ApplicationServiceException("Directory with template '" + dirWithTemplate.getAbsolutePath() + "' not exists");
 		}
@@ -41,5 +41,9 @@ public class FileSystemTemplateSourceService implements ITemplateSourceService {
 
 	public File getTemplatesDir() {
 		return templatesDir;
+	}
+
+	public void setTemplatesDir(File templatesDir) {
+		this.templatesDir = templatesDir;
 	}
 }

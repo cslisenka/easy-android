@@ -17,19 +17,19 @@
 		</property>
 	</bean>	
 	
-	<bean id="appResultService" class="by.easyandroid.service.datasource.impl.FileSystemApplicationResultService">
+	<bean id="applicationResultService" class="by.easyandroid.service.datasource.impl.FileSystemApplicationResultService">
 		<!-- TODO do valid settings, they may be different at local and remote enviroment, put to property file -->
-		<constructor-arg name="apkDirectory" value="apk.directory"/>
-		<constructor-arg name="wepAccessDirectoryPath" value="apk.directory.web"/>
+		<constructor-arg name="apkDirectory" value="/media/Work/Workspace/easy-android/easy-android/easy-android-webapp/src/main/webapp/app"/>
+		<constructor-arg name="wepAccessDirectoryPath" value="/app"/>
 	</bean>
 	
-	<bean id="templSourceService" class="by.easyandroid.service.datasource.impl.FileSystemTemplateSourceService">
-		<constructor-arg name="templatesDir" value="templates.directory"/>
+	<bean id="templateSourceService" class="by.easyandroid.service.datasource.impl.FileSystemTemplateSourceService">
+		<constructor-arg name="templatesDir" value="/media/Work/Workspace/easy-android/easy-android"/>
 	</bean>
 	
 	<bean id="compilationService" class="by.easyandroid.service.compilation.ApplicationBuildService">
 		<property name="applicationService" ref="applicationInstanceService"/>
-		<property name="applicationResultService" ref="appResultService"/>
-		<property name="templateSourceService" ref="templSourceService"/>
+		<property name="applicationResultService" ref="applicationResultService"/>
+		<property name="templateSourceService" ref="templateSourceService"/>
 	</bean>		
 </beans>

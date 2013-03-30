@@ -8,7 +8,6 @@ import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import by.easyandroid.model.ApplicationInstance;
+import by.easyandroid.model.ApplicationTemplate;
 import by.easyandroid.model.conference.Category;
 import by.easyandroid.model.conference.ConferenceApplicationModel;
 import by.easyandroid.model.conference.Report;
 import by.easyandroid.model.conference.Reporter;
 import by.easyandroid.model.conference.Section;
 import by.easyandroid.service.compilation.util.WorkingDirectory;
+import by.easyandroid.service.datasource.impl.FileSystemApplicationResultService;
+import by.easyandroid.service.datasource.impl.FileSystemTemplateSourceService;
 import by.easyandroid.service.exception.ApplicationServiceException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,6 +32,12 @@ public class TestApplicationBuildService {
 
 	@Autowired
 	private ApplicationBuildService compilationService;
+	
+	@Autowired
+	private FileSystemApplicationResultService resultService;
+	
+	@Autowired
+	private FileSystemTemplateSourceService sourceService;
 	
 	private ConferenceApplicationModel model;
 	private ApplicationInstance instance;
@@ -41,7 +49,7 @@ public class TestApplicationBuildService {
 		wrkDirectory = new WorkingDirectory();
 		createFakeApplication();
 		
-		File testTemplatePath = new File(new File("").getAbsoluteFile(), "src/test/resources/testApplicationSources");
+		File testTemplatePath = new File(new File("").getAbsoluteFile(), "src/test/resources/testApplicationSources/app-conference");
 		FileUtils.copyDirectory(testTemplatePath, wrkDirectory.getDirectory());
 
 		System.out.println("Working directory at " + wrkDirectory.getDirectory().getAbsolutePath());		
@@ -61,17 +69,24 @@ public class TestApplicationBuildService {
 	/**
 	 * Test whole build process with datasource services
 	 * @throws ApplicationServiceException 
+	 * @throws IOException 
 	 */
-	@Ignore
 	@Test
-	public void testBuildApplication() throws ApplicationServiceException {
-		// TODO prepare services
+	public void testBuildApplication() throws ApplicationServiceException, IOException {
+		sourceService.setTemplatesDir(new File(new File("").getAbsoluteFile(), "src/test/resources/testApplicationSources"));
+		resultService.setApkDirectory(new File(new File("").getAbsoluteFile(), "target/apk"));
 		compilationService.buildApplication(instance);
+		Assert.assertTrue(new File(new File("").getAbsoluteFile(), "target/apk").listFiles().length > 0);
+		
+		String apkFileName = new File(new File("").getAbsoluteFile(), "target/apk").listFiles()[0].getName();
+		Assert.assertTrue(apkFileName.contains("conference"));
+		Assert.assertEquals(resultService.getWepAccessDirectoryPath() + apkFileName, instance.getLastCreatedApkUrl());
 	}
 	
 	@After
 	public void tearDown() throws IOException {
 		wrkDirectory.remove();
+		FileUtils.deleteDirectory(new File(new File("").getAbsoluteFile(), "target/apk"));
 	}
 
 	private void createFakeApplication() {
@@ -80,6 +95,7 @@ public class TestApplicationBuildService {
 		instance.setCreationDate(new Date());
 		instance.setModel(model);
 		instance.setName("test app");
+		instance.setTemplate(new ApplicationTemplate());
 	}
 	
 	private void createFakeModel() {

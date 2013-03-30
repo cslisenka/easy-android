@@ -25,12 +25,14 @@ public class FileSystemApplicationResultService implements IApplicationResultSer
 	}
 	
 	public String uploadResultApk(File apkToUpload) throws ApplicationServiceException {
+		String newAppFileName = generateApkFileName();
 		try {
-			FileUtils.copyFile(apkToUpload, new File(apkDirectory, generateApkFileName()));
+			FileUtils.copyFile(apkToUpload, new File(apkDirectory, newAppFileName));
 		} catch (IOException e) {
 			throw new ApplicationServiceException("can not copy result apk to directory '" + apkDirectory.getAbsolutePath() + "'", e);
 		}
-		return null;
+		
+		return wepAccessDirectoryPath + newAppFileName;
 	}
 	
 	protected String generateApkFileName() {
@@ -43,5 +45,13 @@ public class FileSystemApplicationResultService implements IApplicationResultSer
 
 	public File getApkDirectory() {
 		return apkDirectory;
+	}
+
+	public void setApkDirectory(File apkDirectory) {
+		this.apkDirectory = apkDirectory;
+	}
+
+	public void setWepAccessDirectoryPath(String wepAccessDirectoryPath) {
+		this.wepAccessDirectoryPath = wepAccessDirectoryPath;
 	}
 }
