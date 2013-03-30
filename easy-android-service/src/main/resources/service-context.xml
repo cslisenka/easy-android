@@ -11,7 +11,25 @@
 
 	<import resource="classpath:/database-context.xml" />
 	
-	<bean id="compilationService" class="by.easyandroid.service.compilation.CompilationService">
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:service-configuration.properties</value>
+		</property>
+	</bean>	
+	
+	<bean id="appResultService" class="by.easyandroid.service.datasource.impl.FileSystemApplicationResultService">
+		<!-- TODO do valid settings, they may be different at local and remote enviroment, put to property file -->
+		<constructor-arg name="apkDirectory" value="apk.directory"/>
+		<constructor-arg name="wepAccessDirectoryPath" value="apk.directory.web"/>
+	</bean>
+	
+	<bean id="templSourceService" class="by.easyandroid.service.datasource.impl.FileSystemTemplateSourceService">
+		<constructor-arg name="templatesDir" value="templates.directory"/>
+	</bean>
+	
+	<bean id="compilationService" class="by.easyandroid.service.compilation.ApplicationBuildService">
 		<property name="applicationService" ref="applicationInstanceService"/>
+		<property name="applicationResultService" ref="appResultService"/>
+		<property name="templateSourceService" ref="templSourceService"/>
 	</bean>		
 </beans>

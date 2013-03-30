@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conference>
+    <reports>
+        <report id="1" category="1" reporter="1" section="1">
+            <title>Первый доклад</title>
+            <description>Описание первого доклада</description>
+            <date year="2013" month="10" day="10" hours="10" minutes="30" />
+        </report>
+        <report id="2" category="2" reporter="2" section="2">
+            <title>Второй доклад</title>
+            <description>Описание второго доклада</description>
+            <date year="2013" month="10" day="11" hours="10" minutes="0" />
+        </report>        
+    </reports>
+    <reporters>
+	    <reporter id="1">
+	        <name>Иванов И.И.</name>
+	        <description>Лучший специалист в своей отрасли, основатель первого сообщества данного направления.</description>
+	        <email>ivanov@somecompany.com</email>
+	        <company>SomeCompany</company>
+	        <position>Ведущий специалист</position>
+	    </reporter>
+	    <reporter id="2">
+	        <name>Петров И.И.</name>
+	        <description>Евангелист этого направления</description>
+	        <email>petrov@somecompany.com</email>
+	        <company>AnotherCompany</company>
+	        <position>Евангелист-разработчик</position>
+	    </reporter> 
+    </reporters>   
+    <sections>
+        <section id="1">
+            <name>Секция А</name>
+        </section>
+        <section id="2">
+            <name>Секция Б</name>
+        </section>        
+    </sections>
+    <categories>
+        <category id="1">
+            <name>Общие вопросы</name>
+        </category>
+        <category id="2">
+            <name>Специальные вопросы</name>
+        </category>                  
+    </categories>
+</conference>

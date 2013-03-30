@@ -1,9 +1,6 @@
 package by.easyandroid.framework;
 
 import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
 
 import by.easyandroid.framework.exception.TaskExecutionException;
 import by.easyandroid.framework.task.file.copy.CopyDirectoryTask;
@@ -52,22 +49,23 @@ public class Copier {
 	}	
 	
 	public void flush() throws TaskExecutionException {
-		cleanWorkingDirectory();
+//		cleanWorkingDirectory();
 		executor.executeAll();
 		executor.removeAllTasks();
 	}
 
-	private void cleanWorkingDirectory() throws TaskExecutionException {
-		try {
-			// Create directory if not exisis
-			// TODO unit-test
-			File outputDir = new File(outputDirPath);
-			FileUtils.deleteDirectory(outputDir);
-			outputDir.mkdirs();
-		} catch (IOException e) {
-			throw new TaskExecutionException("Can not clean working directory before task executing", e);
-		}
-	}
+	// TODO fix unit-test
+//	private void cleanWorkingDirectory() throws TaskExecutionException {
+//		try {
+//			// Create directory if not exisis
+//			// TODO unit-test
+//			File outputDir = new File(outputDirPath);
+//			FileUtils.deleteDirectory(outputDir);
+//			outputDir.mkdirs();
+//		} catch (IOException e) {
+//			throw new TaskExecutionException("Can not clean working directory before task executing", e);
+//		}
+//	}
 	
 	private String buildDestinationPath(String toDirectory) {
 		if (!toDirectory.equals(WORKING_DIR_PATH)) {

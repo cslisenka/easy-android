@@ -12,7 +12,7 @@ import javax.faces.event.ActionEvent;
 import by.easyandroid.database.service.ApplicationInstanceService;
 import by.easyandroid.model.ApplicationInstance;
 import by.easyandroid.model.User;
-import by.easyandroid.service.compilation.CompilationService;
+import by.easyandroid.service.compilation.ApplicationBuildService;
 import by.easyandroid.service.exception.ApplicationServiceException;
 import by.easyandroid.webapp.AbstractBaseForm;
 import by.easyandroid.webapp.beans.UserBean;
@@ -29,7 +29,7 @@ public class MyApplicationsForm extends AbstractBaseForm {
 	private ApplicationInstanceService instanceService;
 	
 	@ManagedProperty(value = Bean.SRV_COMPILATION)
-	private CompilationService compilationService;
+	private ApplicationBuildService compilationService;
 	
 	@ManagedProperty(value = Bean.BN_USER)
 	private UserBean userBean;
@@ -83,11 +83,11 @@ public class MyApplicationsForm extends AbstractBaseForm {
 		this.compileDialog = compileDialog;
 	}
 
-	public CompilationService getCompilationService() {
+	public ApplicationBuildService getCompilationService() {
 		return compilationService;
 	}
 
-	public void setCompilationService(CompilationService compilationService) {
+	public void setCompilationService(ApplicationBuildService compilationService) {
 		this.compilationService = compilationService;
 	}
 }

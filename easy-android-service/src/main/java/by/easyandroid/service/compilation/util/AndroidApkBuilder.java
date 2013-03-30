@@ -1,4 +1,4 @@
-package by.easyandroid.service.compilation;
+package by.easyandroid.service.compilation.util;
 
 import java.io.File;
 import java.io.PrintStream;

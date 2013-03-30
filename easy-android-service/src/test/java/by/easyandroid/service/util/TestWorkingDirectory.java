@@ -7,11 +7,13 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestFileUtil {
+import by.easyandroid.service.compilation.util.WorkingDirectory;
+
+public class TestWorkingDirectory {
 
 	@Test
 	public void testCreateTempDirectory() throws IOException {
-		File tempDir = FileUtil.createTempDirectory();
+		File tempDir = WorkingDirectory.createTempDirectory();
 		Assert.assertTrue(tempDir.exists());
 		Assert.assertTrue(tempDir.isDirectory());
 		Assert.assertEquals(0, tempDir.list().length);

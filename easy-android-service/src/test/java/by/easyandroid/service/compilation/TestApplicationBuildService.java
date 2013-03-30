@@ -1,8 +1,13 @@
 package by.easyandroid.service.compilation;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,30 +19,45 @@ import by.easyandroid.model.conference.ConferenceApplicationModel;
 import by.easyandroid.model.conference.Report;
 import by.easyandroid.model.conference.Reporter;
 import by.easyandroid.model.conference.Section;
+import by.easyandroid.service.compilation.util.WorkingDirectory;
 import by.easyandroid.service.exception.ApplicationServiceException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/service-context.xml")
-public class TestCompilationService {
+public class TestApplicationBuildService {
 
 	@Autowired
-	private CompilationService compilationService;
+	private ApplicationBuildService compilationService;
 	
 	private ConferenceApplicationModel model;
 
+	private WorkingDirectory wrkDirectory;
+	
+	@Before
+	public void setUp() throws IOException {
+		wrkDirectory = new WorkingDirectory();
+	}
+	
 	@Test(expected = ApplicationServiceException.class)
 	public void testWrongApplication() throws ApplicationServiceException {
-		compilationService.doCompilation("wrongid", "");
+		compilationService.build("wrongid");
 	}
 
 	@Test
-	public void testApplicationBuilding() throws ApplicationServiceException {
+	public void testBuildApplicationFromModel() throws ApplicationServiceException, IOException {
 		createFakeModel();
-		// TODO copy android project sources to target folder during build
-		String workingDirectoryPath = new File("").getAbsolutePath() + "/target/buildResults";
-		String templatePath = new File("").getAbsolutePath() + "/../Conference";		
-		compilationService.runBuildProcess(model, workingDirectoryPath, templatePath);
-		// TODO check that compilation were success		
+		File testTemplatePath = new File(new File("").getAbsoluteFile(), "src/test/resources/testApplicationSources");
+		FileUtils.copyDirectory(testTemplatePath, wrkDirectory.getDirectory());
+
+		System.out.println("Working directory at " + wrkDirectory.getDirectory().getAbsolutePath());
+		
+		compilationService.buildApplicationFromModel(model, wrkDirectory.getDirectory());
+		Assert.assertTrue(new File(wrkDirectory.getDirectory(), "bin/MyAndroidApp-debug.apk").exists());
+	}
+	
+	@After
+	public void tearDown() throws IOException {
+		wrkDirectory.remove();
 	}
 
 	private void createFakeModel() {
