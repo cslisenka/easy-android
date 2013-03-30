@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <project name="mongodb-remote" default="usage" basedir=".">
 	<path id="antlib_classpath">
-		<pathelement location="${basedir}/../../antLib" />
+		<pathelement location="../../antLib" />
 	</path>
 	
-	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />	
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />
+	<import file="../common/common.xml" />
 
 	<target name="usage" description="Echos the usage and different targets">
 		<echo message="Usage : ant target-name"/>

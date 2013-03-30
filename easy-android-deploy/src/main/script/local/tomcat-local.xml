@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="tomcat-local" default="usage" basedir=".">
 	<path id="antlib_classpath">
-		<pathelement location="${basedir}/../../antLib" />
+		<pathelement location="../../antLib" />
 	</path>
 	
 	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />	
