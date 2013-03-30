@@ -38,10 +38,6 @@
 	<target name="start-tomcat" description="Start Tomcat server">
 		<echo message="Starting tomcat..." />
 		<ssh_exec_env command="${tomcat.home}/bin/startup.sh"/>
-		<!-- TODO to test -->
-		<waitfor maxwait="5" maxwaitunit="minute" checkevery="500" checkeveryunit="millisecond" timeoutproperty="noserverfound"> 
-          <socket port="7080" server="${host}"/> 
-      </waitfor>
 	</target>
 	
 	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-webapp, start-tomcat">

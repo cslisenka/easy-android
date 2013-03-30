@@ -40,6 +40,14 @@
 		<exec dir="${tomcat.home}/bin" executable="sh">
 			<arg line="startup.sh"/>
 		</exec>
+		
+		<waitfor maxwait="5" maxwaitunit="minute" checkevery="500" checkeveryunit="millisecond" timeoutproperty="noserverfound">
+			<and>
+				<socket port="${tomcat.port}" server="${host}"/>
+				<http url="http://${host}:${tomcat.port}/ea-webapp"/>
+			</and>
+      	</waitfor>
+		<echo message="server found = ${noserverfound}" />
 	</target>
 	
 	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-webapp, start-tomcat">
