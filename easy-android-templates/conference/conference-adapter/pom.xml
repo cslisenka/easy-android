@@ -5,37 +5,31 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>by.easyandroid</groupId>
-		<artifactId>easy-android</artifactId>
+		<artifactId>conference</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	
-	<artifactId>easy-android-service</artifactId>
-	
+
+	<artifactId>conference-adapter</artifactId>
+
 	<dependencies>
 		<dependency>
 			<groupId>by.easyandroid</groupId>
-			<artifactId>easy-android-database</artifactId>
+			<artifactId>easy-android-model</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>by.easyandroid</groupId>
-			<artifactId>worker-copier</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>by.easyandroid</groupId>
-			<artifactId>conference-adapter</artifactId>
-		</dependency>			
-
-		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-        </dependency>
-	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- jsoup HTML parser library @ http://jsoup.org/ -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.7.2</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -60,7 +60,7 @@ public class TestConferenceAdapter {
 		
 		adapter = new ConferenceAdapter(model);
 		
-		pathToSources = new File("").getAbsolutePath() + "/../Conference";
+		pathToSources = new File("").getAbsolutePath() + "/../../../app-conference";
 		// TODO this is temporary solution, we need to put project sources into target folder during build
 		adapter.setSourcesPath(pathToSources);
 	}

@@ -4,13 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>by.easyandroid</groupId>
-		<artifactId>easy-android</artifactId>
+		<artifactId>easy-android-templates</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>easy-android-templates</artifactId>	
+	<artifactId>conference</artifactId>	
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>conference</module>
+		<module>conference-adapter</module>
+		<module>conference-application</module>
 	</modules>
 </project>

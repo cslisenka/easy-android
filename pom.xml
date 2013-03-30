@@ -31,7 +31,7 @@
 			</dependency>
 			<dependency>
 				<groupId>by.easyandroid</groupId>
-				<artifactId>easy-android-templates</artifactId>
+				<artifactId>conference-adapter</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
