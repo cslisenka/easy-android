@@ -30,6 +30,7 @@
 	
 	<target name="stop-tomcat" description="Stop Tomcat server">
 		<echo message="Stopping tomcat..." />
+		<!-- TODO waitfor not socket -->
 		<exec dir="${tomcat.home}/bin" executable="sh">
 			<arg line="shutdown.sh"/>
 		</exec>
