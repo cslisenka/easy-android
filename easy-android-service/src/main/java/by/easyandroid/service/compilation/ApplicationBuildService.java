@@ -49,6 +49,7 @@ public class ApplicationBuildService {
 		}
 		
 		buildApplication(application);
+		applicationService.save(application);
 	}
 
 	protected void buildApplication(ApplicationInstance application) throws ApplicationServiceException {
@@ -80,7 +81,8 @@ public class ApplicationBuildService {
 	protected void buildApplicationInWorkingDirectory(ApplicationInstance application, File workingDirectory) throws ApplicationServiceException {
 		templateSourceService.getApkTemplate(application.getTemplate().getId(), workingDirectory);
 		buildApplicationFromModel(application.getModel(), workingDirectory);
-		processResult(application, new File(workingDirectory, "bin" + File.separator + "MyAndroidApp-debug.apk"));
+		String appDownloadLink = applicationResultService.uploadResultApk(new File(workingDirectory, "bin" + File.separator + "MyAndroidApp-debug.apk"));
+		application.setLastCreatedApkUrl(appDownloadLink);		
 	}
 
 	/**
@@ -118,19 +120,6 @@ public class ApplicationBuildService {
 		}		
 	}
 	
-	/**
-	 * Copies result apk to web available download directory and changes last upload apk link
-	 * 
-	 * @param application
-	 * @param resultApk
-	 * @throws ApplicationServiceException
-	 */
-	protected void processResult(ApplicationInstance application, File resultApk) throws ApplicationServiceException {
-		String appDownloadLink = applicationResultService.uploadResultApk(resultApk);
-		application.setLastCreatedApkUrl(appDownloadLink);
-		applicationService.save(application);
-	}
-
 	public ApplicationInstanceService getApplicationService() {
 		return applicationService;
 	}

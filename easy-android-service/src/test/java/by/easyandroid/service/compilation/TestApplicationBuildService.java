@@ -8,12 +8,14 @@ import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import by.easyandroid.model.ApplicationInstance;
 import by.easyandroid.model.conference.Category;
 import by.easyandroid.model.conference.ConferenceApplicationModel;
 import by.easyandroid.model.conference.Report;
@@ -30,12 +32,19 @@ public class TestApplicationBuildService {
 	private ApplicationBuildService compilationService;
 	
 	private ConferenceApplicationModel model;
+	private ApplicationInstance instance;
 
 	private WorkingDirectory wrkDirectory;
 	
 	@Before
 	public void setUp() throws IOException {
 		wrkDirectory = new WorkingDirectory();
+		createFakeApplication();
+		
+		File testTemplatePath = new File(new File("").getAbsoluteFile(), "src/test/resources/testApplicationSources");
+		FileUtils.copyDirectory(testTemplatePath, wrkDirectory.getDirectory());
+
+		System.out.println("Working directory at " + wrkDirectory.getDirectory().getAbsolutePath());		
 	}
 	
 	@Test(expected = ApplicationServiceException.class)
@@ -45,14 +54,19 @@ public class TestApplicationBuildService {
 
 	@Test
 	public void testBuildApplicationFromModel() throws ApplicationServiceException, IOException {
-		createFakeModel();
-		File testTemplatePath = new File(new File("").getAbsoluteFile(), "src/test/resources/testApplicationSources");
-		FileUtils.copyDirectory(testTemplatePath, wrkDirectory.getDirectory());
-
-		System.out.println("Working directory at " + wrkDirectory.getDirectory().getAbsolutePath());
-		
 		compilationService.buildApplicationFromModel(model, wrkDirectory.getDirectory());
 		Assert.assertTrue(new File(wrkDirectory.getDirectory(), "bin/MyAndroidApp-debug.apk").exists());
+	}
+	
+	/**
+	 * Test whole build process with datasource services
+	 * @throws ApplicationServiceException 
+	 */
+	@Ignore
+	@Test
+	public void testBuildApplication() throws ApplicationServiceException {
+		// TODO prepare services
+		compilationService.buildApplication(instance);
 	}
 	
 	@After
@@ -60,6 +74,14 @@ public class TestApplicationBuildService {
 		wrkDirectory.remove();
 	}
 
+	private void createFakeApplication() {
+		createFakeModel();
+		instance = new ApplicationInstance();
+		instance.setCreationDate(new Date());
+		instance.setModel(model);
+		instance.setName("test app");
+	}
+	
 	private void createFakeModel() {
 		model = new ConferenceApplicationModel();
 		model.getInformation().setAbout("Some text about conference");

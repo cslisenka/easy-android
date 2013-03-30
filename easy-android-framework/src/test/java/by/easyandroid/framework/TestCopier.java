@@ -5,6 +5,7 @@ import java.io.IOException;
 import junit.framework.Assert;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import by.easyandroid.framework.exception.TaskExecutionException;
@@ -58,6 +59,8 @@ public class TestCopier extends AbstractTestSourceDestDirBase {
 		assertFileExistsDestPath("subdircreated");
 	}
 	
+	// Ignored because this feature not needed in new architecture approach. Need to be thinked.
+	@Ignore
 	@Test
 	public void testCleanWorkingDirectoryBeforeTaskExecution() throws IOException, TaskExecutionException {
 		// Create some file in working directory
