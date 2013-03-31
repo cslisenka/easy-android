@@ -45,7 +45,6 @@ public class MyApplicationsForm extends AbstractBaseForm {
 
 	public void compile(ActionEvent event) {
 		try {
-//			String webRootPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
 			compilationService.build(compileDialog.getObject().getId());
 			compileDialog.close();
 		} catch (ApplicationServiceException e) {
