@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import uk.co.mo.training.dto.Weather;
 
-@SuppressWarnings("restriction")
 @WebService(endpointInterface = "uk.co.mo.training.ws.WeatherService",serviceName="weatherService")
 @Service
 public class WeatherServiceImple implements WeatherService {

@@ -4,7 +4,6 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
-@SuppressWarnings("restriction")
 @WebService
 public interface TemperatureService {
 	
