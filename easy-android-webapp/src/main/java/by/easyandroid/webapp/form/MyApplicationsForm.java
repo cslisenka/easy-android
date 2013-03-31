@@ -37,6 +37,7 @@ public class MyApplicationsForm extends AbstractBaseForm {
 	
 	@Override
 	public void init() {
+		userBean.updateUserData();
 		User currentUser = userBean.getUser();
 		if (currentUser != null) {
 			templates = currentUser.getApplications();
@@ -47,8 +48,9 @@ public class MyApplicationsForm extends AbstractBaseForm {
 		try {
 			compilationService.build(compileDialog.getObject().getId());
 			compileDialog.close();
+			init();
 		} catch (ApplicationServiceException e) {
-			// TODO Auto-generated catch block
+			// TODO show error message
 			e.printStackTrace();
 		}
 	}

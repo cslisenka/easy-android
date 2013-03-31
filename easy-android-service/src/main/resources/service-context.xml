@@ -13,18 +13,19 @@
 	
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
-			<value>classpath:service-configuration.properties</value>
+			<value>classpath:service-configuration-remote.properties</value>
 		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
 	</bean>	
 	
 	<bean id="applicationResultService" class="by.easyandroid.service.datasource.impl.FileSystemApplicationResultService">
 		<!-- TODO do valid settings, they may be different at local and remote enviroment, put to property file -->
-		<constructor-arg name="apkDirectory" value="/media/Work/Workspace/easy-android/easy-android/easy-android-webapp/src/main/webapp/app"/>
-		<constructor-arg name="wepAccessDirectoryPath" value="/app"/>
+		<constructor-arg name="apkDirectory" value="${apk.directory}"/>
+		<constructor-arg name="wepAccessDirectoryPath" value="${apk.directory.web}"/>
 	</bean>
 	
 	<bean id="templateSourceService" class="by.easyandroid.service.datasource.impl.FileSystemTemplateSourceService">
-		<constructor-arg name="templatesDir" value="/media/Work/Workspace/easy-android/easy-android"/>
+		<constructor-arg name="templatesDir" value="${templates.directory}"/>
 	</bean>
 	
 	<bean id="compilationService" class="by.easyandroid.service.compilation.ApplicationBuildService">

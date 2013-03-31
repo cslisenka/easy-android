@@ -85,6 +85,10 @@ public class UserBean implements PhaseListener {
 		passwordConfirm = null;
 	}
 
+	public void updateUserData() {
+		user = userService.get(user.getId());
+	}
+	
 	public User getUser() {
 		return user;
 	}

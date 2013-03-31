@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<project name="tomcat-remote" default="usage" basedir=".">
+	<path id="antlib_classpath">
+		<pathelement location="../../antLib" />
+	</path>
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />	
+	<import file="../common/common.xml" />
+
+	<target name="usage" description="Echos the usage and different targets">
+		<echo message="Usage : ant target-name"/>
+		<echo message="Valid target names are : "/>
+		<echo message="clean-tomcat  --> Delete existing WebApp and WAR file from TOMCAT_HOME\webapps"/>
+		<echo message="deploy-webapp --> Deploy the WAR file to TOMCAT_HOME\webapps"/>
+		<echo message="start-tomcat --> Start tomcat"/>
+		<echo message="stop-tomcat  --> Stop tomcat"/>
+		<echo message="full-deploy --> Stop, clean, deploy, start"/>
+	</target>
+
+	<target name="clean-templates" description="Remove application templates from server">
+		<echo message="Cleaning templates..." />
+		<ssh_exec_env command="rm -rf /home/${myuser.name}/easy-android-templates"/>
+		<ssh_exec_env command="mkdir /home/${myuser.name}/easy-android-templates"/>
+	</target>
+	
+	<target name="upload-templates" depends="clean-templates" description="Upload application templates from server">
+		<echo message="Upload conference template..." />
+		<ssh_exec_env command="mkdir /home/${myuser.name}/easy-android-templates/app-conference"/>
+		<scp 
+			keyfile="${myuser.keyfile.location}"
+			todir="${myuser.name}:${myuser.password}@${host}:/home/${myuser.name}/easy-android-templates/app-conference" 
+			trust="true"
+			verbose="true">
+			<fileset dir="${basedir}/../../../../app-conference" />
+		</scp>	
+	</target>
+</project>

@@ -80,7 +80,7 @@ public class TestApplicationBuildService {
 		
 		String apkFileName = new File(new File("").getAbsoluteFile(), "target/apk").listFiles()[0].getName();
 		Assert.assertTrue(apkFileName.contains("conference"));
-		Assert.assertEquals(resultService.getWepAccessDirectoryPath() + apkFileName, instance.getLastCreatedApkUrl());
+		Assert.assertEquals(resultService.getWepAccessDirectoryPath() + "/" + apkFileName, instance.getLastCreatedApkUrl());
 	}
 	
 	@After

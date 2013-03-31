@@ -82,7 +82,7 @@ public class ApplicationBuildService {
 		templateSourceService.getApkTemplate(application.getTemplate().getId(), workingDirectory);
 		buildApplicationFromModel(application.getModel(), workingDirectory);
 		String appDownloadLink = applicationResultService.uploadResultApk(new File(workingDirectory, "bin" + File.separator + "MyAndroidApp-debug.apk"));
-		application.setLastCreatedApkUrl(appDownloadLink);		
+		application.setLastCreatedApkUrl(appDownloadLink);	
 	}
 
 	/**

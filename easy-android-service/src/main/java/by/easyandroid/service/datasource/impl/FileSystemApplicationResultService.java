@@ -32,7 +32,7 @@ public class FileSystemApplicationResultService implements IApplicationResultSer
 			throw new ApplicationServiceException("can not copy result apk to directory '" + apkDirectory.getAbsolutePath() + "'", e);
 		}
 		
-		return wepAccessDirectoryPath + newAppFileName;
+		return String.format("%s/%s", wepAccessDirectoryPath, newAppFileName);
 	}
 	
 	protected String generateApkFileName() {

@@ -1,25 +1,30 @@
 <?xml version="1.0"?>
 <project name="ea-webapp-deploy" default="deploy-ea-webapp" basedir=".">
-	<property file="${basedir}/enviroment.properties"/>
-	<property file="${basedir}/${enviroment}/${enviroment}.credientials.properties"/>
-	<property file="${basedir}/${enviroment}/${enviroment}.properties"/>
+	<property file="enviroment.properties"/>
+	<property file="${enviroment}/${enviroment}.credientials.properties"/>
+	<property file="${enviroment}/${enviroment}.properties"/>
 
 	<path id="antlib_classpath">
-		<pathelement location="${basedir}/../../antLib" />
+		<pathelement location="../../antLib" />
 	</path>
 	
 	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />
 	
 	<target name="deploy-ea-webapp">
-		<ant antfile="${basedir}/${enviroment}/tomcat-${enviroment}.xml" target="full-deploy" />
-		<ant antfile="${basedir}/${enviroment}/mongodb-${enviroment}.xml" target="mongo-import-dump" />
+		<antcall target="deploy-tomcat-webapp" />
+		<antcall target="import-database-dump" />
+		<antcall target="deploy-templates" />
 	</target>
 	
 	<target name="import-database-dump">
-		<ant antfile="${basedir}/${enviroment}/mongodb-${enviroment}.xml" target="mongo-import-dump" />
+		<ant antfile="${enviroment}/mongodb-${enviroment}.xml" target="mongo-import-dump" />
 	</target>	
 	
 	<target name="deploy-tomcat-webapp">
-		<ant antfile="${basedir}/${enviroment}/tomcat-${enviroment}.xml" target="full-deploy" />
+		<ant antfile="${enviroment}/tomcat-${enviroment}.xml" target="full-deploy" />
+	</target>
+	
+	<target name="deploy-templates">
+		<ant antfile="${enviroment}/ea-worker-${enviroment}.xml" target="upload-templates" />
 	</target>	
 </project>
