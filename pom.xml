@@ -92,5 +92,6 @@
 		<module>easy-android-worker</module>
 		<module>easy-android-admin</module>
 		<module>easy-android-webapp</module>
+		<module>easy-android-analytics</module>
 	</modules>
 </project>

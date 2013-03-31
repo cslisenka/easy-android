@@ -11,15 +11,15 @@
     		org.springframework.web.jsf.el.SpringBeanFacesELResolver
     	</el-resolver>
 	<!-- 
-		<message-bundle>eu.kedev.hotelnavigator.admin_web.Messages</message-bundle>
+		<message-bundle>by.easyandroid.webapp.admin_web.Messages</message-bundle>
 		<message-bundle>com.icesoft.faces.resources.messages</message-bundle>
 		<resource-bundle>
-	    	<base-name>eu.kedev.hotelnavigator.admin_web.msgs</base-name>
+	    	<base-name>by.easyandroid.webapp.admin_web.msgs</base-name>
 	    	<var>msgs</var>
     	</resource-bundle>
     	
     	<resource-bundle>
-	    	<base-name>eu.kedev.hotelnavigator.admin_web.CategoryLookup</base-name>
+	    	<base-name>by.easyandroid.webapp.admin_web.CategoryLookup</base-name>
 	    	<var>category_names</var>
     	</resource-bundle>
     
@@ -34,31 +34,31 @@
 	  </variable-resolver>
 	  
 	  <navigation-handler>
-	  	eu.kedev.hotelnavigator.admin_web.server.RefreshNavigationHandler
+	  	by.easyandroid.webapp.admin_web.server.RefreshNavigationHandler
 	  </navigation-handler>
 	  
 	  <system-event-listener>
-			<system-event-listener-class>eu.kedev.hotelnavigator.admin_web.server.PostValidationListener</system-event-listener-class>
+			<system-event-listener-class>by.easyandroid.webapp.admin_web.server.PostValidationListener</system-event-listener-class>
 			<system-event-class>javax.faces.event.PostValidateEvent</system-event-class>
 			<source-class>javax.faces.component.html.HtmlInputText</source-class>
 		</system-event-listener>
 		<system-event-listener>
-			<system-event-listener-class>eu.kedev.hotelnavigator.admin_web.server.PostValidationListener</system-event-listener-class>
+			<system-event-listener-class>by.easyandroid.webapp.admin_web.server.PostValidationListener</system-event-listener-class>
 			<system-event-class>javax.faces.event.PostValidateEvent</system-event-class>
 			<source-class>javax.faces.component.html.HtmlInputSecret</source-class>
 		</system-event-listener>
 		<system-event-listener>
-			<system-event-listener-class>eu.kedev.hotelnavigator.admin_web.server.PostValidationListener</system-event-listener-class>
+			<system-event-listener-class>by.easyandroid.webapp.admin_web.server.PostValidationListener</system-event-listener-class>
 			<system-event-class>javax.faces.event.PostValidateEvent</system-event-class>
 			<source-class>com.icesoft.faces.component.ext.HtmlInputText</source-class>
 		</system-event-listener>
 		<system-event-listener>
-			<system-event-listener-class>eu.kedev.hotelnavigator.admin_web.server.PostValidationListener</system-event-listener-class>
+			<system-event-listener-class>by.easyandroid.webapp.admin_web.server.PostValidationListener</system-event-listener-class>
 			<system-event-class>javax.faces.event.PostValidateEvent</system-event-class>
 			<source-class>com.icesoft.faces.component.ext.HtmlInputSecret</source-class>
 		</system-event-listener>
 		
-		<action-listener>eu.kedev.hotelnavigator.admin_web.server.ExceptionHandlerActionListener</action-listener>
+		<action-listener>by.easyandroid.webapp.admin_web.server.ExceptionHandlerActionListener</action-listener>
 		-->
   </application>
     
