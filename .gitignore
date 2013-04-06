@@ -13,3 +13,5 @@ bin
 
 .metadata
 Other files
+
+aws-credentials.properties
