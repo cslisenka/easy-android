@@ -66,14 +66,14 @@
 			<ice:column>
 				<f:facet name="header">Last apk</f:facet>
 				<div style="text-align: center;">
-					<c:if test="${not empty template.lastCreatedApkUrl}">
+					<!-- c:if test="${not empty template.lastCreatedApkUrl}"-->
 						<ice:outputLink styleClass="htmllink" value="#{template.lastCreatedApkUrl}">
 							<img src="#{resource['images/icons:download_apk.png']}" style="margin-right: 5px;"/>
 						</ice:outputLink>					
-					</c:if>
-					<c:if test="${empty template.lastCreatedApkUrl}">
+					<!-- /c:if -->
+					<!-- c:if test="${empty template.lastCreatedApkUrl}">
 						<img src="#{resource['images/icons:minus.png']}" style="margin-right: 5px;"/>
-					</c:if>					
+					</c:if -->					
 				</div> 
 			</ice:column>
 			<ice:column>
