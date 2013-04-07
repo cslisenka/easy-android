@@ -1,4 +1,4 @@
-package by.easyandroid.service.util;
+package by.easyandroid.service.compilation;
 
 import java.io.File;
 import java.io.IOException;

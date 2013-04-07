@@ -1,4 +1,4 @@
-package by.easyandroid.service.amazon;
+package by.easyandroid.service.amazon.poc;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,10 +14,12 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.PropertiesCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.amazonaws.services.s3.model.StorageClass;
 
 public class TestAmazonS3Operations {
 
@@ -44,7 +46,10 @@ public class TestAmazonS3Operations {
 		
 		try {
 			System.out.println("Uploading a new object to S3 from a file\n");
-			s3.putObject(new PutObjectRequest(TEST_BUCKET_NAME, key, f));
+			// Upload object and make it public
+			s3.putObject(new PutObjectRequest(TEST_BUCKET_NAME, key, f)
+				.withCannedAcl(CannedAccessControlList.PublicRead)
+				.withStorageClass(StorageClass.ReducedRedundancy));
 
 			System.out.println("Listing objects");
 			ObjectListing objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(TEST_BUCKET_NAME));

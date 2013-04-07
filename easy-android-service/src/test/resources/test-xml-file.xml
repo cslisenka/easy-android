@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="by.easyandroid.template.conference"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/main_conf_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="by.easyandroid.template.conference.activity.MainActivity"
+            android:label="@string/main_conf_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="by.easyandroid.template.conference.activity.ScheduleActivity"
+            android:label="@string/main_conf_name" >
+        </activity>
+        <activity
+       		android:name="by.easyandroid.template.conference.activity.ReportsActivity"
+            android:label="@string/main_conf_name" >
+        </activity>
+        <activity
+        	android:name="by.easyandroid.template.conference.activity.ReportersActivity"
+            android:label="@string/main_conf_name" >
+        </activity>    
+		<activity
+			android:name="by.easyandroid.template.conference.activity.AboutActivity"
+            android:label="@string/main_conf_name" >
+        </activity> 
+		<activity
+			android:name="by.easyandroid.template.conference.activity.SingleReportActivity"
+            android:label="@string/main_conf_name" >
+        </activity> 
+		<activity
+			android:name="by.easyandroid.template.conference.activity.ReporterInformationActivity"
+            android:label="@string/main_conf_name" >
+        </activity>                                      
+    </application>
+</manifest>

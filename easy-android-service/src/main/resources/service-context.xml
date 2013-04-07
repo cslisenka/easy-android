@@ -18,6 +18,20 @@
 		<property name="ignoreUnresolvablePlaceholders" value="true"/>
 	</bean>	
 	
+	<!-- Amazon services configuration -->
+	<bean id="awsCredientials" class="com.amazonaws.auth.PropertiesCredentials">
+		<constructor-arg name="file" value="classpath:aws-credentials.properties" />
+	</bean>
+	
+	<bean id="s3" class="com.amazonaws.services.s3.AmazonS3Client">
+		<constructor-arg name="awsCredentials" ref="awsCredientials" />
+	</bean>	
+	
+	<bean id="cloudStorageService" class="by.easyandroid.service.amazon.CloudStorageService">
+		<constructor-arg name="bucketName" value="${apk.bucket.name}" />
+		<constructor-arg name="s3" ref="s3" />
+	</bean>
+	
 	<bean id="applicationResultService" class="by.easyandroid.service.datasource.impl.FileSystemApplicationResultService">
 		<!-- TODO do valid settings, they may be different at local and remote enviroment, put to property file -->
 		<constructor-arg name="apkDirectory" value="${apk.directory}"/>
