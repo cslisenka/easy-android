@@ -12,5 +12,5 @@ import by.easyandroid.service.exception.ApplicationServiceException;
  */
 public interface IApplicationResultService {
 
-	String uploadResultApk(File apkToUpload) throws ApplicationServiceException;
+	String uploadResultApk(String applicationInstanceObjId, File apkToUpload) throws ApplicationServiceException;
 }

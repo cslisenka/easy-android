@@ -21,6 +21,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.services.s3.model.StorageClass;
 
+@Ignore
 public class TestAmazonS3Operations {
 
 	private static Logger log = Logger.getLogger(TestAmazonS3Operations.class.getName());	
@@ -35,7 +36,6 @@ public class TestAmazonS3Operations {
 		s3 = new AmazonS3Client(new PropertiesCredentials(in));
 	}
 	
-	@Ignore
 	@Test
 	public void testUploadFile() throws IOException {
 		String key = "test/screenshot.jpg";

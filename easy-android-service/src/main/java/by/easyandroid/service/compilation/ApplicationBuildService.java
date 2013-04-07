@@ -81,7 +81,7 @@ public class ApplicationBuildService {
 	protected void buildApplicationInWorkingDirectory(ApplicationInstance application, File workingDirectory) throws ApplicationServiceException {
 		templateSourceService.getApkTemplate(application.getTemplate().getId(), workingDirectory);
 		buildApplicationFromModel(application.getModel(), workingDirectory);
-		String appDownloadLink = applicationResultService.uploadResultApk(new File(workingDirectory, "bin" + File.separator + "MyAndroidApp-debug.apk"));
+		String appDownloadLink = applicationResultService.uploadResultApk(application.getId(), new File(workingDirectory, "bin" + File.separator + "MyAndroidApp-debug.apk"));
 		application.setLastCreatedApkUrl(appDownloadLink);	
 	}
 

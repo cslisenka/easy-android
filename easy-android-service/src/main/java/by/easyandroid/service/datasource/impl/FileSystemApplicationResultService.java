@@ -24,7 +24,7 @@ public class FileSystemApplicationResultService implements IApplicationResultSer
 		this.wepAccessDirectoryPath = wepAccessDirectoryPath;
 	}
 	
-	public String uploadResultApk(File apkToUpload) throws ApplicationServiceException {
+	public String uploadResultApk(String applicationInstanctObjId, File apkToUpload) throws ApplicationServiceException {
 		String newAppFileName = generateApkFileName();
 		try {
 			FileUtils.copyFile(apkToUpload, new File(apkDirectory, newAppFileName));

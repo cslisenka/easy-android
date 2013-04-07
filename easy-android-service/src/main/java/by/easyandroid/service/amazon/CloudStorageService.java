@@ -39,19 +39,22 @@ public class CloudStorageService {
 	/**
 	 * Uploads file to amazon s3.
 	 * Returns public html link to file.
-	 * File stored at cloud storage with reduced redundancy storage class.
+	 * File stored at cloud storage with reduced redundancy storage class. 
 	 * 
 	 * @param fileToUpload
-	 * @param folderInBucket path in cloud storage (within bucket) where uploaded file should be
+	 * @param folderInBucket
+	 * @param fileNameInBucket
 	 * @return
+	 * @throws ApplicationServiceException
 	 */
-	public String uploadPublicFile(File fileToUpload, String folderInBucket) throws ApplicationServiceException {
+	// TODO unit-test that 3-d parameter works
+	public String uploadPublicFile(File fileToUpload, String folderInBucket, String fileNameInBucket) throws ApplicationServiceException {
 		if (!fileToUpload.exists() || fileToUpload.isDirectory()) {
 			throw new ApplicationServiceException("File to upload " + fileToUpload.getAbsolutePath() + " not exists or is a directory");
 		}
 		
 		try {
-			s3.putObject(new PutObjectRequest(bucketName, folderInBucket + "/" + fileToUpload.getName(), fileToUpload)
+			s3.putObject(new PutObjectRequest(bucketName, folderInBucket + "/" + fileNameInBucket, fileToUpload)
 				.withCannedAcl(CannedAccessControlList.PublicRead)
 				.withStorageClass(StorageClass.ReducedRedundancy));
 		} catch (AmazonServiceException e) {
@@ -59,7 +62,20 @@ public class CloudStorageService {
 					+ fileToUpload.getAbsolutePath() + " to amazon s3, bucket name " + folderInBucket, e);
 		}
 		
-		return getS3ObjectUrl(folderInBucket + "/" + fileToUpload.getName());
+		return getS3ObjectUrl(folderInBucket + "/" + fileNameInBucket);
+	}	
+	
+	/**
+	 * Uploads file to amazon s3.
+	 * Returns public html link to file.
+	 * File stored at cloud storage with reduced redundancy storage class.
+	 * 
+	 * @param fileToUpload
+	 * @param folderInBucket path in cloud storage (within bucket) where uploaded file should be
+	 * @return
+	 */
+	public String uploadPublicFile(File fileToUpload, String folderInBucket) throws ApplicationServiceException {
+		return uploadPublicFile(fileToUpload, folderInBucket, fileToUpload.getName());
 	}
 	
 	/**

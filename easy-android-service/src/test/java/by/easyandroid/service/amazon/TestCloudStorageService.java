@@ -22,6 +22,7 @@ import by.easyandroid.service.util.UnitTestUtil;
 // TODO use test contexts for unit-tests in whole project
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/service-context.xml")
+// TODO solve problem with running amazon rests on jenkins
 @Ignore("Works only on local mashine now because of credientials")
 public class TestCloudStorageService {
 
