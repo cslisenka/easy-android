@@ -3,10 +3,9 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-	<!-- spring framework context configuration -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/conf/ws-context.xml</param-value>
+		<param-value>classpath:worker-context.xml</param-value>
 	</context-param>
 
 	<!-- Spring Context Listener -->

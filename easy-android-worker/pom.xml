@@ -13,5 +13,6 @@
 	<modules>
 		<module>worker-webapp</module>
 		<module>worker-copier</module>
+		<module>worker-ws-client</module>
 	</modules>
 </project>

@@ -16,6 +16,7 @@ import by.easyandroid.service.exception.ApplicationServiceException;
 import by.easyandroid.webapp.AbstractBaseForm;
 import by.easyandroid.webapp.beans.UserBean;
 import by.easyandroid.webapp.util.Bean;
+//import by.easyandroid.worker.client.WorkerWsClient;
 
 @ManagedBean
 @RequestScoped
@@ -33,6 +34,9 @@ public class MyApplicationsForm extends AbstractBaseForm {
 	@ManagedProperty(value = Bean.BN_USER)
 	private UserBean userBean;
 	
+//	@ManagedProperty(value = "#{workerWsClient}")
+//	private WorkerWsClient wsClient;
+	
 	private List<ApplicationInstance> templates = new ArrayList<ApplicationInstance>();
 	
 	@Override
@@ -44,15 +48,11 @@ public class MyApplicationsForm extends AbstractBaseForm {
 		}
 	}
 
-	public void compile(ActionEvent event) {
-		try {
+	public void compile(ActionEvent event) throws ApplicationServiceException {
+//		wsClient.callAndroidAppBuildWS(compileDialog.getObject().getId());
 			compilationService.build(compileDialog.getObject().getId());
-			compileDialog.close();
-			init();
-		} catch (ApplicationServiceException e) {
-			// TODO show error message
-			e.printStackTrace();
-		}
+		compileDialog.close();
+		init();
 	}
 	
 	public List<ApplicationInstance> getTemplates() {

@@ -15,6 +15,12 @@
 		</repository> </repositories -->
 
 	<dependencies>
+		<!-- easy-android dependencies -->
+		<dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>easy-android-service</artifactId>
+		</dependency>		
+		
 		<!-- JAX-WS -->
 		<dependency>
 			<groupId>com.sun.xml.ws</groupId>
@@ -104,24 +110,20 @@
 							<goal>wsgen</goal>
 						</goals>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jaxws-maven-plugin</artifactId>
-				<executions>
 					<execution>
+						<id>AndroidAppBuildService</id>
 						<phase>process-classes</phase>
-						<id>gen</id>
+						<configuration>
+							<sei>by.easyandroid.worker.webapp.service.AndroidAppBuildWSImpl</sei>
+							<genWsdl>true</genWsdl>
+							<keep>true</keep>
+							<verbose>true</verbose>
+						</configuration>
 						<goals>
-							<goal>wsimport</goal>
+							<goal>wsgen</goal>
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<wsdlDirectory>${basedir}/target/generated-sources/wsdl</wsdlDirectory>
-					<packageName>by.easyandroid.worker.client</packageName>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

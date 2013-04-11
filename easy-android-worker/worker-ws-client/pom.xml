@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>by.easyandroid</groupId>
+		<artifactId>easy-android-worker</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>worker-ws-client</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>worker-webapp</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>easy-android-service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- TODO fix problem with no compilation: use resources or maven build heper plugin -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<id>gen</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<wsdlDirectory>${basedir}/../worker-webapp/target/generated-sources/wsdl</wsdlDirectory>
+					<packageName>by.easyandroid.worker.client</packageName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -10,6 +10,21 @@
     http://jax-ws.dev.java.net/spring/servlet
     http://jax-ws.dev.java.net/spring/servlet.xsd">
 
+	<import resource="classpath:/service-context.xml" />
+
+	<!-- TODO investigate how this utility works in multithreading -->
+	<wss:binding url="/webservice/appbuild">
+		<wss:service>
+			<ws:service bean="#androidAppBuildService">
+			</ws:service>
+		</wss:service>
+	</wss:binding>
+
+	<bean id="androidAppBuildService" class="by.easyandroid.worker.webapp.service.AndroidAppBuildWSImpl">
+		<property name="buildService" ref="compilationService" />
+	</bean>
+
+	<!-- For example TODO remove it and move to poc -->
 	<wss:binding url="/webservice/hello">
 		<wss:service>
 			<ws:service bean="#helloWs">

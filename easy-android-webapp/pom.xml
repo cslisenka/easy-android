@@ -28,6 +28,11 @@
 			<groupId>by.easyandroid</groupId>
 			<artifactId>easy-android-service</artifactId>
 		</dependency>
+		<!-- dependency>
+			<groupId>by.easyandroid</groupId>
+			<artifactId>worker-ws-client</artifactId>
+			<version>${project.version}</version>
+		</dependency -->		
 	
 		<dependency>
 			<groupId>org.icefaces</groupId>
