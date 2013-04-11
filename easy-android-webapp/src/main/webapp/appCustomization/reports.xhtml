@@ -9,7 +9,7 @@
 	xmlns:ice="http://www.icesoft.com/icefaces/component">
 	<ice:dataTable id="reports" value="#{reportsForm.all}" var="report" resizable="true" width="100%" cellspacing="0" cellpadding="0">
 		<ice:column>
-			<f:facet name="header">Title</f:facet>
+			<f:facet name="header">Название</f:facet>
 			<ice:panelGroup menuPopup="menuPopup">
 				<ice:commandLink styleClass="htmllink" actionListener="#{reportsForm.editDialog.open}">
 					#{report.title}
@@ -17,108 +17,109 @@
 				</ice:commandLink>
 			</ice:panelGroup>
 			<ice:menuPopup id="menuPopup">
-				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{reportsForm.editDialog.open}">
+				<ice:menuItem value="Редактировать" icon="#{resource['images/icons:edit.png']}" actionListener="#{reportsForm.editDialog.open}">
 					<f:attribute name="object" value="#{report}" />
 				</ice:menuItem>
-				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{reportsForm.deleteDialog.open}">
+				<ice:menuItem value="Удалить" icon="#{resource['images/icons:delete.png']}" actionListener="#{reportsForm.deleteDialog.open}">
 					<f:attribute name="object" value="#{report}" />
 				</ice:menuItem>
 			</ice:menuPopup>
 		</ice:column>
 		<ice:column>
-			<f:facet name="header">Description</f:facet>
+			<f:facet name="header">Описание</f:facet>
 			#{report.description}
 			</ice:column>
 		<ice:column>
-			<f:facet name="header">Category</f:facet>
+			<f:facet name="header">Категория</f:facet>
 			#{report.category.name} 
 			</ice:column>
 		<ice:column>
-			<f:facet name="header">Reporter</f:facet>
+			<f:facet name="header">Докладчик</f:facet>
 			#{report.reporter.name} 
 			</ice:column>
 		<ice:column>
-			<f:facet name="header">Time</f:facet>
+			<f:facet name="header">Время</f:facet>
 			#{report.time} 
 			</ice:column>
 		<ice:column>
-			<f:facet name="header">Section</f:facet>
+			<f:facet name="header">Секция</f:facet>
 			#{report.section.name} 
 			</ice:column>
 	</ice:dataTable>
 	<br/>
 
-	<ice:commandButton value="Add new report" actionListener="#{reportsForm.createDialog.open}" rendered="#{!reportsForm.createDialog.opened and !reportsForm.editDialog.opened}" />
+	<ice:commandButton value="Добавить доклад" actionListener="#{reportsForm.createDialog.open}" rendered="#{!reportsForm.createDialog.opened and !reportsForm.editDialog.opened}" />
 	
 	<ice:panelGroup rendered="#{reportsForm.createDialog.opened}">
 		<div style="border: #E0E0E0 1px solid; padding: 0px 0px 20px 20px;">
-			<h3>Create report: </h3>
+			<h3>Создание доклада: </h3>
 			<ice:panelGrid columns="2">
-				Title: <ice:inputText size="70" value="#{reportsForm.createDialog.object.title}" />
-				Description: <ice:inputTextarea cols="70" rows="5" value="#{reportsForm.createDialog.object.description}" />
-    			Start time: 
+				Название: <ice:inputText size="70" value="#{reportsForm.createDialog.object.title}" />
+				Описание: <ice:inputTextarea cols="70" rows="5" value="#{reportsForm.createDialog.object.description}" />
+    			Время: 
 				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true" value="#{reportsForm.createDialog.object.time}">
             		<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
         		</ice:selectInputDate>
-				Section:
+				Секция:
 				<ice:selectOneMenu value="#{reportsForm.createDialog.sectionId}">
 					<f:selectItems value="#{sectionsForm.selectItems}" />
 				</ice:selectOneMenu>				
 				 
-				Category:
+				Категория:
 				<ice:selectOneMenu value="#{reportsForm.createDialog.categoryId}">
 					<f:selectItems value="#{categoriesForm.selectItems}" />
 				</ice:selectOneMenu> 
     			
-    			Reporter: 
+    			Докладчик: 
     			<ice:selectOneMenu value="#{reportsForm.createDialog.reporterId}">
     				<f:selectItems value="#{reportersForm.selectItems}" />
     			</ice:selectOneMenu>
 			</ice:panelGrid>
 
-			<ice:commandButton actionListener="#{reportsForm.create}" value="Ok" />
-			<ice:commandButton actionListener="#{reportsForm.createDialog.close}" value="Cancel" />
+			<ice:commandButton actionListener="#{reportsForm.create}" value="Сохранить" />
+			<ice:commandButton actionListener="#{reportsForm.createDialog.close}" value="Отмена" />
 		</div>	
 	</ice:panelGroup>	
 	
 	<ice:panelGroup rendered="#{reportsForm.editDialog.opened}">
 		<div style="border: #E0E0E0 1px solid; padding: 0px 0px 20px 20px;">
-			<h3>Edit report: </h3>
+			<h3>Редактирование доклада: </h3>
 			<ice:panelGrid columns="2">
-				Title: <ice:inputText size="70" value="#{reportsForm.editDialog.object.title}" />
-				Description: <ice:inputTextarea cols="70" rows="5" value="#{reportsForm.editDialog.object.description}" />
-    			Start time: 
+				Название: <ice:inputText size="70" value="#{reportsForm.editDialog.object.title}" />
+				Описание: <ice:inputTextarea cols="70" rows="5" value="#{reportsForm.editDialog.object.description}" />
+    			Время: 
 				<ice:selectInputDate renderMonthAsDropdown="true" renderYearAsDropdown="true" renderWeekNumbers="true" title="time" renderAsPopup="true" value="#{reportsForm.editDialog.object.time}">
             		<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
         		</ice:selectInputDate>
-					Section:
+				
+				Раздел:
 				<ice:selectOneMenu value="#{reportsForm.createDialog.sectionId}">
 					<f:selectItems value="#{sectionsForm.selectItems}" />
 				</ice:selectOneMenu>				
 				 
-				Category:
+				Категория:
 				<ice:selectOneMenu value="#{reportsForm.createDialog.categoryId}">
 					<f:selectItems value="#{categoriesForm.selectItems}" />
 				</ice:selectOneMenu> 
     			
-    			Reporter: 
+    			Докладчик: 
     			<ice:selectOneMenu value="#{reportsForm.createDialog.reporterId}">
     				<f:selectItems value="#{reportersForm.selectItems}" />
     			</ice:selectOneMenu>
 			</ice:panelGrid>
 
-			<ice:commandButton actionListener="#{reportsForm.edit}" value="Save" />
-			<ice:commandButton actionListener="#{reportsForm.editDialog.close}" value="Cancel" />
+			<ice:commandButton actionListener="#{reportsForm.edit}" value="Сохранить" />
+			<ice:commandButton actionListener="#{reportsForm.editDialog.close}" value="Отмена" />
 		</div>	
 	</ice:panelGroup>	
 
 	<ice:panelPopup draggable="true" visible="#{reportsForm.deleteDialog.opened}" autoCentre="true">
-		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}"/> Delete report</f:facet>
+		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}"/> Удаление доклада</f:facet>
 		<f:facet name="body">
-			Do you really want to delete this report?<br />
+			Вы действительно хотите удалить этот доклад?<br />
 			<br/>
-			<ice:commandButton actionListener="#{reportsForm.delete}" value="Yes" />
-			<ice:commandButton actionListener="#{reportsForm.deleteDialog.close}" value="No, cancel" />
+			<ice:commandButton actionListener="#{reportsForm.delete}" value="Да" />
+			<ice:commandButton actionListener="#{reportsForm.deleteDialog.close}" value="Нет" />
 		</f:facet>
 	</ice:panelPopup>
 </div>

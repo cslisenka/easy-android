@@ -13,13 +13,13 @@
 	<ui:define name="menu">
 		<ice:menuBar id="menuBar">
 			<ice:menuItem value="Applications">
-				<ice:menuItem value="My applications" icon="#{resource['images/icons:apps.png']}" action="/myApplications.xhtml?faces-redirect=true" />
-				<ice:menuItem value="Apps catalog" icon="#{resource['images/icons:apps_catalog.png']}" action="/applicationsCatalog.xhtml?faces-redirect=true" />
+				<ice:menuItem value="Мои приложения" icon="#{resource['images/icons:apps.png']}" action="/myApplications.xhtml?faces-redirect=true" />
+				<ice:menuItem value="Каталог приложений" icon="#{resource['images/icons:apps_catalog.png']}" action="/applicationsCatalog.xhtml?faces-redirect=true" />
 			</ice:menuItem>
 
 			<ice:menuItem rendered="#{userBean.userLoggedIn}" value="User: #{userBean.user.login}">
-				<ice:menuItem value="Settings" action="/account.xhtml?faces-redirect=true" />
-				<ice:menuItem value="Logout" action="#{userBean.doLogout}" />
+				<ice:menuItem value="Настройки" action="/account.xhtml?faces-redirect=true" />
+				<ice:menuItem value="Выйти из системы" action="#{userBean.doLogout}" />
 			</ice:menuItem>
 		</ice:menuBar>
 
@@ -41,7 +41,7 @@
 				<td style="width: 250px; vertical-align: top;">
 					<ui:insert name="leftColumn" />
 					<div style="border: #E0E0E0 1px solid; padding: 15px; margin-right: 10px; background-color: #F2F5FA;">
-						<b><img src="#{resource['images/icons:help.png']}"/> Help</b>
+						<b><img src="#{resource['images/icons:help.png']}"/> Информация</b>
 						<ui:insert name="help" />
 					</div>
 				</td>

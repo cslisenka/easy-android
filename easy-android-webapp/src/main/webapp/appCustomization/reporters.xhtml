@@ -9,7 +9,7 @@
 	xmlns:ice="http://www.icesoft.com/icefaces/component">
 	<ice:dataTable value="#{reportersForm.all}" var="reporter" resizable="true" width="100%" cellspacing="0" cellpadding="0">
 		<ice:column>
-			<f:facet name="header">Name</f:facet>
+			<f:facet name="header">Название</f:facet>
 			<ice:panelGroup menuPopup="menuPopup">
 				<ice:commandLink styleClass="htmllink" actionListener="#{reportersForm.editDialog.open}">
 					#{reporter.name}
@@ -17,16 +17,16 @@
 				</ice:commandLink>
 			</ice:panelGroup>
 			<ice:menuPopup id="menuPopup">
-				<ice:menuItem value="Edit" icon="#{resource['images/icons:edit.png']}" actionListener="#{reportersForm.editDialog.open}">
+				<ice:menuItem value="Редактировать" icon="#{resource['images/icons:edit.png']}" actionListener="#{reportersForm.editDialog.open}">
 					<f:attribute name="object" value="#{reporter}" />
 				</ice:menuItem>
-				<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{reportersForm.deleteDialog.open}">
+				<ice:menuItem value="Удалить" icon="#{resource['images/icons:delete.png']}" actionListener="#{reportersForm.deleteDialog.open}">
 					<f:attribute name="object" value="#{reporter}" />
 				</ice:menuItem>
 			</ice:menuPopup>
 		</ice:column>
 		<ice:column>
-			<f:facet name="header">Description</f:facet>
+			<f:facet name="header">Описание</f:facet>
 			#{reporter.description}
 		</ice:column>
 		<ice:column>
@@ -34,59 +34,59 @@
 			#{reporter.email}
 		</ice:column>
 		<ice:column>
-			<f:facet name="header">Company</f:facet>
+			<f:facet name="header">Организация</f:facet>
 			#{reporter.company}
 		</ice:column>		
 		<ice:column>
-			<f:facet name="header">Position</f:facet>
+			<f:facet name="header">Должность</f:facet>
 			#{reporter.position}
 		</ice:column>
 	</ice:dataTable>
 
 	<br />
-	<ice:commandButton value="Add new reporter" actionListener="#{reportersForm.createDialog.open}" />
+	<ice:commandButton value="Добавить докладчика" actionListener="#{reportersForm.createDialog.open}" />
 
 	<ice:panelPopup draggable="true" visible="#{reportersForm.deleteDialog.opened}" autoCentre="true">
-		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}" /> Delete reporter</f:facet>
+		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}" /> Удаление докладчика</f:facet>
 		<f:facet name="body">
-			Do you really want to delete this reporter?<br />
+			Вы действительно хотите удалить этого докладчика?<br />
 			<br/>
-			<ice:commandButton actionListener="#{reportersForm.delete}" value="Yes" />
-			<ice:commandButton actionListener="#{reportersForm.deleteDialog.close}" value="No, cancel" />
+			<ice:commandButton actionListener="#{reportersForm.delete}" value="Да" />
+			<ice:commandButton actionListener="#{reportersForm.deleteDialog.close}" value="Нет" />
 		</f:facet>
 	</ice:panelPopup>
 
 	<ice:panelGroup rendered="#{reportersForm.createDialog.opened}">
 		<div class="customDialog">
 			<!-- TODO insert icons images/icons:edit.png -->
-			Create reporter: <br/>
+			Создание докладчика: <br/>
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText value="#{reportersForm.createDialog.object.name}" />
-				Description: <ice:inputText value="#{reportersForm.createDialog.object.description}" />
+				Имя: <ice:inputText value="#{reportersForm.createDialog.object.name}" />
+				Описание: <ice:inputText value="#{reportersForm.createDialog.object.description}" />
 				Email: <ice:inputText value="#{reportersForm.createDialog.object.email}" />
-				Company: <ice:inputText value="#{reportersForm.createDialog.object.company}" />
-				Position: <ice:inputText value="#{reportersForm.createDialog.object.position}" />
+				Организация: <ice:inputText value="#{reportersForm.createDialog.object.company}" />
+				Должность: <ice:inputText value="#{reportersForm.createDialog.object.position}" />
 			</ice:panelGrid>
 	
-			<ice:commandButton actionListener="#{reportersForm.create}" value="Ok" />
-			<ice:commandButton actionListener="#{reportersForm.createDialog.close}" value="Cancel" />
+			<ice:commandButton actionListener="#{reportersForm.create}" value="Сохранить" />
+			<ice:commandButton actionListener="#{reportersForm.createDialog.close}" value="Отмена" />
 		</div>
 	</ice:panelGroup>	
 	
 	<ice:panelGroup rendered="#{reportersForm.editDialog.opened}">
 		<div class="customDialog">
 			<!-- TODO insert icons images/icons:edit.png -->
-			Edit reporter: <br/>
+			Редактирование докладчика: <br/>
 			<ice:panelGrid columns="2">
-				Name: <ice:inputText value="#{reportersForm.editDialog.object.name}" />
-				Description: <ice:inputText value="#{reportersForm.editDialog.object.description}" />
+				Имя: <ice:inputText value="#{reportersForm.editDialog.object.name}" />
+				Описание: <ice:inputText value="#{reportersForm.editDialog.object.description}" />
 				Email: <ice:inputText value="#{reportersForm.editDialog.object.email}" />
-				Company: <ice:inputText value="#{reportersForm.editDialog.object.company}" />
-				Position: <ice:inputText value="#{reportersForm.editDialog.object.position}" />
+				Организация: <ice:inputText value="#{reportersForm.editDialog.object.company}" />
+				Должность: <ice:inputText value="#{reportersForm.editDialog.object.position}" />
 			</ice:panelGrid>
 	
-			<ice:commandButton actionListener="#{reportersForm.edit}" value="Ok" />
-			<ice:commandButton actionListener="#{reportersForm.editDialog.close}" value="Cancel" />
+			<ice:commandButton actionListener="#{reportersForm.edit}" value="Сохранить" />
+			<ice:commandButton actionListener="#{reportersForm.editDialog.close}" value="Отмена" />
 		</div>
 	</ice:panelGroup>		
 </div>

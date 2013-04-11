@@ -10,15 +10,15 @@
 
 	<!-- TODO use panel grid with two columns -->
 
-	Conference name:<br/>
+	Название конференции:<br/>
 	<ice:inputText size="50" value="#{aboutConferenceForm.name}" /><br/><br/>
 	
-	Conference website:<br/>
+	Сайт конференции:<br/>
 	<ice:inputText size="50" value="#{aboutConferenceForm.website}" /><br/><br/>
 	
-	About conference text:<br/>
-	<p><i>Please, save changes in editor before press "Save" button. To do this click "save" icon in the editor.</i></p>
+	О конференции:<br/>
+	<p><i>Пожалуйста, сохраните изменения в редакторе перед нажатием кнопки "Сохранить". Для этого кликните иконку сохранения в редакторе.</i></p>
 	<ice:inputRichText height="400" width="700" value="#{aboutConferenceForm.about}"/>
-	<ice:commandButton value="Save" actionListener="#{aboutConferenceForm.save}"/>
-	<ice:commandButton value="Reset" type="reset"/>
+	<ice:commandButton value="Сохранить" actionListener="#{aboutConferenceForm.save}"/>
+	<ice:commandButton value="Сброс" type="reset"/>
 </div>
