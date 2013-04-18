@@ -19,16 +19,27 @@
 
 	<target name="clean-tomcat" description="Remove webapp from tomcat server">
 		<echo message="Cleaning tomcat..." />
+		<!--
 		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-webapp"/>
-		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-webapp.war"/>		
+		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-webapp.war"/>
+		-->
+		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-worker"/>
+		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-worker.war"/>		
 	</target>
 	
-	<target name="deploy-webapp" depends="clean-tomcat" description="Deploy webapp to tomcat">
+	<target name="deploy-ea-webapp" depends="clean-tomcat" description="Deploy webapp to tomcat">
 		<echo message="Copying webapp to tomcat..."/>
 		<scp_env 
 			file="${webapp.war.path}"
 			todir="${myuser.name}:${myuser.password}@${host}:${tomcat.home}/webapps" />
 	</target>
+	
+	<target name="deploy-worker-webapp" depends="clean-tomcat" description="Deploy webapp to tomcat">
+		<echo message="Copying webapp to tomcat..."/>
+		<scp_env 
+			file="${worker.war.path}"
+			todir="${myuser.name}:${myuser.password}@${host}:${tomcat.home}/webapps" />
+	</target>	
 	
 	<target name="stop-tomcat" description="Stop Tomcat server">
 		<echo message="Stopping tomcat..." />
@@ -40,7 +51,5 @@
 		<ssh_exec_env command="${tomcat.home}/bin/startup.sh"/>
 	</target>
 	
-	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-webapp, start-tomcat">
-		<echo>Deploying ea-webapp to ${tomcat.home}</echo>
-	</target>	
+	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-worker-webapp, start-tomcat" />
 </project>

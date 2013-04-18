@@ -24,9 +24,13 @@
 		<delete file="${tomcat.home}/webapps/ea-webapp.war" verbose="true" />
 	</target>
 	
-	<target name="deploy-webapp" depends="clean-tomcat" description="Deploy webapp to tomcat">
+	<target name="deploy-ea-webapp" depends="clean-tomcat" description="Deploy webapp to tomcat">
 		<copy file="${webapp.war.path}" todir="${tomcat.home}/webapps" verbose="true"/>
 	</target>
+	
+	<target name="deploy-ea-worker" depends="clean-tomcat" description="Deploy worker to tomcat">
+		<copy file="${worker.war.path}" todir="${tomcat.home}/webapps" verbose="true"/>
+	</target>	
 	
 	<target name="stop-tomcat" description="Stop Tomcat server">
 		<echo message="Stopping tomcat..." />
@@ -51,7 +55,5 @@
 		<echo message="server found = ${noserverfound}" />
 	</target>
 	
-	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-webapp, start-tomcat">
-		<echo>Deploying ea-webapp to ${tomcat.home}</echo>
-	</target>	
+	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-ea-webapp, deploy-ea-worker, start-tomcat" />
 </project>

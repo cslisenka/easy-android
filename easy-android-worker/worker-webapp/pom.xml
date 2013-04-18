@@ -10,10 +10,6 @@
 	<artifactId>worker-webapp</artifactId>
 	<packaging>war</packaging>
 
-	<!-- TODO remove if everything wors without this repo -->
-	<!-- repositories> <repository> <id>java.net</id> <url>http://download.java.net/maven/2</url> 
-		</repository> </repositories -->
-
 	<dependencies>
 		<!-- easy-android dependencies -->
 		<dependency>
@@ -27,6 +23,13 @@
 			<artifactId>jaxws-rt</artifactId>
 			<version>2.2.3</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+			<scope>provided</scope>
+		</dependency>		
 
 		<!-- Library from java.net, integrate Spring with JAX-WS -->
 		<dependency>
@@ -38,6 +41,10 @@
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-core</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring</artifactId>
+				</exclusion>				
 				<exclusion>
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-context</artifactId>
@@ -52,18 +59,15 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>			
 	</dependencies>
 
-	<!-- Properties -->
-	<properties>
-		<jstl.version>1.2.0</jstl.version>
-		<sun.jsf.version>2.0.2</sun.jsf.version>
-		<el.version>1.0.0</el.version>
-		<servlet.version>2.4</servlet.version>
-	</properties>
-
 	<build>
-		<finalName>worker-webapp</finalName>
+		<finalName>ea-worker</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>

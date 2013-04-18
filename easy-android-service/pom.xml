@@ -28,7 +28,6 @@
 			<groupId>by.easyandroid</groupId>
 			<artifactId>conference-adapter</artifactId>
 		</dependency>			
-
 		<dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>

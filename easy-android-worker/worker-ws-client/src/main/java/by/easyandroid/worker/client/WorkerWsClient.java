@@ -6,26 +6,34 @@ import java.net.URL;
 import javax.xml.namespace.QName;
 
 /**
- * Utility to call worker app webservices
+ * Class for executing appbuild web service.
  * 
  * @author kslisenko
  * 
  */
 public class WorkerWsClient {
 
-	public void callAndroidAppBuildWS(String applicationObjId) {
+	private String wsdlUrl;
+	private String namespace;
+	private String nsLocalPart;
+
+	public WorkerWsClient(String wsdlUrl, String namespace, String nsLocalPart) {
+		this.wsdlUrl = wsdlUrl;
+		this.namespace = namespace;
+		this.nsLocalPart = nsLocalPart;
+	}
+
+	public void callAndroidAppBuildWS(String applicationObjId) {//throws by.easyandroid.service.exception.ApplicationServiceException {
 		try {
-			URL url = new URL("http://localhost:8081/webservice/buildpp?wsdl");
-			QName qname = new QName("http://service.webapp.worker.easyandroid.by/", "AndroidAppBuildWSImplService");
+			URL url = new URL(wsdlUrl);
+			QName qname = new QName(namespace, nsLocalPart);
 			AndroidAppBuildWSImplService service = new AndroidAppBuildWSImplService(url, qname);
 			AndroidAppBuildWS client = service.getAndroidAppBuildWSImplPort();
 			client.buildAndroidApplication(applicationObjId);
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			// TODO throw ApplicationServiceException
+//			throw new by.easyandroid.service.exception.ApplicationServiceException(e);
 		} catch (ApplicationServiceException_Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			throw new by.easyandroid.service.exception.ApplicationServiceException(e);
 		}
 	}
 }

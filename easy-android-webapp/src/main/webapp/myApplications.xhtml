@@ -46,16 +46,16 @@
 					</ice:commandLink>
 				</ice:panelGroup>
 				<ice:menuPopup id="menuPopup">
-					<ice:menuItem value="Copy" icon="#{resource['images/icons:copy.png']}" actionListener="#{popupBean.openCopy}">
+					<ice:menuItem value="Копировать" icon="#{resource['images/icons:copy.png']}" actionListener="#{myApplicationsForm.copyDialog.open}">
 						<f:attribute name="templateId" value="#{template.id}" />
 					</ice:menuItem>
-					<ice:menuItem value="Customize" icon="#{resource['images/icons:customize.png']}" action="#{conferenceForm.open}">
+					<ice:menuItem value="Редактировать" icon="#{resource['images/icons:customize.png']}" action="#{conferenceForm.open}">
 						<f:attribute name="templateId" value="#{template.id}" />
 					</ice:menuItem>
-					<ice:menuItem value="Compile" icon="#{resource['images/icons:compile.png']}" actionListener="#{applicationCompileDialog.open}">
+					<ice:menuItem value="Собрать" icon="#{resource['images/icons:compile.png']}" actionListener="#{myApplicationsForm.compileDialog.open}">
 						<f:attribute name="object" value="#{template}" />
 					</ice:menuItem>
-					<ice:menuItem value="Delete" icon="#{resource['images/icons:delete.png']}" actionListener="#{popupBean.openDelete}">
+					<ice:menuItem value="Удалить" icon="#{resource['images/icons:delete.png']}" actionListener="#{myApplicationsForm.deleteDialog.open}">
 						<f:attribute name="templateId" value="#{template.id}" />
 					</ice:menuItem>
 				</ice:menuPopup>
@@ -67,14 +67,14 @@
 			<ice:column>
 				<f:facet name="header">Последняя сборка</f:facet>
 				<div style="text-align: center;">
-					<c:if test="${not empty template.lastCreatedApkUrl}">
-						<ice:outputLink styleClass="htmllink" value="#{template.lastCreatedApkUrl}">
-							<img src="#{resource['images/icons:download_apk.png']}" style="margin-right: 5px;"/>
-						</ice:outputLink>					
-					</c:if>
-					<c:if test="${empty template.lastCreatedApkUrl}">
+					<ice:outputLink styleClass="htmllink" value="#{template.lastCreatedApkUrl}">
+						<img src="#{resource['images/icons:download_apk.png']}" style="margin-right: 5px;"/>
+					</ice:outputLink>
+						<!-- c:if test="${not empty template.lastCreatedApkUrl}"-->					
+					<!-- /c:if -->
+					<!-- c:if test="${empty template.lastCreatedApkUrl}">
 						<img src="#{resource['images/icons:minus.png']}" style="margin-right: 5px;"/>
-					</c:if>					
+					</c:if -->					
 				</div> 
 			</ice:column>
 			<ice:column>
@@ -87,7 +87,7 @@
 		</ice:dataTable>
 		
 		<!-- Copy application dialog -->
-		<ice:panelPopup draggable="true" visible="#{popupBean.copyApplication}" autoCentre="true">
+		<ice:panelPopup draggable="true" visible="#{myApplicationsForm.copyDialog.opened}" autoCentre="true">
 			<f:facet name="header"><img src="#{resource['images/icons:copy.png']}"/> Копировать приложение</f:facet>
 			<f:facet name="body">
 				<p>
@@ -95,16 +95,17 @@
 				</p>
 				Имя нового приложения: <ice:inputText value="Conference_copy" /><br/>
 				<br/>
-				<ice:commandButton actionListener="#{popupBean.openCompile}" value="Копировать" />
-				<ice:commandButton actionListener="#{popupBean.closeCopy}" value="Отмена" />
+				<ice:commandButton actionListener="#{myApplicationsForm.copy}" value="Копировать" />
+				<ice:commandButton actionListener="#{myApplicationsForm.copyDialog.close}" value="Отмена" />
 			</f:facet>		
 		</ice:panelPopup>
 		
 		<!-- Compile application dialog -->
-		<ice:panelPopup draggable="true" visible="#{applicationCompileDialog.opened}" autoCentre="true">
+		<ice:panelPopup draggable="true" visible="#{myApplicationsForm.compileDialog.opened}" autoCentre="true">
 			<f:facet name="header"><img src="#{resource['images/icons:compile.png']}"/> Собрать приложение</f:facet>
 			<f:facet name="body">
-				Время сборки приложения зависит от загрузки наших серверов. Вам нужно подождать пока сборка завершится.
+				Время сборки приложения зависит от загрузки наших серверов.<br/> 
+				Вам нужно подождать пока сборка завершится.<br/>
 				Собранное приложение появится на странице "Мои приложения".<br/>
 				<br/>
 				<!-- 
@@ -112,19 +113,19 @@
                 E-mail: <ice:inputText value="kslisenko@gmail.com" /><br/>
                 <br/>
                  -->
-				<ice:commandButton actionListener="#{myApplicationsForm.compile}" style="margin-right: 10px;" value="Ok, start compilation" />
-				<ice:commandButton actionListener="#{applicationCompileDialog.close}" value="Cancel" />
+				<ice:commandButton actionListener="#{myApplicationsForm.compile}" style="margin-right: 10px;" value="Стартовать сборку" />
+				<ice:commandButton actionListener="#{myApplicationsForm.compileDialog.close}" value="Отмена" />
 			</f:facet>
 		</ice:panelPopup>
 		
 		<!-- Delete application dialog -->
-		<ice:panelPopup draggable="true" visible="#{popupBean.deleteApplication}" autoCentre="true">
+		<ice:panelPopup draggable="true" visible="#{myApplicationsForm.deleteDialog.opened}" autoCentre="true">
 			<f:facet name="header"><img src="#{resource['images/icons:delete.png']}"/> Удаление приложения</f:facet>
 			<f:facet name="body">
                	Вы действительно хотите удалить это приложение?<br/>
                	<br/>
-				<ice:commandButton actionListener="#{popupBean.closeDelete}" style="margin-right: 10px;" value="Да" />
-				<ice:commandButton actionListener="#{popupBean.closeDelete}" value="Нет" />
+				<ice:commandButton actionListener="#{myApplicationsForm.delete}" style="margin-right: 10px;" value="Да" />
+				<ice:commandButton actionListener="#{myApplicationsForm.deleteDialog.close}" value="Нет" />
 			</f:facet>
 		</ice:panelPopup>
 	</ui:define>

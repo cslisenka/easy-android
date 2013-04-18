@@ -1,8 +1,10 @@
 package by.easyandroid.model;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 
-public class Identity {
+public class Identity implements Serializable {
 
 	@Id
 	private String id;

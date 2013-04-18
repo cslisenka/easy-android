@@ -12,24 +12,16 @@
 	<artifactId>worker-ws-client</artifactId>
 
 	<dependencies>
-		<dependency>
-			<groupId>by.easyandroid</groupId>
-			<artifactId>worker-webapp</artifactId>
-			<version>${project.version}</version>
-			<type>war</type>
-		</dependency>
-		<dependency>
+		<!-- dependency>
 			<groupId>by.easyandroid</groupId>
 			<artifactId>easy-android-service</artifactId>
-		</dependency>
+		</dependency -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<!-- TODO fix problem with no compilation: use resources or maven build heper plugin -->
 
 	<build>
 		<plugins>
@@ -38,7 +30,7 @@
 				<artifactId>jaxws-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<phase>process-classes</phase>
+						<phase>generate-sources</phase>
 						<id>gen</id>
 						<goals>
 							<goal>wsimport</goal>
@@ -49,6 +41,14 @@
 					<wsdlDirectory>${basedir}/../worker-webapp/target/generated-sources/wsdl</wsdlDirectory>
 					<packageName>by.easyandroid.worker.client</packageName>
 				</configuration>
+				<dependencies>
+				<dependency>
+					<groupId>by.easyandroid</groupId>
+					<artifactId>worker-webapp</artifactId>
+					<version>${project.version}</version>
+					<type>war</type>
+				</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

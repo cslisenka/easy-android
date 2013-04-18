@@ -30,7 +30,6 @@
 	<!-- Amazon services configuration -->
 	<bean id="awsCredientials" class="com.amazonaws.auth.PropertiesCredentials">
 		<constructor-arg name="inputStream" value="classpath:aws-credentials.properties" type="java.io.InputStream" />
-		<!-- constructor-arg name="file" ref="awsCredentialsFile" / -->
 	</bean>
 	
 	<bean id="s3" class="com.amazonaws.services.s3.AmazonS3Client">

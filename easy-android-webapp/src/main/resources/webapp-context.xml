@@ -29,7 +29,14 @@
 	<bean id="createReportDialog" class="by.easyandroid.webapp.form.appCustomization.report.ReportDialog" scope="session" />
 	<bean id="deleteReportDialog" class="by.easyandroid.webapp.form.appCustomization.report.ReportDialog" scope="session" />
 	
-	<bean id="applicationCompileDialog" class="by.easyandroid.webapp.form.ApplicationDialog" scope="session" />
+	<bean id="compileApplicationDialog" class="by.easyandroid.webapp.form.ApplicationDialog" scope="session" />
+	<bean id="copyApplicationDialog" class="by.easyandroid.webapp.form.ApplicationDialog" scope="session" />
+	<bean id="deleteApplicationDialog" class="by.easyandroid.webapp.form.ApplicationDialog" scope="session" />
 	
-	<!-- bean id="workerWsClient" class="by.easyandroid.worker.client.WorkerWsClient" scope="request" / -->			
+	<!-- TODO different parameters for production and local enviroments -->
+	<bean id="workerWsClient" class="by.easyandroid.worker.client.WorkerWsClient">
+		<constructor-arg name="wsdlUrl" value="${worker.ws.appbuild.wsdl}"/>
+		<constructor-arg name="namespace" value="${worker.ws.appbuild.ns}"/>
+		<constructor-arg name="nsLocalPart" value="${worker.ws.appbuild.nsLocalPart}"/>
+	</bean>			
 </beans>

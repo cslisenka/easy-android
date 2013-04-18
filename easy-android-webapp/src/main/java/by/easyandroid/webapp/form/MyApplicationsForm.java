@@ -16,14 +16,20 @@ import by.easyandroid.service.exception.ApplicationServiceException;
 import by.easyandroid.webapp.AbstractBaseForm;
 import by.easyandroid.webapp.beans.UserBean;
 import by.easyandroid.webapp.util.Bean;
-//import by.easyandroid.worker.client.WorkerWsClient;
+import by.easyandroid.worker.client.WorkerWsClient;
 
 @ManagedBean
 @RequestScoped
 public class MyApplicationsForm extends AbstractBaseForm {
 
-	@ManagedProperty(value = "#{applicationCompileDialog}")
+	@ManagedProperty(value = "#{compileApplicationDialog}")
 	private ApplicationDialog compileDialog;
+	
+	@ManagedProperty(value = "#{copyApplicationDialog}")
+	private ApplicationDialog copyDialog;
+	
+	@ManagedProperty(value = "#{deleteApplicationDialog}")
+	private ApplicationDialog deleteDialog;	
 	
 	@ManagedProperty(value = Bean.SRV_APPLICATION)
 	private ApplicationInstanceService instanceService;
@@ -34,8 +40,8 @@ public class MyApplicationsForm extends AbstractBaseForm {
 	@ManagedProperty(value = Bean.BN_USER)
 	private UserBean userBean;
 	
-//	@ManagedProperty(value = "#{workerWsClient}")
-//	private WorkerWsClient wsClient;
+	@ManagedProperty(value = "#{workerWsClient}")
+	private WorkerWsClient wsClient;
 	
 	private List<ApplicationInstance> templates = new ArrayList<ApplicationInstance>();
 	
@@ -49,8 +55,7 @@ public class MyApplicationsForm extends AbstractBaseForm {
 	}
 
 	public void compile(ActionEvent event) throws ApplicationServiceException {
-//		wsClient.callAndroidAppBuildWS(compileDialog.getObject().getId());
-			compilationService.build(compileDialog.getObject().getId());
+		wsClient.callAndroidAppBuildWS(compileDialog.getObject().getId());
 		compileDialog.close();
 		init();
 	}
@@ -89,5 +94,29 @@ public class MyApplicationsForm extends AbstractBaseForm {
 
 	public void setCompilationService(ApplicationBuildService compilationService) {
 		this.compilationService = compilationService;
+	}
+
+	public ApplicationDialog getCopyDialog() {
+		return copyDialog;
+	}
+
+	public void setCopyDialog(ApplicationDialog copyDialog) {
+		this.copyDialog = copyDialog;
+	}
+
+	public ApplicationDialog getDeleteDialog() {
+		return deleteDialog;
+	}
+
+	public void setDeleteDialog(ApplicationDialog deleteDialog) {
+		this.deleteDialog = deleteDialog;
+	}
+
+	public WorkerWsClient getWsClient() {
+		return wsClient;
+	}
+
+	public void setWsClient(WorkerWsClient wsClient) {
+		this.wsClient = wsClient;
 	}
 }

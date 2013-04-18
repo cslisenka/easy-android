@@ -28,7 +28,7 @@
 	</ice:dataTable>
 
 	<br />
-	<ice:commandButton value="Add new category" actionListener="#{categoriesForm.createDialog.open}" />
+	<ice:commandButton value="Добавить категорию" actionListener="#{categoriesForm.createDialog.open}" />
 
 	<ice:panelPopup draggable="true" visible="#{categoriesForm.deleteDialog.opened}" autoCentre="true">
 		<f:facet name="header"><img src="#{resource['images/icons:delete.png']}" /> Удаление секции</f:facet>
@@ -36,7 +36,7 @@
 			Вы действительно хотите удалить эту секцию?<br />
 			<br/>
 			<ice:commandButton actionListener="#{categoriesForm.delete}" value="Да" />
-			<ice:commandButton actionListener="#{categoriesForm.deleteDialog.close}" value="Нет />
+			<ice:commandButton actionListener="#{categoriesForm.deleteDialog.close}" value="Нет" />
 		</f:facet>
 	</ice:panelPopup>
 
