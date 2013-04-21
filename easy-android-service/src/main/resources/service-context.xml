@@ -63,4 +63,8 @@
 		<property name="applicationResultService" ref="applicationResultService" />
 		<property name="templateSourceService" ref="templateSourceService" />
 	</bean>
+	
+	<bean id="buildTaskService" class="by.easyandroid.service.compilation.BuildTaskService">
+		<constructor-arg name="queueService" ref="cloudQueueService" />
+	</bean>	
 </beans>

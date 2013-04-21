@@ -17,6 +17,7 @@ public interface Bean {
 	public static final String SRV_TEMPLATE = "#{templateService}";
 	
 	public static final String SRV_COMPILATION = "#{compilationService}";
+	public static final String SRV_BUILD_TASK = "#{buildTaskService}";
 	
 	// Beans with business logic
 	public static final String BN_USER = "#{userBean}";

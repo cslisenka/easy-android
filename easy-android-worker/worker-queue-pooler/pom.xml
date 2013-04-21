@@ -15,22 +15,61 @@
 		<dependency>
 			<groupId>by.easyandroid</groupId>
 			<artifactId>easy-android-service</artifactId>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>by.easyandroid</groupId>
 			<artifactId>worker-ws-client</artifactId>
 			<version>${project.version}</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>by.easyandroid</groupId>
 			<artifactId>worker-webapp</artifactId>
 			<version>${project.version}</version>
 			<type>war</type>
-		</dependency>			
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<finalName>ea-pooler</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>by.easyandroid.worker.pooler.Main</mainClass>
+							<packageName>by.easyandroid.worker.pooler</packageName>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

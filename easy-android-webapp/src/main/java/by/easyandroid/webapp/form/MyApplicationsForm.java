@@ -12,11 +12,11 @@ import by.easyandroid.database.service.ApplicationInstanceService;
 import by.easyandroid.model.ApplicationInstance;
 import by.easyandroid.model.User;
 import by.easyandroid.service.compilation.ApplicationBuildService;
+import by.easyandroid.service.compilation.BuildTaskService;
 import by.easyandroid.service.exception.ApplicationServiceException;
 import by.easyandroid.webapp.AbstractBaseForm;
 import by.easyandroid.webapp.beans.UserBean;
 import by.easyandroid.webapp.util.Bean;
-import by.easyandroid.worker.client.WorkerWsClient;
 
 @ManagedBean
 @RequestScoped
@@ -40,8 +40,8 @@ public class MyApplicationsForm extends AbstractBaseForm {
 	@ManagedProperty(value = Bean.BN_USER)
 	private UserBean userBean;
 	
-	@ManagedProperty(value = "#{workerWsClient}")
-	private WorkerWsClient wsClient;
+	@ManagedProperty(value = Bean.SRV_BUILD_TASK)
+	private BuildTaskService buildTaskService;
 	
 	private List<ApplicationInstance> templates = new ArrayList<ApplicationInstance>();
 	
@@ -55,7 +55,7 @@ public class MyApplicationsForm extends AbstractBaseForm {
 	}
 
 	public void compile(ActionEvent event) throws ApplicationServiceException {
-		wsClient.callAndroidAppBuildWS(compileDialog.getObject().getId());
+		buildTaskService.sendBuildTask(compileDialog.getObject().getId());
 		compileDialog.close();
 		init();
 	}
@@ -112,11 +112,11 @@ public class MyApplicationsForm extends AbstractBaseForm {
 		this.deleteDialog = deleteDialog;
 	}
 
-	public WorkerWsClient getWsClient() {
-		return wsClient;
+	public BuildTaskService getBuildTaskService() {
+		return buildTaskService;
 	}
 
-	public void setWsClient(WorkerWsClient wsClient) {
-		this.wsClient = wsClient;
+	public void setBuildTaskService(BuildTaskService buildTaskService) {
+		this.buildTaskService = buildTaskService;
 	}
 }
