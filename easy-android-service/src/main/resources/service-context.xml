@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xsi:schemaLocation="http://www.springframework.org/schema/context
           http://www.springframework.org/schema/context/spring-context-3.0.xsd
           http://www.springframework.org/schema/data/mongo
@@ -12,46 +11,56 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<import resource="classpath:/database-context.xml" />
-	
+
 	<!-- TODO use <util:.../> -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
 			<value>classpath:service-configuration.properties</value>
 		</property>
-		<property name="ignoreUnresolvablePlaceholders" value="true"/>
-	</bean>	
-	
-	<bean id="awsCredientialsResource" class="org.springframework.core.io.ClassPathResource">
-   	 <constructor-arg value="aws-credentials.properties" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 
-	<util:property-path id="awsCredentialsFile" path="awsCredientialsResource.file" />
-	
+	<bean id="awsCredientialsResource" class="org.springframework.core.io.ClassPathResource">
+		<constructor-arg value="aws-credentials.properties" />
+	</bean>
+
+	<util:property-path id="awsCredentialsFile"
+		path="awsCredientialsResource.file" />
+
 	<!-- Amazon services configuration -->
 	<bean id="awsCredientials" class="com.amazonaws.auth.PropertiesCredentials">
 		<constructor-arg name="inputStream" value="classpath:aws-credentials.properties" type="java.io.InputStream" />
 	</bean>
-	
+
 	<bean id="s3" class="com.amazonaws.services.s3.AmazonS3Client">
 		<constructor-arg name="awsCredentials" ref="awsCredientials" />
-	</bean>	
+	</bean>
 	
+	<bean id="sqs" class="com.amazonaws.services.sqs.AmazonSQSClient">
+		<constructor-arg name="awsCredentials" ref="awsCredientials" />
+	</bean>	
+
 	<bean id="cloudStorageService" class="by.easyandroid.service.amazon.CloudStorageService">
 		<constructor-arg name="bucketName" value="${apk.bucket.name}" />
 		<constructor-arg name="s3" ref="s3" />
 	</bean>
 	
+	<bean id="cloudQueueService" class="by.easyandroid.service.amazon.CloudQueueService">
+		<constructor-arg name="queueUrl" value="${apk.build.queue.url}" />
+		<constructor-arg name="sqs" ref="sqs" />
+	</bean>	
+
 	<bean id="applicationResultService" class="by.easyandroid.service.datasource.impl.CloudStorageApplicationResultService">
-		<constructor-arg name="storageService" ref="cloudStorageService"/>
-	</bean>	
-	
+		<constructor-arg name="storageService" ref="cloudStorageService" />
+	</bean>
+
 	<bean id="templateSourceService" class="by.easyandroid.service.datasource.impl.CloudStorageTemplateSourceService">
-		<constructor-arg name="storageService" ref="cloudStorageService"/>
-	</bean>	
-	
+		<constructor-arg name="storageService" ref="cloudStorageService" />
+	</bean>
+
 	<bean id="compilationService" class="by.easyandroid.service.compilation.ApplicationBuildService">
-		<property name="applicationService" ref="applicationInstanceService"/>
-		<property name="applicationResultService" ref="applicationResultService"/>
-		<property name="templateSourceService" ref="templateSourceService"/>
-	</bean>		
+		<property name="applicationService" ref="applicationInstanceService" />
+		<property name="applicationResultService" ref="applicationResultService" />
+		<property name="templateSourceService" ref="templateSourceService" />
+	</bean>
 </beans>

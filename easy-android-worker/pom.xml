@@ -14,5 +14,6 @@
 		<module>worker-webapp</module>
 		<module>worker-copier</module>
 		<module>worker-ws-client</module>
+		<module>worker-queue-pooler</module>
 	</modules>
 </project>
