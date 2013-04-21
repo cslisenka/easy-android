@@ -24,6 +24,10 @@
 		<ant antfile="${enviroment}/tomcat-${enviroment}.xml" target="full-deploy" />
 	</target>
 	
+	<target name="deploy-queue-pooler">
+		<ant antfile="${enviroment}/ea-worker-${enviroment}.xml" target="deploy-queue-pooler" />
+	</target>	
+	
 	<target name="deploy-templates">
 		<!-- TODO deploy template to amazon s3 -->
 		<ant antfile="${enviroment}/ea-worker-${enviroment}.xml" target="upload-templates" />

@@ -19,10 +19,8 @@
 
 	<target name="clean-tomcat" description="Remove webapp from tomcat server">
 		<echo message="Cleaning tomcat..." />
-		<!--
 		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-webapp"/>
 		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-webapp.war"/>
-		-->
 		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-worker"/>
 		<ssh_exec_env command="rm -rf ${tomcat.home}/webapps/ea-worker.war"/>		
 	</target>
@@ -51,5 +49,5 @@
 		<ssh_exec_env command="${tomcat.home}/bin/startup.sh"/>
 	</target>
 	
-	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-worker-webapp, start-tomcat" />
+	<target name="full-deploy" depends="stop-tomcat, clean-tomcat, deploy-ea-webapp, deploy-worker-webapp, start-tomcat" />
 </project>

@@ -34,4 +34,32 @@
 			<fileset dir="${basedir}/../../../../app-conference" />
 		</scp>	
 	</target>
+	
+	<target name="deploy-queue-pooler" depends="clean-queue-pooler">
+		<echo message="Deploying queue pooler and libraries" />
+		<ssh_exec_env command="mkdir -p /home/${myuser.name}/easy-android/ea-pooler"/>
+		<scp_env file="${pooler.jar.path}" 
+			todir="${myuser.name}:${myuser.password}@${host}:/home/${myuser.name}/easy-android/ea-pooler" />
+		
+		<echo message="Deploying libs for pooler" />
+		<ssh_exec_env command="mkdir -p /home/${myuser.name}/easy-android/ea-pooler/lib"/>
+		<scp 
+			keyfile="${myuser.keyfile.location}"
+			todir="${myuser.name}:${myuser.password}@${host}:/home/${myuser.name}/easy-android/ea-pooler/lib" 
+			trust="true"
+			verbose="true">
+			<fileset dir="${basedir}/../../../../easy-android-worker/worker-queue-pooler/target/lib" />
+		</scp>		
+	</target>
+	
+	<target name="clean-queue-pooler">
+		<!-- TODO stop queue pooler -->
+		<echo message="Cleaning queue pooler" />
+		<ssh_exec_env command="rm -rf /home/${myuser.name}/easy-android/ea-pooler"/>
+	</target>
+	
+	<target name="start-queue-pooler" depends="deploy-queue-pooler">
+		<echo message="Starting queue pooler..." />
+		<ssh_exec_env command="java -jar /home/${myuser.name}/easy-android/ea-pooler/ea-pooler.jar"/>
+	</target>	
 </project>
