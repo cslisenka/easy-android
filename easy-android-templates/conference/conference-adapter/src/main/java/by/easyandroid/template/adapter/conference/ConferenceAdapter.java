@@ -36,8 +36,12 @@ public class ConferenceAdapter implements ITemplateAdapter {
 	
 	private String sourcesPath;
 	private ConferenceApplicationModel model;
+	private EntityConverter converter;
 	
 	public ConferenceAdapter(ConferenceApplicationModel model) {
+		// TODO make constructor injection
+		Database2ModelIdMapper mapper = new Database2ModelIdMapper();
+		converter = new EntityConverter(mapper);
 		this.model = model;
 	}
 
@@ -64,25 +68,25 @@ public class ConferenceAdapter implements ITemplateAdapter {
 			// Add reports
 			Element reports = XmlUtil.createChildElement(conference, "reports", doc); 
 			for (Report oneReport : model.getReports()) {
-				reports.appendChild(EntityConverter.toXml(oneReport, doc));
+				reports.appendChild(converter.toXml(oneReport, doc));
 			}
 			
 			// Add reporters
 			Element reporters = XmlUtil.createChildElement(conference, "reporters", doc);  
 			for (Reporter oneReporter : model.getReporters()) {
-				reporters.appendChild(EntityConverter.toXml(oneReporter, doc));
+				reporters.appendChild(converter.toXml(oneReporter, doc));
 			}
 			
 			// Add sections
 			Element sections = XmlUtil.createChildElement(conference, "sections", doc); 
 			for (Section section : model.getSections()) {
-				sections.appendChild(EntityConverter.toXml(section, doc));
+				sections.appendChild(converter.toXml(section, doc));
 			}
 			
 			// Add categories
 			Element categories = XmlUtil.createChildElement(conference, "categories", doc); 
 			for (Category category : model.getCategories()) {
-				categories.appendChild(EntityConverter.toXml(category, doc));
+				categories.appendChild(converter.toXml(category, doc));
 			}			
 			
 			return AdapterUtil.create(ASSETS_CONFERENCE_DATA_XML, doc);
@@ -108,5 +112,9 @@ public class ConferenceAdapter implements ITemplateAdapter {
 		String allText = webpage.html();
 		String body = webpage.body().text();
 		return new FileEntry(ASSETS_ABOUT_HTML, allText.replace(body, model.getInformation().getAbout()));
+	}
+
+	public EntityConverter getConverter() {
+		return converter;
 	}
 }

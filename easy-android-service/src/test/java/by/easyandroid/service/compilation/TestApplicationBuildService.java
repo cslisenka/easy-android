@@ -33,10 +33,10 @@ public class TestApplicationBuildService {
 	@Autowired
 	private ApplicationBuildService compilationService;
 	
-	@Autowired
+//	@Autowired
 	private FileSystemApplicationResultService resultService;
 	
-	@Autowired
+//	@Autowired
 	private FileSystemTemplateSourceService sourceService;
 	
 	private ConferenceApplicationModel model;
@@ -52,7 +52,7 @@ public class TestApplicationBuildService {
 		File testTemplatePath = new File(new File("").getAbsoluteFile(), "src/test/resources/testApplicationSources/app-conference");
 		FileUtils.copyDirectory(testTemplatePath, wrkDirectory.getDirectory());
 
-		System.out.println("Working directory at " + wrkDirectory.getDirectory().getAbsolutePath());		
+		System.out.println("Working directory at " + wrkDirectory.getDirectory().getAbsolutePath());
 	}
 	
 	@Test(expected = ApplicationServiceException.class)
@@ -105,18 +105,18 @@ public class TestApplicationBuildService {
 		model.getInformation().setTitle("My test conference");
 
 		// Create fake sections
-		Section s1 = addSection("1", "section 1");
-		Section s2 = addSection("2", "section 2");
+		Section s1 = addSection("sec1", "section 1");
+		Section s2 = addSection("sec2", "section 2");
 
 		// Create fake categories
-		Category c1 = addCategory("1", "category 1");
-		Category c2 = addCategory("2", "category 2");
+		Category c1 = addCategory("cat1", "category 1");
+		Category c2 = addCategory("cat2", "category 2");
 
-		Reporter r1 = addReporter("1", "reporter 1");
-		Reporter r2 = addReporter("2", "reporter 2");
+		Reporter r1 = addReporter("rep1", "reporter 1");
+		Reporter r2 = addReporter("rep2", "reporter 2");
 
-		addReport("1", "report 1", s1, c1, r1);
-		addReport("2", "report 2", s2, c2, r2);
+		addReport("report1", "report 1", s1, c1, r1);
+		addReport("report2", "report 2", s2, c2, r2);
 	}
 
 	private void addReport(String id, String name, Section s1, Category c1, Reporter r1) {

@@ -16,6 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import by.easyandroid.model.Identity;
 import by.easyandroid.model.conference.Category;
 import by.easyandroid.model.conference.ConferenceApplicationModel;
 import by.easyandroid.model.conference.Report;
@@ -45,18 +46,18 @@ public class TestConferenceAdapter {
 		model.getInformation().setTitle("My test conference");
 		
 		// Create fake sections
-		Section s1 = addSection("1", "section 1");
-		Section s2 = addSection("2", "section 2");
+		Section s1 = addSection("section1id", "section 1");
+		Section s2 = addSection("section2id", "section 2");
 		
 		// Create fake categories
-		Category c1 = addCategory("1", "category 1");
-		Category c2 = addCategory("2", "category 2");
+		Category c1 = addCategory("category1id", "category 1");
+		Category c2 = addCategory("category2id", "category 2");
 		
-		Reporter r1 = addReporter("1", "reporter 1");
-		Reporter r2 = addReporter("2", "reporter 2");
+		Reporter r1 = addReporter("reporter1id", "reporter 1");
+		Reporter r2 = addReporter("reporter2id", "reporter 2");
 		
-		addReport("1", "report 1", s1, c1, r1);
-		addReport("2", "report 2", s2, c2, r2);
+		addReport("report1id", "report 1", s1, c1, r1);
+		addReport("report2id", "report 2", s2, c2, r2);
 		
 		adapter = new ConferenceAdapter(model);
 		
@@ -149,10 +150,14 @@ public class TestConferenceAdapter {
 		NodeList categories = doc.getElementsByTagName("category");
 		Assert.assertEquals(model.getCategories().size(), categories.getLength());
 		for (Category oneCategory : model.getCategories()) {
-			Node reportNode = XmlUtil.findFirstNodeByAttribute(categories, "id", oneCategory.getId());
+			Node reportNode = XmlUtil.findFirstNodeByAttribute(categories, "id", getId(oneCategory));
 			Assert.assertNotNull(reportNode);
-			Assert.assertEquals(oneCategory.getId(), XmlUtil.getElementAttr(reportNode, "id"));
+//			Assert.assertEquals(oneCategory.getId(), XmlUtil.getElementAttr(reportNode, "id"));
 			Assert.assertEquals(oneCategory.getName(), XmlUtil.getChildElementText(reportNode, "name"));
+			assertNumber(XmlUtil.getElementAttr(reportNode, "id"));
+			// TODO test relations in model 
+			// 1. all ids are unique
+			// 2. relations are correct
 		}
 	}
 
@@ -160,10 +165,11 @@ public class TestConferenceAdapter {
 		NodeList sections = doc.getElementsByTagName("section");
 		Assert.assertEquals(model.getSections().size(), sections.getLength());
 		for (Section oneSection : model.getSections()) {
-			Node sectionNode = XmlUtil.findFirstNodeByAttribute(sections, "id", oneSection.getId());
+			Node sectionNode = XmlUtil.findFirstNodeByAttribute(sections, "id", getId(oneSection));
 			Assert.assertNotNull(sectionNode);
-			Assert.assertEquals(oneSection.getId(), XmlUtil.getElementAttr(sectionNode, "id"));
+//			Assert.assertEquals(oneSection.getId(), XmlUtil.getElementAttr(sectionNode, "id"));
 			Assert.assertEquals(oneSection.getName(), XmlUtil.getChildElementText(sectionNode, "name"));
+			assertNumber(XmlUtil.getElementAttr(sectionNode, "id"));
 		}
 	}
 
@@ -171,13 +177,14 @@ public class TestConferenceAdapter {
 		NodeList reporters = doc.getElementsByTagName("reporter");
 		Assert.assertEquals(model.getReporters().size(), reporters.getLength());
 		for (Reporter oneReporter : model.getReporters()) {
-			Node reportNode = XmlUtil.findFirstNodeByAttribute(reporters, "id", oneReporter.getId());
+			Node reportNode = XmlUtil.findFirstNodeByAttribute(reporters, "id", getId(oneReporter));
 			Assert.assertNotNull(reportNode);
-			Assert.assertEquals(oneReporter.getId(), XmlUtil.getElementAttr(reportNode, "id"));
+//			Assert.assertEquals(oneReporter.getId(), XmlUtil.getElementAttr(reportNode, "id"));
 			Assert.assertEquals(oneReporter.getDescription(), XmlUtil.getChildElementText(reportNode, "description"));
 			Assert.assertEquals(oneReporter.getEmail(), XmlUtil.getChildElementText(reportNode, "email"));
 			Assert.assertEquals(oneReporter.getCompany(), XmlUtil.getChildElementText(reportNode, "company"));
 			Assert.assertEquals(oneReporter.getPosition(), XmlUtil.getChildElementText(reportNode, "position"));
+			assertNumber(XmlUtil.getElementAttr(reportNode, "id"));
 		}
 	}
 
@@ -185,14 +192,18 @@ public class TestConferenceAdapter {
 		NodeList reports = doc.getElementsByTagName("report");
 		Assert.assertEquals(model.getReports().size(), reports.getLength());
 		for (Report oneReport : model.getReports()) {
-			Node reportNode = XmlUtil.findFirstNodeByAttribute(reports, "id", oneReport.getId());
+			Node reportNode = XmlUtil.findFirstNodeByAttribute(reports, "id", getId(oneReport));
 			Assert.assertNotNull(reportNode);
 			Assert.assertEquals(oneReport.getTitle(), XmlUtil.getChildElementText(reportNode, "title"));
 			Assert.assertEquals(oneReport.getDescription(), XmlUtil.getChildElementText(reportNode, "description"));
-			Assert.assertEquals(oneReport.getCategory().getId(), XmlUtil.getElementAttr(reportNode, "category"));
-			Assert.assertEquals(oneReport.getSection().getId(), XmlUtil.getElementAttr(reportNode, "section"));
-			Assert.assertEquals(oneReport.getReporter().getId(), XmlUtil.getElementAttr(reportNode, "reporter"));
+//			Assert.assertEquals(oneReport.getCategory().getId(), XmlUtil.getElementAttr(reportNode, "category"));
+//			Assert.assertEquals(oneReport.getSection().getId(), XmlUtil.getElementAttr(reportNode, "section"));
+//			Assert.assertEquals(oneReport.getReporter().getId(), XmlUtil.getElementAttr(reportNode, "reporter"));
 			Assert.assertEquals(oneReport.getTime(), EntityConverter.toDate(reportNode));
+			assertNumber(XmlUtil.getElementAttr(reportNode, "id"));
+			assertNumber(XmlUtil.getElementAttr(reportNode, "category"));
+			assertNumber(XmlUtil.getElementAttr(reportNode, "section"));
+			assertNumber(XmlUtil.getElementAttr(reportNode, "reporter"));
 		}
 	}	
 	
@@ -219,5 +230,17 @@ public class TestConferenceAdapter {
 		}
 		
 		return null;		
+	}
+	
+	public static void assertNumber(String value) {
+		try {
+			Integer.parseInt(value);
+		} catch (Exception e) {
+			Assert.fail("value " + value + "is not number");
+		}
+	}
+	
+	public String getId(Identity object) {
+		return adapter.getConverter().getMapper().getId(object);
 	}
 }

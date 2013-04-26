@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="common">
+	<instance id="web1" amiId="ami-5692342348" type="ec2.small" />
+	<instance id="web2" amiId="ami-5692342348" type="ec2.small" />
+	<instance id="web3" amiId="ami-5692342348" type="ec2.small" />
+	
+	<instance id="mongoShard1" amiId="ami-123123231" type="ec2.small" />
+	<instance id="mongoShard2" amiId="ami-123123231" type="ec2.small" />
+	<instance id="mongos" amiId="ami-123123231" type="ec2.small" />
+	
+	<instance id="worker1" amiId="ami-7274673231" type="ec2.small" />
+	<instance id="worker2" amiId="ami-7274673231" type="ec2.small" />
+	
+	<artifact id="webApp" type="war" path="~/ea-webapp.war" />
+	<artifact id="worker" type="war" path="~/ea-worker.war" />
+	<artifact id="pooler" type="jar" path="~/ea-pooler.jar" />
+	
+	<target name="deployWebApp">
+		<!-- which artifact and which way to deploy -->
+		<sshexec command="stop server" />
+		<scp path="...">
+			<file ref="webApp" />
+		</scp>
+		<sshexec command="start server" />
+	</target>
+	
+	<target name="deployWorkerWebapp">
+		<!-- which artifact and which way to deploy -->
+		<sshexec command="stop server" />
+		<scp path="...">
+			<file ref="webApp" />
+		</scp>
+		<sshexec command="start server" />
+	</target>	
+	
+	<target name="deployPooler">
+		<!-- which artifact and which way to deploy -->
+		<scp path="...">
+			<file ref="webApp" />
+		</scp>
+		<sshexec command="start pooler" />
+	</target>	
+	
+	<target name="deploy webapps">
+	</target>
+</project>
