@@ -24,7 +24,18 @@
 		<ant antfile="${enviroment}/tomcat-${enviroment}.xml" target="full-deploy" />
 	</target>
 	
+	<target name="mongo-start-replica-set">
+		<ant antfile="${enviroment}/mongodb-${enviroment}-replicaset.xml" target="mongo-start-replica-set" />
+	</target>	
+	
+	<target name="mongo-repl-set-import-dump">
+		<ant antfile="${enviroment}/mongodb-${enviroment}-replicaset.xml" target="mongo-repl-set-import-dump" />
+	</target>	
+	
 	<target name="deploy-queue-pooler">
+		<!-- TODO kill pooler process -->
+		<!-- TODO kill -9 pid,  -->
+		<!-- killall processname -->
 		<ant antfile="${enviroment}/ea-worker-${enviroment}.xml" target="deploy-queue-pooler" />
 	</target>	
 	

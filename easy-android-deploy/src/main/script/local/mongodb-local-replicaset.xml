@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<project name="mongodb-remote" default="usage" basedir=".">
+	<path id="antlib_classpath">
+		<pathelement location="../../antLib" />
+	</path>
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="antlib_classpath" />
+	<import file="../common/common.xml" />
+
+	<target name="usage" description="Echos the usage and different targets">
+		<echo message="Usage : ant target-name"/>
+		<echo message="Valid target names are : "/>
+		<echo message="mongo-drop-db  --> Delete existing database data"/>
+		<echo message="mongo-upload-dump --> Removes old dump and uploads new dump"/>
+		<echo message="mongo-import-dump --> Drop database, upload and import new dump"/>
+	</target>
+
+	<!--
+	algorithm
+	1. stop all nodes
+	2. clean nodes directories
+	3. start all nodes ass replica set
+	4. initiate replica set
+	5. import dump to replica set	
+	-->
+	
+	<target name="mongo-start-replica-set">
+		<antcall target="mongo-stop-all-nodes" />
+		<antcall target="mongo-clean-nodes-directories" />
+		<antcall target="mongo-start-all-nodes"/>
+		<antcall target="mongo-repl-set-configure"/>
+		<antcall target="mongo-repl-set-wait-cluster-initiate"/>
+		<antcall target="mongo-repl-set-import-dump"/>
+	</target>
+
+	<target name="mongo-repl-set-wait-cluster-initiate">
+		<sshexec 
+			command="${mongodb.wait.cluster}"
+			host="localhost"
+			username="kslisenko"
+			password="vesper"
+			trust="true"/>
+	</target>
+			
+			<!-- TODO wait for cluster initiated and then call import dump
+
+			-->			
+			
+	<target name="mongo-start-all-nodes">
+		<!-- TODO start processes on different instaces -->
+		<echo message="Start all nodes" />
+		<exec command="${mongodb.rs1.start}" spawn="true"/>
+		<exec command="${mongodb.rs2.start}" spawn="true"/>
+		<exec command="${mongodb.rs3.start}" spawn="true"/>
+	</target>	
+	
+	<target name="mongo-stop-all-nodes">
+		<!-- TODO stop processes on different instaces -->
+		<echo message="Stop all nodes" />
+		<exec command="killall mongod"/>
+	</target>
+	
+	<target name="mongo-clean-nodes-directories">
+		<!-- TODO clean directories on different instaces -->
+		<echo message="Clean nodes directories" />
+		<exec command="rm -rf ~/easy-android/mongo/rs1" />
+		<exec command="rm -rf ~/easy-android/mongo/rs2" />
+		<exec command="rm -rf ~/easy-android/mongo/rs3" />
+		<exec command="mkdir -p ~/easy-android/mongo/rs1" />
+		<exec command="mkdir -p ~/easy-android/mongo/rs2" />
+		<exec command="mkdir -p ~/easy-android/mongo/rs3" />		
+	</target>
+			
+	<target name="mongo-repl-set-configure">
+		<echo message="mongo --host localhost:10000 --eval ${mongodb.rs.initiate}" />
+		<exec executable="mongo">
+			<arg line="--host localhost:10000 --eval ${mongodb.rs.initiate}"/>
+		</exec>
+	</target>
+			
+	<target name="mongo-repl-set-import-dump">
+		<exec command="mongorestore --host easyAndroid/localhost:10000,localhost:20000,localhost:30000 --db ${mongodb.db.name} ${mongodb.dump.path}" />
+	</target>
+	
+	<target name="mongo-drop-db" description="Delete existing database data">
+		<echo message="Drop database..." />
+		<ssh_exec_env command="mongo ${mongodb.db.name} --eval 'db.dropDatabase()'"/>		
+	</target>
+	
+	<target name="mongo-upload-dump" description="Removes old dump and uploads new dump">
+		<echo message="Deleting old dump..." />
+		<ssh_exec_env command="rm -rf ${mongodb.dump.path.remote}"/>	
+		<ssh_exec_env command="mkdir ${mongodb.dump.path.remote}"/>	
+		<echo message="Uploading new dump..." />
+		<scp 
+			keyfile="${myuser.keyfile.location}"
+			todir="${myuser.name}:${myuser.password}@${host}:${mongodb.dump.path.remote}" 
+			trust="true"
+			verbose="true">
+			<fileset dir="${mongodb.dump.path.local}" />
+		</scp>			
+	</target>
+	
+	<target name="mongo-import-dump" depends="mongo-drop-db, mongo-upload-dump" description="Imports dump to remote server">
+		<echo message="Importing dump..." />
+		<ssh_exec_env command="mongorestore --host localhost:${mongodb.port} --db ${mongodb.db.name} ${mongodb.dump.path.remote}"/>
+	</target>
+</project>

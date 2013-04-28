@@ -37,7 +37,7 @@ public class TestSpringDataMongoDb {
 	// TODO create base class for all database tests
 	@Before
 	public void setUp() {
-		ctx = new GenericXmlApplicationContext("test-database-context.xml");
+		ctx = new GenericXmlApplicationContext("database-context.xml");
 		mongo = (MongoOperations) ctx.getBean("mongoTemplate");
 		TestDatabaseUtil.cleanCurentDatabase(mongo);
 	}

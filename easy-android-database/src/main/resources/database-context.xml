@@ -16,8 +16,8 @@
 		<property name="ignoreUnresolvablePlaceholders" value="true"/>
 	</bean>
 
-	<mongo:mongo host="${mongodb.host}" port="${mongodb.port}" />
-	<mongo:db-factory dbname="${mongodb.dbname}" />
+	<mongo:mongo replica-set="#{mongodb.replicaset}" />
+	<mongo:db-factory dbname="${mongodb.dbname}" mongo-ref="mongo" />
 
 	<bean id="mappingContext"
 		class="org.springframework.data.mongodb.core.mapping.MongoMappingContext"></bean>
